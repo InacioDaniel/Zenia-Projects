@@ -6,7 +6,6 @@
   <title>Zenia Projects</title>
   <!-- TailwindCSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="3.4.17.js"></script>
 </head>
 <body class="bg-gray-100 text-gray-900">
 
@@ -53,19 +52,53 @@
 
   <!-- Como usar scripts -->
   <section class="p-8">
-    <h2 class="text-2xl font-semibold mb-4">📜 Como usar os scripts em outros projetos</h2>
-    <p class="mb-4">Você pode integrar os módulos do Zenia em seus próprios projetos:</p>
+    <h2 class="text-2xl font-semibold mb-4">📜 Como usar os módulos Zenia em outros projetos</h2>
+    <p class="mb-4">Você pode integrar os módulos do Zenia em seus próprios projetos web. Basta importar os scripts e chamar as funções:</p>
+
+    <h3 class="text-xl font-bold mt-6">IA-Zenia</h3>
     <pre class="bg-gray-800 text-green-300 p-4 rounded">
-<!-- IA-Zenia -->
 &lt;script src="https://ia-zenia.netlify.app/script.js"&gt;&lt;/script&gt;
 
-<!-- Zenia-Image -->
+<!-- Exemplo de uso -->
+&lt;script&gt;
+  // Inicializa o chat com Zenia
+  Zenia.init({
+    container: "#chat",
+    mode: "text" // ou "voice"
+  });
+
+  // Envia mensagem
+  Zenia.send("Olá, Zenia!");
+&lt;/script&gt;
+    </pre>
+
+    <h3 class="text-xl font-bold mt-6">Zenia-Image</h3>
+    <pre class="bg-gray-800 text-green-300 p-4 rounded">
 &lt;script src="https://ia-zenia.netlify.app/zenia-image.js"&gt;&lt;/script&gt;
 
-<!-- Zenia-Video -->
-&lt;script src="https://ia-zenia.netlify.app/zenia-video.js"&gt;&lt;/script&gt;
+<!-- Exemplo de uso -->
+&lt;script&gt;
+  // Reconhece objetos em uma imagem
+  ZeniaImage.detect("foto.jpg").then(result =&gt; {
+    console.log(result);
+  });
+&lt;/script&gt;
     </pre>
-    <p class="mt-2">Basta incluir o script correspondente no seu HTML e chamar as funções disponíveis.</p>
+
+    <h3 class="text-xl font-bold mt-6">Zenia-Video</h3>
+    <pre class="bg-gray-800 text-green-300 p-4 rounded">
+&lt;script src="https://ia-zenia.netlify.app/zenia-video.js"&gt;&lt;/script&gt;
+
+<!-- Exemplo de uso -->
+&lt;script&gt;
+  // Analisa frames de um vídeo
+  ZeniaVideo.analyze("video.mp4").then(data =&gt; {
+    console.log(data);
+  });
+&lt;/script&gt;
+    </pre>
+
+    <p class="mt-4">Essas funções permitem que qualquer desenvolvedor integre o poder do Zenia em seus próprios sites ou aplicações.</p>
   </section>
 
   <!-- Footer -->
