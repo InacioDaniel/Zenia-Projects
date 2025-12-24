@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zenia Projects</title>
+  <!-- TailwindCSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 text-gray-900">
+
+  <!-- Navbar -->
+  <nav class="bg-blue-600 text-white p-4 flex justify-between">
+    <div class="font-bold text-xl">Zenia-Projects</div>
+    <ul class="flex space-x-6">
+      <li><a href="/" class="hover:text-yellow-300">Zenia-Projects</a></li>
+      <li><a href="https://ia-zenia.netlify.app" class="hover:text-yellow-300">IA-Zenia</a></li>
+      <li><a href="https://ia-zenia.netlify.app/zenia-image" class="hover:text-yellow-300">Zenia-Image</a></li>
+      <li><a href="https://ia-zenia.netlify.app/zenia-video" class="hover:text-yellow-300">Zenia-Video</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="text-center py-12 bg-gradient-to-r from-blue-500 to-purple-600 text-white">
+    <h1 class="text-4xl font-bold">Bem-vindo ao Zenia Projects</h1>
+    <p class="mt-4 text-lg">Explore os módulos IA-Zenia, Zenia-Image e Zenia-Video em um só lugar.</p>
+  </header>
+
+  <!-- Informações Úteis -->
+  <section class="p-8">
+    <h2 class="text-2xl font-semibold mb-4">ℹ️ Informações sobre o Zenia</h2>
+    <p class="mb-2">O Zenia é uma inteligência artificial multimodal que integra:</p>
+    <ul class="list-disc list-inside space-y-2">
+      <li>Interação por texto e voz</li>
+      <li>Reconhecimento e manipulação de imagens</li>
+      <li>Integração com vídeos</li>
+      <li>Suporte a pesquisa online e aprendizado offline</li>
+    </ul>
+  </section>
+
+  <!-- Fale com o Zenia -->
+  <section class="p-8 bg-gray-200">
+    <h2 class="text-2xl font-semibold mb-4">💬 Fale com o Zenia</h2>
+    <div class="flex space-x-4">
+      <input id="userInput" type="text" placeholder="Digite sua mensagem..."
+             class="flex-1 p-2 border rounded">
+      <button id="sendBtn" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+        Enviar
+      </button>
+    </div>
+  </section>
+
+  <!-- Como usar scripts -->
+  <section class="p-8">
+    <h2 class="text-2xl font-semibold mb-4">📜 Como usar os scripts em outros projetos</h2>
+    <p class="mb-4">Você pode integrar os módulos do Zenia em seus próprios projetos:</p>
+    <pre class="bg-gray-800 text-green-300 p-4 rounded">
+<!-- IA-Zenia -->
+&lt;script src="https://ia-zenia.netlify.app/script.js"&gt;&lt;/script&gt;
+
+<!-- Zenia-Image -->
+&lt;script src="https://ia-zenia.netlify.app/zenia-image.js"&gt;&lt;/script&gt;
+
+<!-- Zenia-Video -->
+&lt;script src="https://ia-zenia.netlify.app/zenia-video.js"&gt;&lt;/script&gt;
+    </pre>
+    <p class="mt-2">Basta incluir o script correspondente no seu HTML e chamar as funções disponíveis.</p>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-blue-600 text-white text-center p-4 mt-8">
+    © 2025 Zenia Projects - Criado por Inácio
+  </footer>
+
+  <!-- JS externo -->
+  <script src="script.js"></script>
+</body>
+</html>
