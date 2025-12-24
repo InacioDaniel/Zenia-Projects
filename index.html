@@ -50,53 +50,142 @@
     </div>
   </section>
 
-  <!-- Como usar scripts -->
-  <section class="p-8">
-    <h2 class="text-2xl font-semibold mb-4">📜 Como usar os módulos Zenia em outros projetos</h2>
-    <p class="mb-4">Você pode integrar os módulos do Zenia em seus próprios projetos web. Basta importar os scripts e chamar as funções:</p>
+ <section class="p-8">
+  <h2 class="text-2xl font-semibold mb-4">📜 Como integrar os módulos Zenia em outros projetos</h2>
 
-    <h3 class="text-xl font-bold mt-6">IA-Zenia</h3>
-    <pre class="bg-gray-800 text-green-300 p-4 rounded">
-&lt;script src="https://ia-zenia.netlify.app/script.js"&gt;&lt;/script&gt;
+  <p class="mb-6">
+    O Zenia é dividido em três módulos independentes: <strong>Zenia-IA</strong>, <strong>Zenia-Image</strong> e 
+    <strong>Zenia-Video</strong>. Qualquer desenvolvedor pode importar e usar cada módulo em seus próprios sistemas,
+    bastando adicionar o script correspondente e chamar as funções disponíveis.
+  </p>
 
-<!-- Exemplo de uso -->
+  <!-- IA ZENIA -->
+  <h3 class="text-xl font-bold mt-6">1. Módulo IA-Zenia (Chat, Voz, Pesquisa e Commons)</h3>
+  <p class="mb-2">Inclui chat, voz (STT/TTS), pesquisa Wikipedia e Commons.</p>
+
+<pre class="bg-gray-800 text-green-300 p-4 rounded overflow-auto text-sm">
+&lt;script src="https://ia-zenia.netlify.app/script-ia-zenia.js"&gt;&lt;/script&gt;
+
 &lt;script&gt;
-  // Inicializa o chat com Zenia
+  // Inicializar
   Zenia.init({
-    container: "#chat",
-    mode: "text" // ou "voice"
+    input: "#inputMsg",
+    output: "#outputChat",
+    language: "pt"  // pt, en ou es
   });
 
-  // Envia mensagem
+  // Enviar texto
   Zenia.send("Olá, Zenia!");
-&lt;/script&gt;
-    </pre>
 
-    <h3 class="text-xl font-bold mt-6">Zenia-Image</h3>
-    <pre class="bg-gray-800 text-green-300 p-4 rounded">
+  // Falar última resposta
+  Zenia.tts();
+
+  // Ligar microfone
+  Zenia.mic();
+&lt;/script&gt;
+</pre>
+
+  <!-- ZENIA IMAGE -->
+  <h3 class="text-xl font-bold mt-6">2. Módulo Zenia-Image (Detecção de Objetos)</h3>
+  <p class="mb-2">Usa COCO-SSD para analisar imagens e retornar objetos.</p>
+
+<pre class="bg-gray-800 text-green-300 p-4 rounded overflow-auto text-sm">
 &lt;script src="https://ia-zenia.netlify.app/zenia-image.js"&gt;&lt;/script&gt;
 
-<!-- Exemplo de uso -->
 &lt;script&gt;
-  // Reconhece objetos em uma imagem
-  ZeniaImage.detect("foto.jpg").then(result =&gt; {
-    console.log(result);
+  // Carregar e detectar objetos numa imagem
+  ZeniaImage.analyze("foto.jpg").then(result =&gt; {
+    console.log(result.objects);   // ["person", "car", ...]
+    console.log(result.canvas);    // Canvas com boxes renderizados
   });
 &lt;/script&gt;
-    </pre>
+</pre>
 
-    <h3 class="text-xl font-bold mt-6">Zenia-Video</h3>
-    <pre class="bg-gray-800 text-green-300 p-4 rounded">
+  <!-- ZENIA VIDEO (SEÇÃO D REFEITA) -->
+  <h3 class="text-xl font-bold mt-6">3. Módulo Zenia-Video (Análise de Frames)</h3>
+  <p class="mb-2">Extrai frames de um vídeo e analisa com COCO-SSD.</p>
+
+<pre class="bg-gray-800 text-green-300 p-4 rounded overflow-auto text-sm">
 &lt;script src="https://ia-zenia.netlify.app/zenia-video.js"&gt;&lt;/script&gt;
 
-<!-- Exemplo de uso -->
 &lt;script&gt;
-  // Analisa frames de um vídeo
-  ZeniaVideo.analyze("video.mp4").then(data =&gt; {
-    console.log(data);
+  ZeniaVideo.analyze("video.mp4", {
+    interval: 500   // analisar a cada 500ms
+  }).then(result =&gt; {
+    console.log(result.frames);     // Frames analisados
+    console.log(result.objects);    // Lista acumulada de objetos detectados
   });
 &lt;/script&gt;
-    </pre>
+</pre>
+
+  <p class="mt-4">
+    Cada módulo pode ser usado separadamente. Basta importar o script correspondente e chamar as funções.
+  </p>
+</section>
+<section class="p-8 bg-gray-200 rounded">
+  <h2 class="text-2xl font-semibold mb-4">🎥 Documentação do Módulo Zenia-Video</h2>
+  <p class="mb-4">
+    O Zenia-Video permite analisar <strong>vídeos frame a frame</strong> usando o modelo COCO-SSD embutido.  
+    É ideal para reconhecimento de objetos em movimento, vigilância, automação e aplicações visuais.
+  </p>
+
+  <h3 class="text-lg font-bold mt-6">Importação</h3>
+<pre class="bg-gray-800 text-green-300 p-4 rounded overflow-auto text-sm">
+&lt;script src="https://ia-zenia.netlify.app/zenia-video.js"&gt;&lt;/script&gt;
+</pre>
+
+  <h3 class="text-lg font-bold mt-6">Função Principal: ZeniaVideo.analyze()</h3>
+<pre class="bg-gray-800 text-green-300 p-4 rounded overflow-auto text-sm">
+ZeniaVideo.analyze(videoSrc, options)
+</pre>
+
+  <h4 class="font-semibold mt-4">Parâmetros:</h4>
+  <ul class="list-disc list-inside space-y-1">
+    <li><strong>videoSrc:</strong> Caminho do vídeo (URL ou arquivo local).</li>
+    <li><strong>options:</strong> Objeto opcional:
+      <ul class="list-disc list-inside ml-6">
+        <li><strong>interval:</strong> Intervalo de análise em ms (ex: 500).</li>
+        <li><strong>maxFrames:</strong> Limite de frames analisados.</li>
+      </ul>
+    </li>
+  </ul>
+
+  <h3 class="text-lg font-bold mt-6">Exemplo de uso:</h3>
+<pre class="bg-gray-800 text-green-300 p-4 rounded overflow-auto text-sm">
+&lt;script&gt;
+ZeniaVideo.analyze("meuVideo.mp4", {
+  interval: 400,
+  maxFrames: 30
+}).then(result =&gt; {
+
+  console.log(result.frames);  
+  // [ { frameNumber: 1, canvas: ... }, ... ]
+
+  console.log(result.objects);
+  // [ { frame: 1, class: "person", score: 0.92 }, ... ]
+});
+&lt;/script&gt;
+</pre>
+
+  <h3 class="text-lg font-bold mt-6">Retorno (Promise)</h3>
+  <p>O método retorna:</p>
+
+<pre class="bg-gray-800 text-green-300 p-4 rounded overflow-auto text-sm">
+{
+  frames: [
+    { frameNumber: 1, canvas: HTMLCanvasElement },
+    { frameNumber: 2, canvas: HTMLCanvasElement },
+    ...
+  ],
+  objects: [
+    { frame: 1, class: "car", score: 0.88 },
+    { frame: 2, class: "person", score: 0.91 },
+    ...
+  ]
+}
+</pre>
+</section>
+
 
     <p class="mt-4">Essas funções permitem que qualquer desenvolvedor integre o poder do Zenia em seus próprios sites ou aplicações.</p>
   </section>
@@ -110,3 +199,4 @@
   <script src="script.js"></script>
 </body>
 </html>
+
