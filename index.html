@@ -1,142 +1,190 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ZÉNIA PROJECTS - Portal Oficial</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ZÉNIA PROJECTS - Portal Oficial</title>
 
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css">
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css">
 
-    <style>
-        :root { --bg: #010409; --panel: #0d1117; --accent: #3b82f6; --border: #30363d; }
-        html { scroll-behavior: smooth; }
-        body { background: var(--bg); color: #e6edf3; font-family: 'Plus Jakarta Sans', sans-serif; margin: 0; overflow-x: hidden; }
+<style>
+:root { --bg: #010409; --panel: #0d1117; --accent: #3b82f6; --accent2: #22d3ee; --border: #30363d; --text:#e6edf3; }
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--text); font-family: 'Plus Jakarta Sans', sans-serif; margin: 0; overflow-x: hidden; }
 
-        /* INTRO ANIMATION */
-        #intro-screen {
-            position: fixed;
-            inset: 0;
-            background: #000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-            animation: fadeOut 2s ease 3s forwards;
-        }
-        @keyframes fadeOut { to { opacity: 0; visibility: hidden; } }
-        #intro-screen h1 { font-size: 4rem; font-weight: 900; color: white; opacity: 0; animation: popIn 1.5s ease forwards; }
-        @keyframes popIn { 0% { transform: scale(0.2); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+/* INTRO ANIMATION */
+#intro-screen { position: fixed; inset: 0; background: #000; display: flex; align-items: center; justify-content: center; z-index: 9999; animation: fadeOut 2s ease 3s forwards;}
+@keyframes fadeOut { to { opacity: 0; visibility: hidden; } }
+#intro-screen h1 { font-size: 4rem; font-weight: 900; color: white; opacity: 0; animation: popIn 1.5s ease forwards; }
+@keyframes popIn { 0% { transform: scale(0.2); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
 
-        /* SIDEBAR IA */
-        #aiSidebar {
-            position: fixed;
-            top: 0; right: -420px;
-            width: 420px; height: 100vh;
-            background: #0d1117;
-            border-left: 1px solid #1f2937;
-            transition: 0.4s ease;
-            z-index: 9000;
-            display: flex;
-            flex-direction: column;
-        }
-        #aiSidebar.open { right: 0; }
+/* SIDEBAR IA */
+#aiSidebar { position: fixed; top: 0; right: -420px; width: 420px; height: 100vh; background: #0d1117; border-left: 1px solid #1f2937; transition: 0.4s ease; z-index: 9000; display: flex; flex-direction: column; }
+#aiSidebar.open { right: 0; }
+#aiToggleBtn { position: fixed; bottom: 30px; right: 30px; background: var(--accent); width: 70px; height: 70px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 26px; cursor: pointer; z-index: 9001; box-shadow: 0 0 20px var(--accent)80; }
 
-        #aiToggleBtn {
-            position: fixed;
-            bottom: 30px; right: 30px;
-            background: #3b82f6;
-            width: 70px; height: 70px;
-            border-radius: 50%;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 26px; cursor: pointer; z-index: 9001;
-            box-shadow: 0 0 20px #3b82f680;
-        }
+/* CHAT */
+#chatBox { flex: 1; overflow-y: auto; padding: 20px; }
+#historyList { max-height: 200px; overflow-y: auto; }
+.user-msg { background: var(--accent); padding: 10px 14px; border-radius: 14px; margin-bottom: 10px; color: white; }
+.ai-msg { background: #161b22; padding: 10px 14px; border-radius: 14px; margin-bottom: 10px; }
+.msg-wrapper { margin-bottom: 15px; }
 
-        /* CHAT */
-        #chatBox { flex: 1; overflow-y: auto; padding: 20px; }
-        #historyList { max-height: 200px; overflow-y: auto; }
-        .user-msg { background: #3b82f6; padding: 10px 14px; border-radius: 14px; margin-bottom: 10px; color: white; }
-        .ai-msg { background: #161b22; padding: 10px 14px; border-radius: 14px; margin-bottom: 10px; }
-        .msg-wrapper { margin-bottom: 15px; }
-
-        /* MINI-JOGOS */
-        .game-box {
-            background: #111722;
-            padding: 15px;
-            border-radius: 12px;
-            margin: 10px 0;
-            border: 1px solid #222;
-        }
-    </style>
+/* MINI-JOGOS */
+.game-box { background: #111722; padding: 15px; border-radius: 12px; margin: 10px 0; border: 1px solid #222; }
+</style>
 </head>
 <body>
 
-    <!-- INTRO -->
-    <div id="intro-screen">
-        <h1>ZÉNIA PROJECTS</h1>
-    </div>
+<!-- INTRO -->
+<div id="intro-screen">
+    <h1>ZÉNIA PROJECTS</h1>
+</div>
 
-    <!-- BOTÃO DA IA -->
-    <div id="aiToggleBtn">🌐</div>
+<!-- BOTÃO DA IA -->
+<div id="aiToggleBtn">🌐</div>
 
-    <!-- SIDEBAR IA -->
-    <aside id="aiSidebar">
-        <header class="p-4 border-b border-zinc-800 flex justify-between items-center">
-            <h2 class="text-xl font-bold">IA–ZÉNIA</h2>
-            <button onclick="toggleSidebar()" class="text-gray-400 hover:text-white">✖</button>
-        </header>
-
-        <div id="historyList" class="p-3 border-b border-zinc-800"></div>
-        <div id="chatBox"></div>
-
-        <div class="p-3 border-t border-zinc-800">
-            <textarea id="userInput" class="w-full p-3 bg-[#0f1622] rounded-xl text-sm" rows="2"></textarea>
-            <button onclick="handleSend()" class="mt-3 w-full bg-blue-600 p-3 rounded-xl font-bold">ENVIAR</button>
-        </div>
-    </aside>
-
-    <!-- RESTO DO SEU SITE ORIGINAL -->
-    <header class="p-6 border-b border-zinc-800 flex justify-between items-center sticky top-0 bg-black/60 backdrop-blur-xl z-50">
-        <h1 class="text-xl font-extrabold italic tracking-tighter">ZENIA <span class="text-blue-500">PROJECTS</span></h1>
-        <a href="#projects" class="hover:text-blue-400 transition text-sm">Sistemas</a>
+<!-- SIDEBAR IA -->
+<aside id="aiSidebar">
+    <header class="p-4 border-b border-zinc-800 flex justify-between items-center">
+        <h2 class="text-xl font-bold">IA–ZÉNIA</h2>
+        <button onclick="toggleSidebar()" class="text-gray-400 hover:text-white">✖</button>
     </header>
 
-    <main class="max-w-6xl mx-auto p-6 space-y-24">
-        <section class="text-center py-20">
-            <h2 class="text-6xl font-black">Code. Art. Inteligência.</h2>
-            <p class="text-gray-400 mt-4">Tecnologia feita no Lubango.</p>
-        </section>
+    <div id="historyList" class="p-3 border-b border-zinc-800"></div>
+    <div id="chatBox" class="flex-1 overflow-y-auto"></div>
 
-        <section id="projects">
-            <h3 class="text-3xl font-black mb-6">Projetos</h3>
+    <div class="p-3 border-t border-zinc-800">
+        <textarea id="userInput" class="w-full p-3 bg-[#0f1622] rounded-xl text-sm" rows="2" placeholder="Escreva algo..."></textarea>
+        <button onclick="handleSend()" class="mt-3 w-full bg-blue-600 p-3 rounded-xl font-bold">ENVIAR</button>
+    </div>
+</aside>
 
-            <div class="grid md:grid-cols-2 gap-8">
+<!-- RESTO DO SITE -->
+<header class="p-6 border-b border-zinc-800 flex justify-between items-center sticky top-0 bg-black/60 backdrop-blur-xl z-50">
+    <h1 class="text-xl font-extrabold italic tracking-tighter">ZENIA <span class="text-blue-500">PROJECTS</span></h1>
+    <a href="#projects" class="hover:text-blue-400 transition text-sm">Sistemas</a>
+</header>
 
-                <!-- CARD IA -->
-                <div class="p-8 bg-[#0d1117] rounded-2xl border border-zinc-800 hover:border-blue-500 transition">
-                    <h3 class="text-3xl font-black">IA ZÉNIA</h3>
-                    <p class="text-gray-400 mt-2">IA integrada diretamente no portal.</p>
-                    <button onclick="toggleSidebar()" class="mt-4 px-4 py-3 bg-blue-600 rounded-xl font-bold">ABRIR IA</button>
-                </div>
+<main class="max-w-6xl mx-auto p-6 space-y-24">
+    <section class="text-center py-20">
+        <h2 class="text-6xl font-black">Code. Art. Inteligência.</h2>
+        <p class="text-gray-400 mt-4">Tecnologia feita no Lubango.</p>
+    </section>
 
-                <!-- MINI JOGOS -->
-                <div class="p-8 bg-[#0d1117] rounded-2xl border border-zinc-800">
-                    <h3 class="text-3xl font-black">Mini-Jogos</h3>
-                    <div class="game-box">
-                        <p><b>Jogo: Adivinhe o Número</b></p>
-                        <input id="guessInput" type="number" class="bg-black p-2 rounded mt-2 w-full">
-                        <button onclick="playGuess()" class="w-full mt-2 bg-blue-600 p-2 rounded-xl">Jogar</button>
-                        <p id="guessStatus" class="text-gray-400 mt-2"></p>
-                    </div>
-                </div>
+    <section id="projects">
+        <h3 class="text-3xl font-black mb-6">Projetos</h3>
 
+        <div class="grid md:grid-cols-2 gap-8">
+            <div class="p-8 bg-[#0d1117] rounded-2xl border border-zinc-800 hover:border-blue-500 transition">
+                <h3 class="text-3xl font-black">IA ZÉNIA</h3>
+                <p class="text-gray-400 mt-2">IA integrada diretamente no portal.</p>
+                <button onclick="toggleSidebar()" class="mt-4 px-4 py-3 bg-blue-600 rounded-xl font-bold">ABRIR IA</button>
             </div>
-        </section>
-    </main>
 
-    <script src="script.js"></script>
+            <div class="p-8 bg-[#0d1117] rounded-2xl border border-zinc-800">
+                <h3 class="text-3xl font-black">Mini-Jogos</h3>
+                <div class="game-box">
+                    <p><b>Jogo: Adivinhe o Número</b></p>
+                    <input id="guessInput" type="number" class="bg-black p-2 rounded mt-2 w-full">
+                    <button onclick="playGuess()" class="w-full mt-2 bg-blue-600 p-2 rounded-xl">Jogar</button>
+                    <p id="guessStatus" class="text-gray-400 mt-2"></p>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<script>
+// SIDEBAR
+const aiSidebar = document.getElementById("aiSidebar");
+const aiToggleBtn = document.getElementById("aiToggleBtn");
+aiToggleBtn.onclick = toggleSidebar;
+function toggleSidebar(){ aiSidebar.classList.toggle("open"); }
+
+// MINI-JOGOS
+function playGuess(){
+    const guess = parseInt(document.getElementById("guessInput").value);
+    const status = document.getElementById("guessStatus");
+    if(!guess){ status.innerText="Digite um número!"; return; }
+    const target = Math.floor(Math.random()*100)+1;
+    status.innerText = guess===target?`Acertou! Era ${target}`:`Errou! Era ${target}`;
+}
+
+// IA-ZENIA EMBUTIDA
+const chatBox = document.getElementById('chatBox');
+const historyList = document.getElementById('historyList');
+const userInput = document.getElementById('userInput');
+let sessions = JSON.parse(localStorage.getItem('zenia_sessions') || '[]');
+let currentSessionId = null;
+
+function init() { renderHistory(); if(sessions.length>0) loadSession(sessions[sessions.length-1].id); else startNewChat(); }
+function startNewChat(){ currentSessionId=Date.now(); chatBox.innerHTML=''; addMessage("Mbwéte! Sou a IA-ZÉNIA do Lubango. O que vamos criar hoje?", false); renderHistory(); }
+
+async function handleSend(textOverride=null){
+    const query = textOverride||userInput.value.trim();
+    if(!query) return;
+    addMessage(query,true);
+    userInput.value='';
+    userInput.style.height='48px';
+    const loading = addMessage("Zénia está a pensar...",false);
+
+    try{
+        const isImageRequest=/desenha|gera uma imagem|pinta|mostra uma foto|imagem de/i.test(query);
+        if(isImageRequest){
+            const imgUrl=`https://pollinations.ai/p/${encodeURIComponent(query)}?width=1024&height=1024&seed=${Math.floor(Math.random()*1000)}&nologo=true`;
+            loading.remove();
+            processResponse(`![ARTE](${imgUrl})`, query);
+        } else {
+            // Simulando resposta offline (sem API externa)
+            setTimeout(()=>{
+                loading.remove();
+                processResponse("Aqui está a resposta da IA-ZÉNIA (simulada offline).", query);
+            },1000);
+        }
+    } catch(e){ loading.innerText="Erro na IA."; }
+}
+
+function processResponse(text, query){
+    const wrapper = document.createElement('div'); wrapper.className='msg-wrapper ai-wrapper';
+    const imgMatch=text.match(/!\[.*?\]\((.*?)\)/);
+    if(imgMatch){
+        const loader=document.createElement('div'); loader.className='img-loader'; loader.innerText='Pintando obra de arte...'; wrapper.appendChild(loader);
+        const img=document.createElement('img'); img.src=imgMatch[1]; img.className='art-img';
+        img.onload=()=>{ loader.remove(); img.style.display='block'; chatBox.scrollTop=chatBox.scrollHeight; }; wrapper.appendChild(img);
+        text=text.replace(imgMatch[0],'');
+    }
+    const parts=text.split(/```/);
+    parts.forEach((part,i)=>{ if(i%2!==0){ const lines=part.split('\n'); const lang=lines[0].trim()||'js'; const code=lines.slice(1).join('\n').trim(); wrapper.appendChild(createCodeBlock(code,lang)); } 
+    else if(part.trim()){ const msgDiv=document.createElement('div'); msgDiv.className='msg ai-msg'; msgDiv.innerHTML=formatAI(part); wrapper.appendChild(msgDiv); }});
+
+    const controls=document.createElement('div'); controls.className='msg-controls';
+    controls.innerHTML=`<span class="ctrl-btn" onclick="handleSend('${query.replace(/'/g,"\\'")}')">🔄 Reenviar</span>
+                        <span class="ctrl-btn" onclick="this.closest('.msg-wrapper').remove()">❌ Apagar</span>
+                        <span class="ctrl-btn" onclick="this.innerHTML='❤️'">👍</span>`;
+    wrapper.appendChild(controls);
+    chatBox.appendChild(wrapper);
+    saveSession(query,text+(imgMatch?` [IMAGEM: ${imgMatch[1]}]`:""));
+    chatBox.scrollTop=chatBox.scrollHeight;
+}
+
+function addMessage(t,isUser){
+    const w=document.createElement('div'); w.className=`msg-wrapper ${isUser?'user-wrapper':'ai-wrapper'}`;
+    w.innerHTML=`<div class="msg ${isUser?'user-msg':'ai-msg'}">${isUser?t:formatAI(t)}</div>`;
+    chatBox.appendChild(w); chatBox.scrollTop=chatBox.scrollHeight; return w;
+}
+
+function formatAI(t){ return t.replace(/\*\*(.*?)\*\*/g,'<b>$1</b>').replace(/\n/g,'<br>'); }
+function saveSession(q,a){ let s=sessions.find(s=>s.id===currentSessionId); if(!s){ s={id:currentSessionId,title:q.substring(0,20)+'...',messages:[]}; sessions.push(s);}
+s.messages.push({role:'user',text:q},{role:'ai',text:a}); localStorage.setItem('zenia_sessions',JSON.stringify(sessions)); renderHistory(); }
+function renderHistory(){ historyList.innerHTML=''; sessions.slice().reverse().forEach(s=>{ const item=document.createElement('div'); item.className=`hist-item ${s.id===currentSessionId?'active':''}`; item.innerHTML=`<span>${s.title}</span><button onclick="deleteSession(event,${s.id})">❌</button>`; item.onclick=()=>loadSession(s.id); historyList.appendChild(item); }); }
+function loadSession(id){ currentSessionId=id; const s=sessions.find(s=>s.id===id); chatBox.innerHTML=''; if(s) s.messages.forEach(m=>{ addMessage(m.text,m.role==='user'); }); renderHistory(); }
+function deleteSession(e,id){ e.stopPropagation(); sessions=sessions.filter(s=>s.id!==id); localStorage.setItem('zenia_sessions',JSON.stringify(sessions)); startNewChat(); }
+
+init();
+</script>
 </body>
 </html>
