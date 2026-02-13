@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zénia-Projects | Plataforma de IA Integrada</title>
+    <title>Zénia-Projects - Plataforma de IA Integrada</title>
     <style>
         * {
             margin: 0;
@@ -233,7 +233,7 @@
 
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 20px;
             margin-bottom: 20px;
         }
@@ -244,7 +244,6 @@
             border-radius: 12px;
             padding: 20px;
             transition: all 0.3s ease;
-            cursor: pointer;
         }
 
         .grid-item:hover {
@@ -337,51 +336,6 @@
             font-family: 'Courier New', monospace;
         }
 
-        /* ===== MODAL ===== */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .modal.active {
-            display: flex;
-        }
-
-        .modal-content {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 30px;
-            max-width: 90%;
-            max-height: 90vh;
-            overflow-y: auto;
-            position: relative;
-        }
-
-        .modal-close {
-            position: absolute;
-            top: 15px;
-            right: 20px;
-            background: none;
-            border: none;
-            color: var(--text-secondary);
-            font-size: 1.5em;
-            cursor: pointer;
-            transition: color 0.3s ease;
-        }
-
-        .modal-close:hover {
-            color: var(--primary);
-        }
-
         .section-title {
             font-size: 1.4em;
             color: var(--primary);
@@ -416,11 +370,12 @@
             cursor: pointer;
             font-size: 0.8em;
             font-weight: 600;
+            z-index: 10;
         }
 
         .image-gallery {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
             gap: 15px;
         }
 
@@ -429,17 +384,12 @@
             border-radius: 8px;
             overflow: hidden;
             border: 1px solid var(--border);
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
-
-        .image-item:hover {
-            transform: scale(1.05);
+            aspect-ratio: 1;
         }
 
         .image-item img {
             width: 100%;
-            height: 200px;
+            height: 100%;
             object-fit: cover;
         }
 
@@ -470,9 +420,9 @@
 
         .loading-spinner {
             display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(0, 212, 255, 0.3);
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(0, 212, 255, 0.3);
             border-top-color: var(--primary);
             border-radius: 50%;
             animation: spin 0.8s linear infinite;
@@ -494,9 +444,10 @@
 
         .chat-message {
             margin-bottom: 15px;
-            padding: 12px;
+            padding: 12px 16px;
             border-radius: 8px;
-            max-width: 80%;
+            max-width: 85%;
+            word-wrap: break-word;
         }
 
         .chat-user {
@@ -510,17 +461,16 @@
             background: var(--card-bg);
             border: 1px solid var(--border);
             color: var(--text-primary);
+            margin-right: auto;
         }
 
         @media (max-width: 1024px) {
             .sidebar {
                 width: 220px;
             }
-
             .main-area {
                 padding: 20px;
             }
-
             .header {
                 padding: 15px 20px;
             }
@@ -530,7 +480,6 @@
             .container {
                 flex-direction: column;
             }
-
             .sidebar {
                 width: 100%;
                 height: auto;
@@ -539,41 +488,20 @@
                 overflow-y: hidden;
                 border-right: none;
                 border-bottom: 1px solid var(--border);
-                padding: 10px 0;
             }
-
             .logo {
                 padding: 0 20px;
                 border-bottom: none;
                 border-right: 1px solid var(--border);
-                min-width: 200px;
+                min-width: 160px;
             }
-
             .tabs-container {
                 display: flex;
                 overflow-x: auto;
-                padding: 0;
                 flex: 1;
             }
-
-            .tab-button {
-                padding: 15px 20px;
-                white-space: nowrap;
-                border-bottom: 3px solid transparent;
-                border-left: none;
-            }
-
             .social-footer {
                 display: none;
-            }
-
-            .content {
-                height: auto;
-                min-height: calc(100vh - 100px);
-            }
-
-            .main-area {
-                padding: 20px 15px;
             }
         }
     </style>
@@ -610,162 +538,110 @@
                 </button>
                 <button class="tab-button" data-tab="chat">
                     <span class="tab-icon">💬</span>
-                    <span>Fale com Zénia</span>
+                    <span>Chat</span>
                 </button>
             </div>
 
             <div class="social-footer">
-                <p style="color: var(--text-secondary); font-size: 0.85em; margin-bottom: 12px;">Siga-nos</p>
+                <p style="color: var(--text-secondary); font-size: 0.85em; margin-bottom: 12px;">Siga</p>
                 <div class="social-links">
                     <a href="https://tiktok.com/@inacio.u.daniel" class="social-link" target="_blank">TikTok</a>
                     <a href="https://instagram.com/inacio.udaniel" class="social-link" target="_blank">Instagram</a>
                 </div>
                 <div class="made-in">
-                    <p>Feito com ❤️ em Lubango</p>
-                    <p style="margin-top: 8px;">@inacio.u.daniel</p>
+                    <p>❤️ Lubango</p>
+                    <p>@inacio.u.daniel</p>
                 </div>
             </div>
         </aside>
 
         <!-- MAIN CONTENT -->
         <div class="content">
-            <!-- HEADER -->
             <header class="header">
                 <h2 id="headerTitle">Portal</h2>
-                <div style="font-size: 0.9em; color: var(--text-secondary);" id="headerInfo"></div>
             </header>
 
-            <!-- MAIN AREA -->
             <main class="main-area">
                 <!-- TAB: PORTAL -->
                 <div id="portal" class="tab-content active">
                     <h1 class="section-title">🎯 Bem-vindo ao Zénia-Projects</h1>
                     
                     <div class="card">
-                        <h3 style="color: var(--primary); margin-bottom: 15px; font-size: 1.2em;">Sobre Zénia-Projects</h3>
-                        <p style="line-height: 1.8; margin-bottom: 15px;">Zénia-Projects é uma <span style="color: var(--primary); font-weight: 600;">plataforma integrada de IA</span> desenvolvida em Lubango que oferece múltiplas ferramentas para criatividade, educação e desenvolvimento.</p>
-                        <p style="line-height: 1.8;">Criado por <span style="color: var(--primary); font-weight: 600;">@inacio.u.daniel</span>, este projeto combina inteligência artificial com design moderno para proporcionar uma experiência única.</p>
-                        <p style="line-height: 1.8; margin-top: 15px; padding-top: 15px; border-top: 1px solid var(--border);">🔋 Powered by Pollinations.ai - API de IA gratuita e poderosa</p>
+                        <h3 style="color: var(--primary); margin-bottom: 15px;">Sobre Zénia-Projects</h3>
+                        <p style="line-height: 1.8; margin-bottom: 15px;">Plataforma integrada de IA desenvolvida em <span style="color: var(--primary); font-weight: 600;">Lubango</span> por <span style="color: var(--primary); font-weight: 600;">@inacio.u.daniel</span></p>
+                        <p style="line-height: 1.8;">Powered by <span style="color: var(--primary); font-weight: 600;">Pollinations.ai</span> - Geração de IA 100% gratuita</p>
                     </div>
 
                     <h3 class="section-title">🔗 Plataformas Relacionadas</h3>
-
                     <div class="grid">
                         <div class="grid-item">
                             <h4 style="color: var(--primary); margin-bottom: 10px;">🤖 IA-Zénia</h4>
-                            <p style="color: var(--text-secondary); margin-bottom: 15px; font-size: 0.9em;">Assistente de IA completo com múltiplas capacidades</p>
                             <a href="https://ia-zenia.netlify.app" target="_blank" class="btn btn-secondary btn-small">Acessar</a>
                         </div>
                         <div class="grid-item">
                             <h4 style="color: var(--primary); margin-bottom: 10px;">🎙️ Antónia IA</h4>
-                            <p style="color: var(--text-secondary); margin-bottom: 15px; font-size: 0.9em;">Plataforma de áudio e síntese de voz</p>
                             <a href="https://antonia-ia.netlify.app" target="_blank" class="btn btn-secondary btn-small">Acessar</a>
-                        </div>
-                        <div class="grid-item">
-                            <h4 style="color: var(--primary); margin-bottom: 10px;">⚡ Zénia-Projects</h4>
-                            <p style="color: var(--text-secondary); margin-bottom: 15px; font-size: 0.9em;">Esta plataforma que está usando agora</p>
-                            <a href="https://zenia-projects.netlify.app" target="_blank" class="btn btn-secondary btn-small">Acessar</a>
-                        </div>
-                    </div>
-
-                    <h3 class="section-title">📊 Recursos Disponíveis</h3>
-
-                    <div class="grid">
-                        <div class="card" style="cursor: pointer;" onclick="switchTab('zedex')">
-                            <h4 style="color: var(--primary); margin-bottom: 10px;">💻 Zedex</h4>
-                            <p style="color: var(--text-secondary); font-size: 0.9em;">Gerador de código com IA Pollinations</p>
-                        </div>
-                        <div class="card" style="cursor: pointer;" onclick="switchTab('galeria')">
-                            <h4 style="color: var(--primary); margin-bottom: 10px;">🎨 Galeria</h4>
-                            <p style="color: var(--text-secondary); font-size: 0.9em;">Crie imagens com Flux e Pollinations</p>
-                        </div>
-                        <div class="card" style="cursor: pointer;" onclick="switchTab('escolar')">
-                            <h4 style="color: var(--primary); margin-bottom: 10px;">📚 Escolar</h4>
-                            <p style="color: var(--text-secondary); font-size: 0.9em;">Recursos educacionais e exercícios</p>
-                        </div>
-                        <div class="card" style="cursor: pointer;" onclick="switchTab('zena')">
-                            <h4 style="color: var(--primary); margin-bottom: 10px;">🎵 Zena</h4>
-                            <p style="color: var(--text-secondary); font-size: 0.9em;">Síntese de voz e processamento de áudio</p>
                         </div>
                     </div>
                 </div>
 
                 <!-- TAB: ZEDEX -->
                 <div id="zedex" class="tab-content">
-                    <h1 class="section-title">💻 Zedex - Gerador de Código com Pollinations AI</h1>
+                    <h1 class="section-title">💻 Zedex - Gerador de Código</h1>
 
                     <div class="card">
-                        <p style="color: var(--text-secondary); margin-bottom: 20px;">Descreva seu código e Pollinations gerará usando o modelo GPT-5 ou Claude</p>
-
                         <div class="input-group">
                             <label for="codeLanguage">Linguagem</label>
                             <select id="codeLanguage">
-                                <option value="javascript">JavaScript</option>
                                 <option value="python">Python</option>
+                                <option value="javascript">JavaScript</option>
                                 <option value="html">HTML</option>
                                 <option value="java">Java</option>
-                                <option value="csharp">C#</option>
                                 <option value="cpp">C++</option>
+                                <option value="sql">SQL</option>
                             </select>
                         </div>
 
                         <div class="input-group">
-                            <label for="codePrompt">Descrição do Projeto</label>
-                            <textarea id="codePrompt" placeholder="Ex: Crie uma calculadora que soma dois números..."></textarea>
+                            <label for="codePrompt">O que quer criar?</label>
+                            <textarea id="codePrompt" placeholder="Ex: Uma calculadora que soma dois números..."></textarea>
                         </div>
 
                         <button class="btn btn-primary" onclick="generateCode()">
-                            <span id="codeLoadingIcon">✨</span>
-                            <span>Gerar Código</span>
+                            <span id="codeLoding">✨</span> Gerar Código
                         </button>
                     </div>
 
                     <div id="codeResult" style="display: none;">
-                        <h3 class="section-title">📝 Código Gerado</h3>
+                        <h3 class="section-title">📝 Resultado</h3>
                         <div class="code-block">
                             <button class="copy-btn" onclick="copyCode()">Copiar</button>
-                            <code id="codeContent" style="white-space: pre-wrap; word-wrap: break-word;"></code>
+                            <code id="codeContent" style="white-space: pre-wrap; word-break: break-all;"></code>
                         </div>
 
                         <div style="display: flex; gap: 10px; flex-wrap: wrap;">
                             <button class="btn btn-secondary btn-small" onclick="downloadCode()">⬇️ Baixar</button>
-                            <button class="btn btn-secondary btn-small" onclick="toggleCodeView()">🔄 Toggle</button>
                         </div>
                     </div>
                 </div>
 
                 <!-- TAB: GALERIA -->
                 <div id="galeria" class="tab-content">
-                    <h1 class="section-title">🎨 Galeria - Gerador de Imagens Flux</h1>
+                    <h1 class="section-title">🎨 Galeria - Gerador de Imagens</h1>
 
                     <div class="card">
-                        <p style="color: var(--text-secondary); margin-bottom: 20px;">Gere imagens com Flux via Pollinations. Sem marca de água.</p>
-
                         <div class="input-group">
-                            <label for="imagePrompt">Descrição</label>
-                            <textarea id="imagePrompt" placeholder="Descreva em detalhes a imagem..."></textarea>
-                        </div>
-
-                        <div class="input-group">
-                            <label for="imageStyle">Estilo</label>
-                            <select id="imageStyle">
-                                <option value="">Padrão</option>
-                                <option value="photorealistic">Fotorrealista</option>
-                                <option value="anime">Anime</option>
-                                <option value="oil painting">Pintura a óleo</option>
-                                <option value="digital art">Arte digital</option>
-                                <option value="cyberpunk">Cyberpunk</option>
-                            </select>
+                            <label for="imagePrompt">Descrição da Imagem</label>
+                            <textarea id="imagePrompt" placeholder="Descreva em detalhes..."></textarea>
                         </div>
 
                         <button class="btn btn-primary" onclick="generateImage()">
-                            <span id="imageLoadingIcon">✨</span>
-                            <span>Gerar Imagem</span>
+                            <span id="imageLoding">✨</span> Gerar Imagem
                         </button>
                     </div>
 
                     <div id="imageResult" style="display: none;">
-                        <h3 class="section-title">🖼️ Imagem Gerada</h3>
+                        <h3 class="section-title">🖼️ Resultado</h3>
                         <div style="text-align: center; margin-bottom: 20px;">
                             <img id="generatedImage" src="" alt="Generated" style="max-width: 100%; max-height: 500px; border-radius: 12px; border: 1px solid var(--border);">
                         </div>
@@ -783,62 +659,38 @@
 
                 <!-- TAB: ESCOLAR -->
                 <div id="escolar" class="tab-content">
-                    <h1 class="section-title">📚 Escolar - Educação com IA</h1>
+                    <h1 class="section-title">📚 Escolar - Educação</h1>
 
                     <div class="grid">
                         <div class="card">
-                            <h4 style="color: var(--primary); margin-bottom: 15px;">🧮 Matemática</h4>
-                            <div class="input-group">
-                                <textarea placeholder="Qual é sua dúvida em matemática?" style="min-height: 80px;"></textarea>
-                            </div>
-                            <button class="btn btn-primary btn-small" onclick="askEducation('matemática')">Explicar</button>
+                            <h4 style="color: var(--primary); margin-bottom: 10px;">🧮 Matemática</h4>
+                            <textarea id="mathQ" placeholder="Sua pergunta..." style="min-height: 80px;"></textarea>
+                            <button class="btn btn-primary btn-small" style="margin-top: 10px;" onclick="askEducation('math')">Explicar</button>
                         </div>
 
                         <div class="card">
-                            <h4 style="color: var(--primary); margin-bottom: 15px;">🔬 Física</h4>
-                            <div class="input-group">
-                                <textarea placeholder="Qual é sua dúvida em física?" style="min-height: 80px;"></textarea>
-                            </div>
-                            <button class="btn btn-primary btn-small" onclick="askEducation('física')">Explicar</button>
+                            <h4 style="color: var(--primary); margin-bottom: 10px;">🔬 Física</h4>
+                            <textarea id="physicsQ" placeholder="Sua pergunta..." style="min-height: 80px;"></textarea>
+                            <button class="btn btn-primary btn-small" style="margin-top: 10px;" onclick="askEducation('physics')">Explicar</button>
                         </div>
 
                         <div class="card">
-                            <h4 style="color: var(--primary); margin-bottom: 15px;">⚗️ Química</h4>
-                            <div class="input-group">
-                                <textarea placeholder="Qual é sua dúvida em química?" style="min-height: 80px;"></textarea>
-                            </div>
-                            <button class="btn btn-primary btn-small" onclick="askEducation('química')">Explicar</button>
+                            <h4 style="color: var(--primary); margin-bottom: 10px;">⚗️ Química</h4>
+                            <textarea id="chemistryQ" placeholder="Sua pergunta..." style="min-height: 80px;"></textarea>
+                            <button class="btn btn-primary btn-small" style="margin-top: 10px;" onclick="askEducation('chemistry')">Explicar</button>
                         </div>
 
                         <div class="card">
-                            <h4 style="color: var(--primary); margin-bottom: 15px;">🌍 Biologia</h4>
-                            <div class="input-group">
-                                <textarea placeholder="Qual é sua dúvida em biologia?" style="min-height: 80px;"></textarea>
-                            </div>
-                            <button class="btn btn-primary btn-small" onclick="askEducation('biologia')">Explicar</button>
-                        </div>
-
-                        <div class="card">
-                            <h4 style="color: var(--primary); margin-bottom: 15px;">💻 Programação</h4>
-                            <div class="input-group">
-                                <textarea placeholder="Qual é sua dúvida em programação?" style="min-height: 80px;"></textarea>
-                            </div>
-                            <button class="btn btn-primary btn-small" onclick="askEducation('programação')">Explicar</button>
-                        </div>
-
-                        <div class="card">
-                            <h4 style="color: var(--primary); margin-bottom: 15px;">🌐 Línguas</h4>
-                            <div class="input-group">
-                                <textarea placeholder="Qual é sua dúvida em línguas?" style="min-height: 80px;"></textarea>
-                            </div>
-                            <button class="btn btn-primary btn-small" onclick="askEducation('línguas')">Explicar</button>
+                            <h4 style="color: var(--primary); margin-bottom: 10px;">🌍 Biologia</h4>
+                            <textarea id="biologyQ" placeholder="Sua pergunta..." style="min-height: 80px;"></textarea>
+                            <button class="btn btn-primary btn-small" style="margin-top: 10px;" onclick="askEducation('biology')">Explicar</button>
                         </div>
                     </div>
 
                     <div id="educationResult" style="display: none;">
                         <h3 class="section-title">📖 Resposta</h3>
                         <div class="card">
-                            <p id="educationContent" style="line-height: 1.8; color: var(--text-primary);"></p>
+                            <p id="educationContent" style="line-height: 1.8; white-space: pre-wrap;"></p>
                         </div>
                     </div>
                 </div>
@@ -847,37 +699,31 @@
                 <div id="zena" class="tab-content">
                     <h1 class="section-title">🎵 Zena - Síntese de Voz</h1>
 
-                    <div class="grid">
-                        <div class="card">
-                            <h3 style="color: var(--primary); margin-bottom: 15px;">🎤 Sintetizar Voz</h3>
-                            <p style="color: var(--text-secondary); margin-bottom: 15px; font-size: 0.9em;">Converta texto em áudio com Pollinations</p>
+                    <div class="card">
+                        <div class="input-group">
+                            <label for="textToSpeech">Texto para Áudio</label>
+                            <textarea id="textToSpeech" placeholder="Digite o texto..."></textarea>
+                        </div>
 
-                            <div class="input-group">
-                                <label for="textToSpeech">Texto</label>
-                                <textarea id="textToSpeech" placeholder="Digite o texto..."></textarea>
-                            </div>
+                        <div class="input-group">
+                            <label for="voiceType">Voz</label>
+                            <select id="voiceType">
+                                <option value="alloy">Alloy (Neutro)</option>
+                                <option value="echo">Echo (Profundo)</option>
+                                <option value="fable">Fable (Narrativa)</option>
+                                <option value="onyx">Onyx (Profissional)</option>
+                                <option value="nova">Nova (Moderno)</option>
+                                <option value="shimmer">Shimmer (Suave)</option>
+                            </select>
+                        </div>
 
-                            <div class="input-group">
-                                <label for="voiceType">Voz</label>
-                                <select id="voiceType">
-                                    <option value="alloy">Alloy (Neutro)</option>
-                                    <option value="echo">Echo (Profundo)</option>
-                                    <option value="fable">Fable (Narrativa)</option>
-                                    <option value="onyx">Onyx (Profissional)</option>
-                                    <option value="shimmer">Shimmer (Suave)</option>
-                                    <option value="nova">Nova (Moderno)</option>
-                                </select>
-                            </div>
+                        <button class="btn btn-primary" onclick="synthesizeAudio()">
+                            <span id="audioLoding">🎙️</span> Sintetizar
+                        </button>
 
-                            <button class="btn btn-primary" onclick="synthesizeAudio()">
-                                <span id="audioLoadingIcon">🎙️</span>
-                                <span>Sintetizar</span>
-                            </button>
-
-                            <div id="audioResult" style="display: none; margin-top: 15px;">
-                                <audio id="audioPlayer" controls style="width: 100%; margin-bottom: 10px;"></audio>
-                                <button class="btn btn-secondary btn-small" onclick="downloadAudio()">⬇️ Baixar</button>
-                            </div>
+                        <div id="audioResult" style="display: none; margin-top: 20px;">
+                            <audio id="audioPlayer" controls style="width: 100%; margin-bottom: 15px;"></audio>
+                            <button class="btn btn-secondary btn-small" onclick="downloadAudio()">⬇️ Baixar</button>
                         </div>
                     </div>
                 </div>
@@ -886,36 +732,19 @@
                 <div id="chat" class="tab-content">
                     <h1 class="section-title">💬 Fale com Zénia</h1>
 
-                    <div class="card" style="display: flex; flex-direction: column; height: auto;">
+                    <div class="card" style="display: flex; flex-direction: column;">
                         <div class="chat-box" id="chatBox">
                             <div class="chat-message chat-ai">
-                                <strong>Zénia:</strong> Olá! 👋 Sou Zénia, seu assistente de IA. Como posso ajudá-lo?
+                                <strong>Zénia:</strong> Olá! Como posso ajudá-lo? 👋
                             </div>
                         </div>
 
                         <div style="display: flex; gap: 10px;">
-                            <input type="text" id="chatInput" placeholder="Digite sua mensagem..." style="flex: 1;">
+                            <input type="text" id="chatInput" placeholder="Sua mensagem..." style="flex: 1;">
                             <button class="btn btn-primary" onclick="sendMessage()">
-                                <span id="chatLoadingIcon">➤</span>
-                                <span>Enviar</span>
+                                <span id="chatLoding">➤</span> Enviar
                             </button>
                         </div>
-                    </div>
-
-                    <h3 class="section-title">💡 Tópicos</h3>
-                    <div class="grid">
-                        <button class="card" style="cursor: pointer; text-align: center; border: none;" onclick="askQuestion('Como você pode me ajudar?')">
-                            <p style="color: var(--primary); font-weight: 600;">Como ajudar?</p>
-                        </button>
-                        <button class="card" style="cursor: pointer; text-align: center; border: none;" onclick="askQuestion('Quais são seus recursos?')">
-                            <p style="color: var(--primary); font-weight: 600;">Recursos</p>
-                        </button>
-                        <button class="card" style="cursor: pointer; text-align: center; border: none;" onclick="askQuestion('Crie uma história curta sobre um robô')">
-                            <p style="color: var(--primary); font-weight: 600;">Criar História</p>
-                        </button>
-                        <button class="card" style="cursor: pointer; text-align: center; border: none;" onclick="askQuestion('Explique o que é inteligência artificial')">
-                            <p style="color: var(--primary); font-weight: 600;">IA Explicada</p>
-                        </button>
                     </div>
                 </div>
             </main>
@@ -923,87 +752,77 @@
     </div>
 
     <script>
-        const API_BASE = 'https://gen.pollinations.ai';
-        
-        // Use public key (no API key needed for demo)
         const state = {
             currentTab: 'portal',
             generatedCode: '',
-            generatedImage: null,
             images: [],
             chatHistory: [
-                { role: 'system', content: 'Você é Zénia, um assistente de IA amigável, criativo e útil. Responda em português. Criado em Lubango por @inacio.u.daniel' }
-            ],
-            audioData: null
+                { role: 'system', content: 'Você é Zénia, um assistente IA amigável e útil. Responda em português. Criado em Lubango por @inacio.u.daniel' }
+            ]
         };
 
         // ===== TAB NAVIGATION =====
         document.querySelectorAll('.tab-button').forEach(button => {
             button.addEventListener('click', () => {
-                switchTab(button.dataset.tab);
+                const tabName = button.dataset.tab;
+                
+                document.querySelectorAll('.tab-button').forEach(b => b.classList.remove('active'));
+                button.classList.add('active');
+
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                document.getElementById(tabName).classList.add('active');
+
+                const titles = {
+                    'portal': '🏠 Portal',
+                    'zedex': '💻 Zedex - Código',
+                    'galeria': '🎨 Galeria',
+                    'escolar': '📚 Escolar',
+                    'zena': '🎵 Zena',
+                    'chat': '💬 Chat'
+                };
+                document.getElementById('headerTitle').textContent = titles[tabName];
+                state.currentTab = tabName;
             });
         });
 
-        function switchTab(tabName) {
-            document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
-            document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
-
-            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-            document.getElementById(tabName).classList.add('active');
-
-            const titles = {
-                'portal': '🏠 Portal',
-                'zedex': '💻 Zedex - Gerador de Código',
-                'galeria': '🎨 Galeria - Flux IA',
-                'escolar': '📚 Escolar - Educação',
-                'zena': '🎵 Zena - Síntese de Voz',
-                'chat': '💬 Fale com Zénia'
-            };
-            document.getElementById('headerTitle').textContent = titles[tabName];
-            state.currentTab = tabName;
-        }
-
-        // ===== ZEDEX: CODE GENERATION =====
+        // ===== ZEDEX =====
         async function generateCode() {
             const language = document.getElementById('codeLanguage').value;
             const prompt = document.getElementById('codePrompt').value;
 
             if (!prompt.trim()) {
-                showAlert('Descreva o que deseja criar', 'error');
+                showAlert('Descreva o código', 'error');
                 return;
             }
 
-            const icon = document.getElementById('codeLoadingIcon');
-            icon.innerHTML = '<span class="loading-spinner"></span>';
+            document.getElementById('codeLoding').innerHTML = '<span class="loading-spinner"></span>';
 
             try {
-                const response = await fetch(`${API_BASE}/v1/chat/completions`, {
+                const response = await fetch('https://text.pollinations.ai/openai', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         model: 'openai',
                         messages: [
-                            { role: 'system', content: `Você é um expert em ${language}. Gere apenas o código, sem explicações.` },
-                            { role: 'user', content: `Crie ${language} para: ${prompt}` }
+                            { role: 'system', content: `Gere código ${language} de alta qualidade. Apenas código, sem explicações.` },
+                            { role: 'user', content: prompt }
                         ],
-                        max_tokens: 2000,
-                        temperature: 0.7
+                        temperature: 0.7,
+                        max_tokens: 2000
                     })
                 });
 
-                if (!response.ok) {
-                    throw new Error('Erro na API');
-                }
-
+                if (!response.ok) throw new Error('Erro API');
+                
                 const data = await response.json();
                 state.generatedCode = data.choices[0].message.content;
                 document.getElementById('codeContent').textContent = state.generatedCode;
                 document.getElementById('codeResult').style.display = 'block';
-                showAlert('Código gerado com sucesso! ✨', 'success');
+                showAlert('Código gerado! ✨', 'success');
             } catch (error) {
-                showAlert('Erro ao gerar: ' + error.message, 'error');
+                showAlert('Erro: ' + error.message, 'error');
             } finally {
-                icon.innerHTML = '✨';
+                document.getElementById('codeLoding').innerHTML = '✨';
             }
         }
 
@@ -1014,8 +833,7 @@
 
         function downloadCode() {
             const element = document.createElement('a');
-            const file = new Blob([state.generatedCode], {type: 'text/plain'});
-            element.href = URL.createObjectURL(file);
+            element.href = URL.createObjectURL(new Blob([state.generatedCode], {type: 'text/plain'}));
             element.download = `codigo_${Date.now()}.txt`;
             document.body.appendChild(element);
             element.click();
@@ -1023,49 +841,31 @@
             showAlert('Baixado!', 'success');
         }
 
-        function toggleCodeView() {
-            const block = document.getElementById('codeContent').parentElement;
-            if (block.style.maxHeight) {
-                block.style.maxHeight = 'none';
-            } else {
-                block.style.maxHeight = '300px';
-            }
-        }
-
-        // ===== GALERIA: IMAGE GENERATION =====
+        // ===== GALERIA =====
         async function generateImage() {
             const prompt = document.getElementById('imagePrompt').value;
-            const style = document.getElementById('imageStyle').value;
 
             if (!prompt.trim()) {
                 showAlert('Descreva a imagem', 'error');
                 return;
             }
 
-            const icon = document.getElementById('imageLoadingIcon');
-            icon.innerHTML = '<span class="loading-spinner"></span>';
+            document.getElementById('imageLoding').innerHTML = '<span class="loading-spinner"></span>';
 
             try {
-                const fullPrompt = `${prompt} ${style}`.trim();
-                const imageUrl = `${API_BASE}/image/${encodeURIComponent(fullPrompt)}?nologo=true`;
+                const encodedPrompt = encodeURIComponent(prompt);
+                const imageUrl = `https://image.pollinations.ai/prompt/${encodedPrompt}`;
                 
-                state.generatedImage = {
-                    url: imageUrl,
-                    prompt: fullPrompt,
-                    timestamp: new Date()
-                };
-
                 document.getElementById('generatedImage').src = imageUrl;
                 document.getElementById('imageResult').style.display = 'block';
                 
-                state.images.push(state.generatedImage);
+                state.images.push({ url: imageUrl, prompt: prompt, time: new Date() });
                 updateGallery();
-                
                 showAlert('Imagem gerada! ✨', 'success');
             } catch (error) {
                 showAlert('Erro: ' + error.message, 'error');
             } finally {
-                icon.innerHTML = '✨';
+                document.getElementById('imageLoding').innerHTML = '✨';
             }
         }
 
@@ -1078,18 +878,19 @@
 
             gallery.innerHTML = state.images.map((img, idx) => `
                 <div class="image-item">
-                    <img src="${img.url}" alt="Generated" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22200%22%3E%3Crect fill=%22%23333%22 width=%22200%22 height=%22200%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 font-size=%2216%22 fill=%22%23fff%22 text-anchor=%22middle%22 dy=%22.3em%22%3ECarregando...%3C/text%3E%3C/svg%3E'">
+                    <img src="${img.url}" alt="Generated" onerror="this.style.display='none'">
                 </div>
             `).join('');
         }
 
         function downloadImage() {
-            if (!state.generatedImage) {
+            const img = document.getElementById('generatedImage');
+            if (!img.src) {
                 showAlert('Nenhuma imagem', 'error');
                 return;
             }
             const element = document.createElement('a');
-            element.href = state.generatedImage.url;
+            element.href = img.src;
             element.download = `imagem_${Date.now()}.png`;
             document.body.appendChild(element);
             element.click();
@@ -1099,8 +900,8 @@
 
         // ===== ESCOLAR =====
         async function askEducation(subject) {
-            const textarea = event.target.parentElement.querySelector('textarea');
-            const question = textarea.value;
+            const qId = { math: 'mathQ', physics: 'physicsQ', chemistry: 'chemistryQ', biology: 'biologyQ' }[subject];
+            const question = document.getElementById(qId).value;
 
             if (!question.trim()) {
                 showAlert('Faça uma pergunta', 'error');
@@ -1108,17 +909,17 @@
             }
 
             try {
-                const response = await fetch(`${API_BASE}/v1/chat/completions`, {
+                const response = await fetch('https://text.pollinations.ai/openai', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         model: 'openai',
                         messages: [
-                            { role: 'system', content: `Você é um professor especializado em ${subject}. Responda de forma clara e educativa em português.` },
+                            { role: 'system', content: `Você é professor de ${subject} em português. Explique de forma clara.` },
                             { role: 'user', content: question }
                         ],
-                        max_tokens: 1500,
-                        temperature: 0.7
+                        temperature: 0.7,
+                        max_tokens: 1500
                     })
                 });
 
@@ -1130,7 +931,7 @@
             }
         }
 
-        // ===== ZENA: AUDIO =====
+        // ===== ZENA =====
         async function synthesizeAudio() {
             const text = document.getElementById('textToSpeech').value;
             const voice = document.getElementById('voiceType').value;
@@ -1140,32 +941,30 @@
                 return;
             }
 
-            const icon = document.getElementById('audioLoadingIcon');
-            icon.innerHTML = '<span class="loading-spinner"></span>';
+            document.getElementById('audioLoding').innerHTML = '<span class="loading-spinner"></span>';
 
             try {
-                const audioUrl = `${API_BASE}/audio/${encodeURIComponent(text)}?voice=${voice}&model=openai-audio`;
+                const encodedText = encodeURIComponent(text);
+                const audioUrl = `https://text.pollinations.ai/${encodedText}?model=openai-audio&voice=${voice}`;
                 
                 document.getElementById('audioPlayer').src = audioUrl;
                 document.getElementById('audioResult').style.display = 'block';
-                
                 showAlert('Áudio sintetizado! ✨', 'success');
             } catch (error) {
                 showAlert('Erro: ' + error.message, 'error');
             } finally {
-                icon.innerHTML = '🎙️';
+                document.getElementById('audioLoding').innerHTML = '🎙️';
             }
         }
 
         function downloadAudio() {
-            const audioPlayer = document.getElementById('audioPlayer');
-            if (!audioPlayer.src) {
+            const audio = document.getElementById('audioPlayer');
+            if (!audio.src) {
                 showAlert('Nenhum áudio', 'error');
                 return;
             }
-
             const element = document.createElement('a');
-            element.href = audioPlayer.src;
+            element.href = audio.src;
             element.download = `audio_${Date.now()}.mp3`;
             document.body.appendChild(element);
             element.click();
@@ -1183,20 +982,19 @@
             addChatMessage(message, 'user');
             input.value = '';
 
-            const icon = document.getElementById('chatLoadingIcon');
-            icon.innerHTML = '<span class="loading-spinner"></span>';
+            document.getElementById('chatLoding').innerHTML = '<span class="loading-spinner"></span>';
 
             try {
                 state.chatHistory.push({ role: 'user', content: message });
 
-                const response = await fetch(`${API_BASE}/v1/chat/completions`, {
+                const response = await fetch('https://text.pollinations.ai/openai', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         model: 'openai',
                         messages: state.chatHistory,
-                        max_tokens: 1000,
-                        temperature: 0.7
+                        temperature: 0.8,
+                        max_tokens: 1000
                     })
                 });
 
@@ -1208,22 +1006,17 @@
             } catch (error) {
                 showAlert('Erro: ' + error.message, 'error');
             } finally {
-                icon.innerHTML = '➤';
+                document.getElementById('chatLoding').innerHTML = '➤';
             }
         }
 
         function addChatMessage(text, sender) {
             const chatBox = document.getElementById('chatBox');
-            const message = document.createElement('div');
-            message.className = `chat-message chat-${sender}`;
-            message.innerHTML = sender === 'user' ? text : `<strong>Zénia:</strong> ${text}`;
-            chatBox.appendChild(message);
+            const msg = document.createElement('div');
+            msg.className = `chat-message chat-${sender}`;
+            msg.innerHTML = sender === 'user' ? text : `<strong>Zénia:</strong> ${text}`;
+            chatBox.appendChild(msg);
             chatBox.scrollTop = chatBox.scrollHeight;
-        }
-
-        function askQuestion(question) {
-            document.getElementById('chatInput').value = question;
-            sendMessage();
         }
 
         // ===== UTILITIES =====
@@ -1235,18 +1028,14 @@
             alert.style.top = '20px';
             alert.style.right = '20px';
             alert.style.zIndex = '2000';
-            alert.style.maxWidth = '400px';
-            alert.style.minWidth = '250px';
             document.body.appendChild(alert);
 
             setTimeout(() => {
-                alert.style.opacity = '0';
-                alert.style.transition = 'opacity 0.3s ease';
-                setTimeout(() => alert.remove(), 300);
+                alert.remove();
             }, 3000);
         }
 
-        console.log('🚀 Zénia-Projects iniciado com Pollinations API!');
+        console.log('🚀 Zénia-Projects com Pollinations API');
     </script>
 </body>
 </html>
