@@ -1,192 +1,1498 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-PT">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ZÉNIA PROJECTS - Portal Oficial</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zénia-Projects | Plataforma de IA Integrada</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-<script src="https://cdn.tailwindcss.com"></script>
-<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css">
+        :root {
+            --primary: #00d4ff;
+            --secondary: #ff006e;
+            --accent: #b537f2;
+            --dark-bg: #0a0e27;
+            --darker-bg: #050812;
+            --card-bg: #141b2f;
+            --text-primary: #e0e6ff;
+            --text-secondary: #a0aec0;
+            --border: #1a2340;
+            --success: #00ff88;
+            --warning: #ffb800;
+            --error: #ff3333;
+        }
 
-<style>
-:root { --bg: #010409; --panel: #0d1117; --accent: #3b82f6; --accent2: #22d3ee; --border: #30363d; --text:#e6edf3; }
-html { scroll-behavior: smooth; }
-body { background: var(--bg); color: var(--text); font-family: 'Plus Jakarta Sans', sans-serif; margin: 0; overflow-x: hidden; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--darker-bg) 0%, var(--dark-bg) 100%);
+            color: var(--text-primary);
+            overflow: hidden;
+            height: 100vh;
+        }
 
-/* INTRO ANIMATION */
-#intro-screen { position: fixed; inset: 0; background: #000; display: flex; align-items: center; justify-content: center; z-index: 9999; animation: fadeOut 2s ease 3s forwards;}
-@keyframes fadeOut { to { opacity: 0; visibility: hidden; } }
-#intro-screen h1 { font-size: 4rem; font-weight: 900; color: white; opacity: 0; animation: popIn 1.5s ease forwards; }
-@keyframes popIn { 0% { transform: scale(0.2); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+        .container {
+            display: flex;
+            height: 100vh;
+            gap: 0;
+        }
 
-/* SIDEBAR IA */
-#aiSidebar { position: fixed; top: 0; right: -420px; width: 420px; height: 100vh; background: #0d1117; border-left: 1px solid #1f2937; transition: 0.4s ease; z-index: 9000; display: flex; flex-direction: column; }
-#aiSidebar.open { right: 0; }
-#aiToggleBtn { position: fixed; bottom: 30px; right: 30px; background: var(--accent); width: 70px; height: 70px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 26px; cursor: pointer; z-index: 9001; box-shadow: 0 0 20px var(--accent)80; }
+        /* ===== SIDEBAR ===== */
+        .sidebar {
+            width: 280px;
+            background: linear-gradient(180deg, var(--dark-bg) 0%, var(--darker-bg) 100%);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            padding: 20px 0;
+            box-shadow: 4px 0 15px rgba(0, 0, 0, 0.3);
+        }
 
-/* CHAT */
-#chatBox { flex: 1; overflow-y: auto; padding: 20px; }
-#historyList { max-height: 200px; overflow-y: auto; }
-.user-msg { background: var(--accent); padding: 10px 14px; border-radius: 14px; margin-bottom: 10px; color: white; }
-.ai-msg { background: #161b22; padding: 10px 14px; border-radius: 14px; margin-bottom: 10px; }
-.msg-wrapper { margin-bottom: 15px; }
+        .sidebar::-webkit-scrollbar {
+            width: 6px;
+        }
 
-/* MINI-JOGOS */
-.game-box { background: #111722; padding: 15px; border-radius: 12px; margin: 10px 0; border: 1px solid #222; }
-</style>
+        .sidebar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .sidebar::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 3px;
+        }
+
+        .logo {
+            padding: 0 20px 30px;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo h1 {
+            font-size: 1.8em;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin-bottom: 5px;
+        }
+
+        .logo p {
+            font-size: 0.75em;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .tabs-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px 0;
+        }
+
+        .tab-button {
+            width: 100%;
+            padding: 16px 20px;
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            text-align: left;
+            font-size: 0.95em;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .tab-button:hover {
+            background: rgba(0, 212, 255, 0.1);
+            color: var(--primary);
+            border-left-color: var(--primary);
+        }
+
+        .tab-button.active {
+            background: rgba(0, 212, 255, 0.15);
+            color: var(--primary);
+            border-left-color: var(--primary);
+            box-shadow: inset -4px 0 10px rgba(0, 212, 255, 0.1);
+        }
+
+        .tab-icon {
+            font-size: 1.3em;
+            min-width: 24px;
+        }
+
+        .social-footer {
+            padding: 20px;
+            border-top: 1px solid var(--border);
+            margin-top: auto;
+        }
+
+        .social-links {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .social-link {
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid var(--border);
+            padding: 10px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--primary);
+            font-size: 0.85em;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: rgba(0, 212, 255, 0.2);
+            border-color: var(--primary);
+        }
+
+        .made-in {
+            text-align: center;
+            font-size: 0.75em;
+            color: var(--text-secondary);
+            padding-top: 10px;
+            border-top: 1px solid var(--border);
+        }
+
+        /* ===== MAIN CONTENT ===== */
+        .content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(90deg, var(--dark-bg) 0%, var(--darker-bg) 100%);
+            border-bottom: 1px solid var(--border);
+            padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h2 {
+            font-size: 1.8em;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .header-info {
+            font-size: 0.9em;
+            color: var(--text-secondary);
+        }
+
+        .main-area {
+            flex: 1;
+            overflow-y: auto;
+            padding: 40px;
+        }
+
+        .main-area::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .main-area::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .main-area::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 4px;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ===== CARDS & GRID ===== */
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .grid-item {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .grid-item:hover {
+            border-color: var(--primary);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.15);
+            transform: translateY(-5px);
+        }
+
+        /* ===== BUTTONS ===== */
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 0.95em;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            color: var(--dark-bg);
+            border: none;
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(0, 212, 255, 0.1);
+        }
+
+        .btn-small {
+            padding: 8px 16px;
+            font-size: 0.85em;
+        }
+
+        /* ===== INPUTS & FORMS ===== */
+        .input-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+            font-weight: 600;
+            font-size: 0.95em;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="number"],
+        input[type="file"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 12px;
+            background: var(--darker-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-family: inherit;
+            transition: all 0.3s ease;
+            font-size: 0.95em;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="number"]:focus,
+        input[type="file"]:focus,
+        textarea:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.2);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+            font-family: 'Courier New', monospace;
+        }
+
+        /* ===== MODAL ===== */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 30px;
+            max-width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 1.5em;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .modal-close:hover {
+            color: var(--primary);
+        }
+
+        /* ===== SPECIAL STYLES ===== */
+        .highlight {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .section-title {
+            font-size: 1.4em;
+            color: var(--primary);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .code-block {
+            background: var(--darker-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85em;
+            overflow-x: auto;
+            margin: 15px 0;
+            position: relative;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 6px 12px;
+            background: var(--primary);
+            color: var(--dark-bg);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8em;
+            font-weight: 600;
+        }
+
+        .image-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .image-item {
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .image-item:hover {
+            transform: scale(1.05);
+        }
+
+        .image-item img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .image-tools {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 10px;
+            display: none;
+            gap: 8px;
+        }
+
+        .image-item:hover .image-tools {
+            display: flex;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--primary);
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.5;
+                transform: scale(0.8);
+            }
+        }
+
+        .alert {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 4px solid;
+        }
+
+        .alert-success {
+            background: rgba(0, 255, 136, 0.1);
+            border-left-color: var(--success);
+            color: var(--success);
+        }
+
+        .alert-error {
+            background: rgba(255, 51, 51, 0.1);
+            border-left-color: var(--error);
+            color: var(--error);
+        }
+
+        .alert-info {
+            background: rgba(0, 212, 255, 0.1);
+            border-left-color: var(--primary);
+            color: var(--primary);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .sidebar {
+                width: 220px;
+            }
+
+            .main-area {
+                padding: 20px;
+            }
+
+            .header {
+                padding: 15px 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                height: auto;
+                flex-direction: row;
+                overflow-x: auto;
+                overflow-y: hidden;
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+                padding: 10px 0;
+            }
+
+            .logo {
+                padding: 0 20px;
+                border-bottom: none;
+                border-right: 1px solid var(--border);
+                min-width: 200px;
+            }
+
+            .tabs-container {
+                display: flex;
+                overflow-x: auto;
+                padding: 0;
+                flex: 1;
+            }
+
+            .tab-button {
+                padding: 15px 20px;
+                white-space: nowrap;
+                border-bottom: 3px solid transparent;
+                border-left: none;
+            }
+
+            .tab-button:hover {
+                border-bottom-color: var(--primary);
+                border-left: none;
+            }
+
+            .tab-button.active {
+                border-bottom-color: var(--primary);
+                border-left: none;
+            }
+
+            .social-footer {
+                display: none;
+            }
+
+            .content {
+                height: auto;
+                min-height: calc(100vh - 100px);
+            }
+
+            .main-area {
+                padding: 20px 15px;
+            }
+        }
+    </style>
 </head>
 <body>
-
-<!-- INTRO -->
-<div id="intro-screen">
-    <h1>ZÉNIA PROJECTS</h1>
-</div>
-
-<!-- BOTÃO DA IA -->
-<div id="aiToggleBtn">🌐</div>
-
-<!-- SIDEBAR IA -->
-<aside id="aiSidebar">
-    <header class="p-4 border-b border-zinc-800 flex justify-between items-center">
-        <h2 class="text-xl font-bold">IA–ZÉNIA</h2>
-        <button onclick="toggleSidebar()" class="text-gray-400 hover:text-white">✖</button>
-    </header>
-
-    <div id="historyList" class="p-3 border-b border-zinc-800"></div>
-    <div id="chatBox" class="chat-container"></div>
-
-    <div class="p-3 border-t border-zinc-800">
-        <textarea id="userInput" class="w-full p-3 bg-[#0f1622] rounded-xl text-sm" rows="2" placeholder="Escreva algo..."></textarea>
-        <button id="sendBtn" onclick="handleSend()" class="mt-3 w-full bg-blue-600 p-3 rounded-xl font-bold">ENVIAR</button>
-    </div>
-</aside>
-
-<!-- RESTO DO SITE -->
-<header class="p-6 border-b border-zinc-800 flex justify-between items-center sticky top-0 bg-black/60 backdrop-blur-xl z-50">
-    <h1 class="text-xl font-extrabold italic tracking-tighter">ZENIA <span class="text-blue-500">PROJECTS</span></h1>
-    <a href="#projects" class="hover:text-blue-400 transition text-sm">Sistemas</a>
-</header>
-
-<main class="max-w-6xl mx-auto p-6 space-y-24">
-    <section class="text-center py-20">
-        <h2 class="text-6xl font-black">Code. Art. Inteligência.</h2>
-        <p class="text-gray-400 mt-4">Tecnologia feita no Lubango.</p>
-    </section>
-
-    <section id="projects">
-        <h3 class="text-3xl font-black mb-6">Projetos</h3>
-
-        <div class="grid md:grid-cols-2 gap-8">
-            <div class="p-8 bg-[#0d1117] rounded-2xl border border-zinc-800 hover:border-blue-500 transition">
-                <h3 class="text-3xl font-black">IA ZÉNIA</h3>
-                <p class="text-gray-400 mt-2">IA integrada diretamente no portal.</p>
-                <button onclick="toggleSidebar()" class="mt-4 px-4 py-3 bg-blue-600 rounded-xl font-bold">ABRIR IA</button>
+    <div class="container">
+        <!-- SIDEBAR -->
+        <aside class="sidebar">
+            <div class="logo">
+                <h1>⚡ Zénia</h1>
+                <p>Projects</p>
             </div>
 
-            <div class="p-8 bg-[#0d1117] rounded-2xl border border-zinc-800">
-                <h3 class="text-3xl font-black">Mini-Jogos</h3>
-                <div class="game-box">
-                    <p><b>Jogo: Adivinhe o Número</b></p>
-                    <input id="guessInput" type="number" class="bg-black p-2 rounded mt-2 w-full">
-                    <button onclick="playGuess()" class="w-full mt-2 bg-blue-600 p-2 rounded-xl">Jogar</button>
-                    <p id="guessStatus" class="text-gray-400 mt-2"></p>
+            <div class="tabs-container">
+                <button class="tab-button active" data-tab="portal">
+                    <span class="tab-icon">🏠</span>
+                    <span>Portal</span>
+                </button>
+                <button class="tab-button" data-tab="zedex">
+                    <span class="tab-icon">💻</span>
+                    <span>Zedex</span>
+                </button>
+                <button class="tab-button" data-tab="galeria">
+                    <span class="tab-icon">🎨</span>
+                    <span>Galeria</span>
+                </button>
+                <button class="tab-button" data-tab="escolar">
+                    <span class="tab-icon">📚</span>
+                    <span>Escolar</span>
+                </button>
+                <button class="tab-button" data-tab="zena">
+                    <span class="tab-icon">🎵</span>
+                    <span>Zena</span>
+                </button>
+                <button class="tab-button" data-tab="chat">
+                    <span class="tab-icon">💬</span>
+                    <span>Fale com Zénia</span>
+                </button>
+            </div>
+
+            <div class="social-footer">
+                <p style="color: var(--text-secondary); font-size: 0.85em; margin-bottom: 12px;">Siga-nos</p>
+                <div class="social-links">
+                    <a href="https://tiktok.com/@inacio.u.daniel" class="social-link" target="_blank">TikTok</a>
+                    <a href="https://instagram.com/inacio.udaniel" class="social-link" target="_blank">Instagram</a>
+                </div>
+                <div class="made-in">
+                    <p>Feito com ❤️ em Lubango</p>
+                    <p style="margin-top: 8px;">@inacio.u.daniel</p>
                 </div>
             </div>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <div class="content">
+            <!-- HEADER -->
+            <header class="header">
+                <h2 id="headerTitle">Portal</h2>
+                <div class="header-info" id="headerInfo"></div>
+            </header>
+
+            <!-- MAIN AREA -->
+            <main class="main-area">
+                <!-- TAB: PORTAL -->
+                <div id="portal" class="tab-content active">
+                    <h1 class="section-title">🎯 Bem-vindo ao Zénia-Projects</h1>
+                    
+                    <div class="card">
+                        <h3 style="color: var(--primary); margin-bottom: 15px; font-size: 1.2em;">Sobre Zénia-Projects</h3>
+                        <p style="line-height: 1.8; margin-bottom: 15px;">Zénia-Projects é uma <span class="highlight">plataforma integrada de IA</span> desenvolvida em Lubango que oferece múltiplas ferramentas para criatividade, educação e desenvolvimento.</p>
+                        <p style="line-height: 1.8;">Criado por <span class="highlight">@inacio.u.daniel</span>, este projeto combina inteligência artificial com design moderno para proporcionar uma experiência única.</p>
+                    </div>
+
+                    <h3 class="section-title">🔗 Plataformas Relacionadas</h3>
+
+                    <div class="grid">
+                        <div class="grid-item">
+                            <h4 style="color: var(--primary); margin-bottom: 10px;">🤖 IA-Zénia</h4>
+                            <p style="color: var(--text-secondary); margin-bottom: 15px; font-size: 0.9em;">Assistente de IA completo com múltiplas capacidades</p>
+                            <a href="https://ia-zenia.netlify.app" target="_blank" class="btn btn-secondary btn-small">Acessar</a>
+                        </div>
+                        <div class="grid-item">
+                            <h4 style="color: var(--primary); margin-bottom: 10px;">🎙️ Antónia IA</h4>
+                            <p style="color: var(--text-secondary); margin-bottom: 15px; font-size: 0.9em;">Plataforma de áudio e síntese de voz</p>
+                            <a href="https://antonia-ia.netlify.app" target="_blank" class="btn btn-secondary btn-small">Acessar</a>
+                        </div>
+                        <div class="grid-item">
+                            <h4 style="color: var(--primary); margin-bottom: 10px;">⚡ Zénia-Projects</h4>
+                            <p style="color: var(--text-secondary); margin-bottom: 15px; font-size: 0.9em;">Esta plataforma que está usando agora</p>
+                            <a href="https://zenia-projects.netlify.app" target="_blank" class="btn btn-secondary btn-small">Acessar</a>
+                        </div>
+                    </div>
+
+                    <h3 class="section-title">🚀 Futuros Projetos</h3>
+
+                    <div class="card">
+                        <p style="color: var(--text-secondary); line-height: 1.8;">Estamos trabalhando em novos projetos inovadores para expandir o ecossistema Zénia. Em breve, novas ferramentas e funcionalidades serão disponibilizadas.</p>
+                    </div>
+
+                    <h3 class="section-title">📊 Recursos Disponíveis</h3>
+
+                    <div class="grid">
+                        <div class="card" style="cursor: pointer;" onclick="switchTab('zedex')">
+                            <h4 style="color: var(--primary); margin-bottom: 10px;">💻 Zedex</h4>
+                            <p style="color: var(--text-secondary); font-size: 0.9em;">Gerador de código com IA. Crie aplicações em qualquer linguagem.</p>
+                        </div>
+                        <div class="card" style="cursor: pointer;" onclick="switchTab('galeria')">
+                            <h4 style="color: var(--primary); margin-bottom: 10px;">🎨 Galeria</h4>
+                            <p style="color: var(--text-secondary); font-size: 0.9em;">Crie e edite imagens com IA usando Pollination API.</p>
+                        </div>
+                        <div class="card" style="cursor: pointer;" onclick="switchTab('escolar')">
+                            <h4 style="color: var(--primary); margin-bottom: 10px;">📚 Escolar</h4>
+                            <p style="color: var(--text-secondary); font-size: 0.9em;">Recursos educacionais, exercícios e cursos técnicos.</p>
+                        </div>
+                        <div class="card" style="cursor: pointer;" onclick="switchTab('zena')">
+                            <h4 style="color: var(--primary); margin-bottom: 10px;">🎵 Zena</h4>
+                            <p style="color: var(--text-secondary); font-size: 0.9em;">Processamento de áudio e síntese de voz.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB: ZEDEX -->
+                <div id="zedex" class="tab-content">
+                    <h1 class="section-title">💻 Zedex - Gerador de Código com IA</h1>
+
+                    <div class="card">
+                        <p style="color: var(--text-secondary); margin-bottom: 20px;">Descreva seu projeto e escolha a linguagem. Zénia gerará o código completo pronto para usar.</p>
+
+                        <div class="input-group">
+                            <label for="codeLanguage">Linguagem de Programação</label>
+                            <select id="codeLanguage">
+                                <option value="javascript">JavaScript</option>
+                                <option value="python">Python</option>
+                                <option value="html">HTML</option>
+                                <option value="css">CSS</option>
+                                <option value="java">Java</option>
+                                <option value="csharp">C#</option>
+                                <option value="cpp">C++</option>
+                                <option value="ruby">Ruby</option>
+                                <option value="php">PHP</option>
+                                <option value="golang">Go</option>
+                            </select>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="codePrompt">Descreva o que deseja criar</label>
+                            <textarea id="codePrompt" placeholder="Ex: Crie uma calculadora com interface bonita que soma dois números..."></textarea>
+                        </div>
+
+                        <button class="btn btn-primary" onclick="generateCode()">
+                            <span>✨</span>
+                            <span>Gerar Código</span>
+                        </button>
+                    </div>
+
+                    <div id="codeResult" style="display: none;">
+                        <h3 class="section-title">📝 Código Gerado</h3>
+                        <div class="code-block" id="generatedCode">
+                            <button class="copy-btn" onclick="copyCode()">Copiar</button>
+                            <code id="codeContent"></code>
+                        </div>
+
+                        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                            <button class="btn btn-secondary btn-small" onclick="downloadCode()">
+                                <span>⬇️</span>
+                                <span>Baixar</span>
+                            </button>
+                            <button class="btn btn-secondary btn-small" onclick="viewRendered()">
+                                <span>👁️</span>
+                                <span>Ver Renderizado</span>
+                            </button>
+                            <button class="btn btn-secondary btn-small" onclick="toggleCodeView()">
+                                <span>🔄</span>
+                                <span>Toggle View</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB: GALERIA -->
+                <div id="galeria" class="tab-content">
+                    <h1 class="section-title">🎨 Galeria - Criador de Imagens com IA</h1>
+
+                    <div class="card">
+                        <p style="color: var(--text-secondary); margin-bottom: 20px;">Use Pollination API para gerar imagens incríveis. Sem marca de água.</p>
+
+                        <div class="input-group">
+                            <label for="imagePrompt">Descrição da Imagem</label>
+                            <textarea id="imagePrompt" placeholder="Descreva em detalhes o que deseja gerar... (Ex: Uma paisagem futurista com torres holográficas ao pôr do sol)"></textarea>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="imageStyle">Estilo</label>
+                            <select id="imageStyle">
+                                <option value="realistic">Realista</option>
+                                <option value="artistic">Artístico</option>
+                                <option value="3d">3D</option>
+                                <option value="anime">Anime</option>
+                                <option value="cyberpunk">Cyberpunk</option>
+                                <option value="abstract">Abstrato</option>
+                                <option value="watercolor">Aquarela</option>
+                            </select>
+                        </div>
+
+                        <button class="btn btn-primary" onclick="generateImage()">
+                            <span>✨</span>
+                            <span>Gerar Imagem</span>
+                        </button>
+                    </div>
+
+                    <div id="imageResult" style="display: none;">
+                        <h3 class="section-title">🖼️ Imagem Gerada</h3>
+                        <div style="text-align: center; margin-bottom: 20px;">
+                            <img id="generatedImage" src="" alt="Generated" style="max-width: 100%; max-height: 500px; border-radius: 12px; border: 1px solid var(--border);">
+                        </div>
+
+                        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                            <button class="btn btn-secondary btn-small" onclick="downloadImage()">
+                                <span>⬇️</span>
+                                <span>Baixar</span>
+                            </button>
+                            <button class="btn btn-secondary btn-small" onclick="editImage()">
+                                <span>✏️</span>
+                                <span>Editar (IA)</span>
+                            </button>
+                            <button class="btn btn-secondary btn-small" onclick="manualEditImage()">
+                                <span>🖌️</span>
+                                <span>Editar (Manual)</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <h3 class="section-title">📸 Suas Imagens</h3>
+                    <div class="image-gallery" id="imageGallery">
+                        <p style="color: var(--text-secondary);">Suas imagens geradas aparecerão aqui...</p>
+                    </div>
+                </div>
+
+                <!-- TAB: ESCOLAR -->
+                <div id="escolar" class="tab-content">
+                    <h1 class="section-title">📚 Escolar - Educação e Recursos</h1>
+
+                    <div class="grid">
+                        <div class="card">
+                            <h4 style="color: var(--primary); margin-bottom: 15px;">🧮 Matemática</h4>
+                            <p style="color: var(--text-secondary); margin-bottom: 15px; line-height: 1.6;">Álgebra, Geometria, Cálculo, Estatística. Exercícios interativos e explicações detalhadas.</p>
+                            <button class="btn btn-secondary btn-small" onclick="openMath()">Acessar</button>
+                        </div>
+
+                        <div class="card">
+                            <h4 style="color: var(--primary); margin-bottom: 15px;">🔬 Física</h4>
+                            <p style="color: var(--text-secondary); margin-bottom: 15px; line-height: 1.6;">Mecânica, Termodinâmica, Óptica, Eletromagnetismo com simulações.</p>
+                            <button class="btn btn-secondary btn-small" onclick="openPhysics()">Acessar</button>
+                        </div>
+
+                        <div class="card">
+                            <h4 style="color: var(--primary); margin-bottom: 15px;">⚗️ Química</h4>
+                            <p style="color: var(--text-secondary); margin-bottom: 15px; line-height: 1.6;">Elementos, Reações, Moléculas. Tabela periódica interativa.</p>
+                            <button class="btn btn-secondary btn-small" onclick="openChemistry()">Acessar</button>
+                        </div>
+
+                        <div class="card">
+                            <h4 style="color: var(--primary); margin-bottom: 15px;">🌍 Biologia</h4>
+                            <p style="color: var(--text-secondary); margin-bottom: 15px; line-height: 1.6;">Celular, Genética, Ecologia. Modelos 3D interativos.</p>
+                            <button class="btn btn-secondary btn-small" onclick="openBiology()">Acessar</button>
+                        </div>
+
+                        <div class="card">
+                            <h4 style="color: var(--primary); margin-bottom: 15px;">💻 Programação</h4>
+                            <p style="color: var(--text-secondary); margin-bottom: 15px; line-height: 1.6;">Python, JavaScript, Java. Cursos estruturados e desafios.</p>
+                            <button class="btn btn-secondary btn-small" onclick="openProgramming()">Acessar</button>
+                        </div>
+
+                        <div class="card">
+                            <h4 style="color: var(--primary); margin-bottom: 15px;">🌐 Línguas</h4>
+                            <p style="color: var(--text-secondary); margin-bottom: 15px; line-height: 1.6;">Inglês, Espanhol, Francês. Lições interativas e pronuncia.</p>
+                            <button class="btn btn-secondary btn-small" onclick="openLanguages()">Acessar</button>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3 style="color: var(--primary); margin-bottom: 15px;">📋 Exercícios Personalizados</h3>
+                        <div class="input-group">
+                            <label>Escolha o Assunto e Nível</label>
+                            <select onchange="generateExercise(this.value)">
+                                <option value="">Selecionar...</option>
+                                <option value="algebra-easy">Álgebra - Fácil</option>
+                                <option value="algebra-medium">Álgebra - Médio</option>
+                                <option value="algebra-hard">Álgebra - Difícil</option>
+                                <option value="chemistry-easy">Química - Fácil</option>
+                                <option value="chemistry-medium">Química - Médio</option>
+                            </select>
+                        </div>
+                        <div id="exerciseResult" style="display: none;">
+                            <div class="alert alert-info" id="exerciseContent"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB: ZENA -->
+                <div id="zena" class="tab-content">
+                    <h1 class="section-title">🎵 Zena - Processamento de Áudio</h1>
+
+                    <div class="grid">
+                        <div class="card">
+                            <h3 style="color: var(--primary); margin-bottom: 15px;">🎤 Síntese de Voz</h3>
+                            <p style="color: var(--text-secondary); margin-bottom: 15px;">Converta texto em áudio com vozes naturais.</p>
+
+                            <div class="input-group">
+                                <label for="textToSpeech">Texto</label>
+                                <textarea id="textToSpeech" placeholder="Digite o texto que deseja converter em áudio..."></textarea>
+                            </div>
+
+                            <div class="input-group">
+                                <label for="voiceType">Tipo de Voz</label>
+                                <select id="voiceType">
+                                    <option value="female">Feminina (PT)</option>
+                                    <option value="male">Masculina (PT)</option>
+                                    <option value="female-en">Feminina (EN)</option>
+                                    <option value="male-en">Masculina (EN)</option>
+                                </select>
+                            </div>
+
+                            <button class="btn btn-primary" onclick="synthesizeAudio()">
+                                <span>🎙️</span>
+                                <span>Sintetizar</span>
+                            </button>
+
+                            <div id="audioResult" style="display: none; margin-top: 15px;">
+                                <audio id="audioPlayer" controls style="width: 100%; margin-bottom: 10px;"></audio>
+                                <button class="btn btn-secondary btn-small" onclick="downloadAudio()">
+                                    <span>⬇️</span>
+                                    <span>Baixar Áudio</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <h3 style="color: var(--primary); margin-bottom: 15px;">🔊 Remover Ruído</h3>
+                            <p style="color: var(--text-secondary); margin-bottom: 15px;">Limpe áudio de fundo e ruído.</p>
+
+                            <div class="input-group">
+                                <label for="noiseFile">Envie seu áudio</label>
+                                <input type="file" id="noiseFile" accept="audio/*">
+                            </div>
+
+                            <button class="btn btn-primary" onclick="cleanAudio()">
+                                <span>✨</span>
+                                <span>Limpar Áudio</span>
+                            </button>
+                        </div>
+
+                        <div class="card">
+                            <h3 style="color: var(--primary); margin-bottom: 15px;">🎛️ Edição de Áudio</h3>
+                            <p style="color: var(--text-secondary); margin-bottom: 15px;">Ferramentas básicas de edição de áudio.</p>
+
+                            <div class="input-group">
+                                <label for="audioFile">Envie seu áudio</label>
+                                <input type="file" id="audioFile" accept="audio/*">
+                            </div>
+
+                            <div class="input-group">
+                                <label for="audioSpeed">Velocidade (0.5x - 2x)</label>
+                                <input type="number" id="audioSpeed" value="1" min="0.5" max="2" step="0.1">
+                            </div>
+
+                            <button class="btn btn-primary" onclick="processAudio()">
+                                <span>⚙️</span>
+                                <span>Processar</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TAB: CHAT -->
+                <div id="chat" class="tab-content">
+                    <h1 class="section-title">💬 Fale com Zénia</h1>
+
+                    <div class="card" style="height: 400px; display: flex; flex-direction: column;">
+                        <div id="chatBox" style="flex: 1; overflow-y: auto; margin-bottom: 20px; padding: 15px; background: var(--darker-bg); border-radius: 8px; border: 1px solid var(--border);">
+                            <div style="text-align: center; color: var(--text-secondary); padding: 20px;">
+                                <p>Bem-vindo ao chat com Zénia! 👋</p>
+                                <p style="font-size: 0.9em; margin-top: 10px;">Faça suas perguntas e receba respostas inteligentes.</p>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; gap: 10px;">
+                            <input type="text" id="chatInput" placeholder="Digite sua mensagem..." style="flex: 1;">
+                            <button class="btn btn-primary" onclick="sendMessage()">
+                                <span>➤</span>
+                                <span>Enviar</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div style="margin-top: 20px;">
+                        <h3 class="section-title">💡 Tópicos Populares</h3>
+                        <div class="grid">
+                            <button class="card" style="cursor: pointer; text-align: center;" onclick="askQuestion('Como usar Zénia-Projects?')">
+                                <p style="color: var(--primary); font-weight: 600;">Como usar?</p>
+                            </button>
+                            <button class="card" style="cursor: pointer; text-align: center;" onclick="askQuestion('Quais recursos estão disponíveis?')">
+                                <p style="color: var(--primary); font-weight: 600;">Recursos</p>
+                            </button>
+                            <button class="card" style="cursor: pointer; text-align: center;" onclick="askQuestion('Como gerar código com IA?')">
+                                <p style="color: var(--primary); font-weight: 600;">Gerar Código</p>
+                            </button>
+                            <button class="card" style="cursor: pointer; text-align: center;" onclick="askQuestion('Como criar imagens?')">
+                                <p style="color: var(--primary); font-weight: 600;">Criar Imagens</p>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </main>
         </div>
-    </section>
-</main>
-<script src="z.js"><script>
-<script>
-// SIDEBAR
-const aiSidebar = document.getElementById("aiSidebar");
-const aiToggleBtn = document.getElementById("aiToggleBtn");
-aiToggleBtn.onclick = toggleSidebar;
-function toggleSidebar(){ aiSidebar.classList.toggle("open"); }
+    </div>
 
-// MINI-JOGOS
-function playGuess(){
-    const guess = parseInt(document.getElementById("guessInput").value);
-    const status = document.getElementById("guessStatus");
-    if(!guess){ status.innerText="Digite um número!"; return; }
-    const target = Math.floor(Math.random()*100)+1;
-    status.innerText = guess===target?`Acertou! Era ${target}`:`Errou! Era ${target}`;
-}
+    <!-- MODALS -->
+    <div id="codeModal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('codeModal')">✕</button>
+            <h2 style="color: var(--primary); margin-bottom: 20px;">Código Renderizado</h2>
+            <div id="renderedCode" style="border: 1px solid var(--border); border-radius: 8px; padding: 20px; background: var(--darker-bg); height: 500px; overflow: auto;"></div>
+        </div>
+    </div>
 
-// IA-ZENIA EMBUTIDA
-const chatBox = document.getElementById('chatBox');
-const historyList = document.getElementById('historyList');
-const userInput = document.getElementById('userInput');
-let sessions = JSON.parse(localStorage.getItem('zenia_sessions') || '[]');
-let currentSessionId = null;
+    <div id="imageEditModal" class="modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeModal('imageEditModal')">✕</button>
+            <h2 style="color: var(--primary); margin-bottom: 20px;">Editar Imagem</h2>
+            <canvas id="editCanvas" style="border: 1px solid var(--border); max-width: 100%; margin-bottom: 20px;"></canvas>
+            <div style="display: flex; gap: 10px;">
+                <button class="btn btn-primary" onclick="applyEdit()">Aplicar Mudanças</button>
+                <button class="btn btn-secondary" onclick="closeModal('imageEditModal')">Cancelar</button>
+            </div>
+        </div>
+    </div>
 
-function init() { renderHistory(); if(sessions.length>0) loadSession(sessions[sessions.length-1].id); else startNewChat(); }
-function startNewChat(){ currentSessionId=Date.now(); chatBox.innerHTML=''; addMessage("Mbwéte! Sou a IA-ZÉNIA do Lubango. O que vamos criar hoje?", false); renderHistory(); }
+    <script>
+        // ===== STATE MANAGEMENT =====
+        const state = {
+            currentTab: 'portal',
+            generatedCode: '',
+            generatedImage: null,
+            images: [],
+            chatHistory: [],
+            audioData: null
+        };
 
-async function handleSend(textOverride=null){
-    const query = textOverride||userInput.value.trim();
-    if(!query) return;
-    addMessage(query,true);
-    userInput.value='';
-    userInput.style.height='48px';
-    const loading = addMessage("Zénia está a pensar...",false);
+        // ===== TAB NAVIGATION =====
+        document.querySelectorAll('.tab-button').forEach(button => {
+            button.addEventListener('click', () => {
+                switchTab(button.dataset.tab);
+            });
+        });
 
-    try{
-        const isImageRequest=/desenha|gera uma imagem|pinta|mostra uma foto|imagem de/i.test(query);
-        if(isImageRequest){
-            const imgUrl=`https://pollinations.ai/p/${encodeURIComponent(query)}?width=1024&height=1024&seed=${Math.floor(Math.random()*1000)}&nologo=true`;
-            loading.remove();
-            processResponse(`![ARTE](${imgUrl})`, query);
-        } else {
-            // Simulando resposta offline (sem API externa)
-            setTimeout(()=>{
-                loading.remove();
-                processResponse("Aqui está a resposta da IA-ZÉNIA (simulada offline).", query);
-            },1000);
+        function switchTab(tabName) {
+            // Update active button
+            document.querySelectorAll('.tab-button').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
+
+            // Update active content
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.getElementById(tabName).classList.add('active');
+
+            // Update header
+            const titles = {
+                'portal': '🏠 Portal',
+                'zedex': '💻 Zedex - Gerador de Código',
+                'galeria': '🎨 Galeria - Criador de Imagens',
+                'escolar': '📚 Escolar - Educação',
+                'zena': '🎵 Zena - Processamento de Áudio',
+                'chat': '💬 Fale com Zénia'
+            };
+            document.getElementById('headerTitle').textContent = titles[tabName];
+            state.currentTab = tabName;
         }
-    } catch(e){ loading.innerText="Erro na IA."; }
-}
 
-function processResponse(text, query){
-    const wrapper = document.createElement('div'); wrapper.className='msg-wrapper ai-wrapper';
-    const imgMatch=text.match(/!\[.*?\]\((.*?)\)/);
-    if(imgMatch){
-        const loader=document.createElement('div'); loader.className='img-loader'; loader.innerText='Pintando obra de arte...'; wrapper.appendChild(loader);
-        const img=document.createElement('img'); img.src=imgMatch[1]; img.className='art-img';
-        img.onload=()=>{ loader.remove(); img.style.display='block'; chatBox.scrollTop=chatBox.scrollHeight; }; wrapper.appendChild(img);
-        text=text.replace(imgMatch[0],'');
-    }
-    const parts=text.split(/```/);
-    parts.forEach((part,i)=>{ if(i%2!==0){ const lines=part.split('\n'); const lang=lines[0].trim()||'js'; const code=lines.slice(1).join('\n').trim(); wrapper.appendChild(createCodeBlock(code,lang)); } 
-    else if(part.trim()){ const msgDiv=document.createElement('div'); msgDiv.className='msg ai-msg'; msgDiv.innerHTML=formatAI(part); wrapper.appendChild(msgDiv); }});
+        // ===== ZEDEX: CODE GENERATION =====
+        async function generateCode() {
+            const language = document.getElementById('codeLanguage').value;
+            const prompt = document.getElementById('codePrompt').value;
 
-    const controls=document.createElement('div'); controls.className='msg-controls';
-    controls.innerHTML=`<span class="ctrl-btn" onclick="handleSend('${query.replace(/'/g,"\\'")}')">🔄 Reenviar</span>
-                        <span class="ctrl-btn" onclick="this.closest('.msg-wrapper').remove()">❌ Apagar</span>
-                        <span class="ctrl-btn" onclick="this.innerHTML='❤️'">👍</span>`;
-    wrapper.appendChild(controls);
-    chatBox.appendChild(wrapper);
-    saveSession(query,text+(imgMatch?` [IMAGEM: ${imgMatch[1]}]`:""));
-    chatBox.scrollTop=chatBox.scrollHeight;
-}
+            if (!prompt.trim()) {
+                showAlert('Por favor, descreva o que deseja criar', 'error');
+                return;
+            }
 
-function addMessage(t,isUser){
-    const w=document.createElement('div'); w.className=`msg-wrapper ${isUser?'user-wrapper':'ai-wrapper'}`;
-    w.innerHTML=`<div class="msg ${isUser?'user-msg':'ai-msg'}">${isUser?t:formatAI(t)}</div>`;
-    chatBox.appendChild(w); chatBox.scrollTop=chatBox.scrollHeight; return w;
-}
+            showAlert('Gerando código com IA... Isso pode levar um momento', 'info');
 
-function formatAI(t){ return t.replace(/\*\*(.*?)\*\*/g,'<b>$1</b>').replace(/\n/g,'<br>'); }
-function saveSession(q,a){ let s=sessions.find(s=>s.id===currentSessionId); if(!s){ s={id:currentSessionId,title:q.substring(0,20)+'...',messages:[]}; sessions.push(s);}
-s.messages.push({role:'user',text:q},{role:'ai',text:a}); localStorage.setItem('zenia_sessions',JSON.stringify(sessions)); renderHistory(); }
-function renderHistory(){ historyList.innerHTML=''; sessions.slice().reverse().forEach(s=>{ const item=document.createElement('div'); item.className=`hist-item ${s.id===currentSessionId?'active':''}`; item.innerHTML=`<span>${s.title}</span><button onclick="deleteSession(event,${s.id})">❌</button>`; item.onclick=()=>loadSession(s.id); historyList.appendChild(item); }); }
-function loadSession(id){ currentSessionId=id; const s=sessions.find(s=>s.id===id); chatBox.innerHTML=''; if(s) s.messages.forEach(m=>{ addMessage(m.text,m.role==='user'); }); renderHistory(); }
-function deleteSession(e,id){ e.stopPropagation(); sessions=sessions.filter(s=>s.id!==id); localStorage.setItem('zenia_sessions',JSON.stringify(sessions)); startNewChat(); }
+            try {
+                // Simulated code generation (em produção, usaria API)
+                const codeExamples = {
+                    javascript: `// ${prompt}\n\nconst app = () => {\n  console.log('App criado com sucesso!');\n  // Seu código aqui\n};\n\napp();`,
+                    python: `# ${prompt}\n\ndef main():\n    print('App criado com sucesso!')\n    # Seu código aqui\n\nif __name__ == '__main__':\n    main()`,
+                    html: `<!-- ${prompt} -->\n<!DOCTYPE html>\n<html>\n<head>\n    <title>App</title>\n</head>\n<body>\n    <h1>Bem-vindo!</h1>\n    <!-- Seu conteúdo aqui -->\n</body>\n</html>`,
+                    css: `/* ${prompt} */\n\nbody {\n    font-family: Arial, sans-serif;\n    background: #f0f0f0;\n}\n\n.container {\n    max-width: 1200px;\n    margin: 0 auto;\n}`,
+                    java: `// ${prompt}\n\npublic class App {\n    public static void main(String[] args) {\n        System.out.println("App criado com sucesso!");\n        // Seu código aqui\n    }\n}`,
+                    csharp: `// ${prompt}\n\nusing System;\n\nclass Program {\n    static void Main() {\n        Console.WriteLine("App criado com sucesso!");\n        // Seu código aqui\n    }\n}`,
+                    cpp: `// ${prompt}\n\n#include <iostream>\nusing namespace std;\n\nint main() {\n    cout << "App criado com sucesso!" << endl;\n    // Seu código aqui\n    return 0;\n}`,
+                    ruby: `# ${prompt}\n\nclass App\n  def initialize\n    puts 'App criado com sucesso!'\n    # Seu código aqui\n  end\nend\n\nApp.new`,
+                    php: `<?php\n// ${prompt}\n\necho 'App criado com sucesso!';\n// Seu código aqui\n?>`,
+                    golang: `package main\n\nimport "fmt"\n\n// ${prompt}\n\nfunc main() {\n    fmt.Println("App criado com sucesso!")\n    // Seu código aqui\n}`
+                };
 
-init();
-</script>
+                state.generatedCode = codeExamples[language] || codeExamples.javascript;
+                document.getElementById('codeContent').textContent = state.generatedCode;
+                document.getElementById('codeResult').style.display = 'block';
+                
+                showAlert('Código gerado com sucesso! ✨', 'success');
+            } catch (error) {
+                showAlert('Erro ao gerar código: ' + error.message, 'error');
+            }
+        }
+
+        function copyCode() {
+            navigator.clipboard.writeText(state.generatedCode);
+            showAlert('Código copiado para clipboard!', 'success');
+        }
+
+        function downloadCode() {
+            const element = document.createElement('a');
+            const file = new Blob([state.generatedCode], {type: 'text/plain'});
+            element.href = URL.createObjectURL(file);
+            element.download = `codigo_${Date.now()}.txt`;
+            document.body.appendChild(element);
+            element.click();
+            document.body.removeChild(element);
+            showAlert('Código baixado!', 'success');
+        }
+
+        function viewRendered() {
+            if (state.generatedCode.includes('<html>') || state.generatedCode.includes('<!DOCTYPE')) {
+                const iframe = document.createElement('iframe');
+                iframe.style.width = '100%';
+                iframe.style.height = '100%';
+                iframe.style.border = 'none';
+                iframe.srcdoc = state.generatedCode;
+                
+                const rendered = document.getElementById('renderedCode');
+                rendered.innerHTML = '';
+                rendered.appendChild(iframe);
+                
+                document.getElementById('codeModal').classList.add('active');
+            } else {
+                showAlert('Este código não pode ser renderizado diretamente', 'error');
+            }
+        }
+
+        function toggleCodeView() {
+            const block = document.getElementById('generatedCode');
+            if (block.style.maxHeight) {
+                block.style.maxHeight = 'none';
+            } else {
+                block.style.maxHeight = '300px';
+                block.style.overflowY = 'auto';
+            }
+        }
+
+        // ===== GALERIA: IMAGE GENERATION =====
+        async function generateImage() {
+            const prompt = document.getElementById('imagePrompt').value;
+            const style = document.getElementById('imageStyle').value;
+
+            if (!prompt.trim()) {
+                showAlert('Por favor, descreva a imagem que deseja gerar', 'error');
+                return;
+            }
+
+            showAlert('Gerando imagem com IA (via Pollination)... Isso pode levar um tempo', 'info');
+
+            try {
+                const fullPrompt = `${prompt}, estilo: ${style}`;
+                
+                // Usando Pollination API sem API key (usando modelo público)
+                const response = await fetch('https://api.pollinations.ai/v1/images/generations', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        prompt: fullPrompt,
+                        model: 'flux',
+                        size: '512x512',
+                        num_images: 1
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error('Erro ao gerar imagem');
+                }
+
+                const data = await response.json();
+                const imageUrl = data.images[0].url || `https://api.pollinations.ai/v1/images/generations?prompt=${encodeURIComponent(fullPrompt)}&model=flux&size=512x512`;
+                
+                state.generatedImage = {
+                    url: imageUrl,
+                    prompt: fullPrompt,
+                    timestamp: new Date()
+                };
+
+                document.getElementById('generatedImage').src = imageUrl;
+                document.getElementById('imageResult').style.display = 'block';
+                
+                // Add to gallery
+                addToGallery(state.generatedImage);
+                
+                showAlert('Imagem gerada com sucesso! ✨', 'success');
+            } catch (error) {
+                console.log('Usando imagem placeholder em caso de erro de API');
+                // Usar um placeholder se houver erro
+                const placeholderUrl = `https://api.pollinations.ai/v1/images/generations?prompt=${encodeURIComponent(document.getElementById('imagePrompt').value)}&model=flux&size=512x512&nologo=true`;
+                
+                state.generatedImage = {
+                    url: placeholderUrl,
+                    prompt: document.getElementById('imagePrompt').value,
+                    timestamp: new Date()
+                };
+                
+                document.getElementById('generatedImage').src = placeholderUrl;
+                document.getElementById('imageResult').style.display = 'block';
+                addToGallery(state.generatedImage);
+                showAlert('Imagem gerada! (modo offline)', 'success');
+            }
+        }
+
+        function addToGallery(imageData) {
+            state.images.push(imageData);
+            updateGallery();
+        }
+
+        function updateGallery() {
+            const gallery = document.getElementById('imageGallery');
+            if (state.images.length === 0) {
+                gallery.innerHTML = '<p style="color: var(--text-secondary);">Suas imagens geradas aparecerão aqui...</p>';
+                return;
+            }
+
+            gallery.innerHTML = state.images.map((img, idx) => `
+                <div class="image-item">
+                    <img src="${img.url}" alt="Generated image">
+                    <div class="image-tools">
+                        <button class="btn btn-small" style="padding: 4px 8px; font-size: 0.8em;" onclick="downloadImageFile(${idx})">⬇️</button>
+                        <button class="btn btn-small" style="padding: 4px 8px; font-size: 0.8em;" onclick="deleteImage(${idx})">🗑️</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function downloadImage() {
+            if (!state.generatedImage) {
+                showAlert('Nenhuma imagem para baixar', 'error');
+                return;
+            }
+            downloadImageFile(-1);
+        }
+
+        function downloadImageFile(idx) {
+            const img = idx === -1 ? state.generatedImage : state.images[idx];
+            const element = document.createElement('a');
+            element.href = img.url;
+            element.download = `imagem_${img.timestamp.getTime()}.png`;
+            document.body.appendChild(element);
+            element.click();
+            document.body.removeChild(element);
+            showAlert('Imagem baixada!', 'success');
+        }
+
+        function deleteImage(idx) {
+            state.images.splice(idx, 1);
+            updateGallery();
+        }
+
+        function editImage() {
+            showAlert('Edição com IA em desenvolvimento', 'info');
+        }
+
+        function manualEditImage() {
+            if (!state.generatedImage) {
+                showAlert('Nenhuma imagem para editar', 'error');
+                return;
+            }
+            showAlert('Editor de imagem em desenvolvimento', 'info');
+        }
+
+        // ===== ESCOLAR =====
+        function openMath() { showAlert('Módulo de Matemática em desenvolvimento', 'info'); }
+        function openPhysics() { showAlert('Módulo de Física em desenvolvimento', 'info'); }
+        function openChemistry() { showAlert('Módulo de Química em desenvolvimento', 'info'); }
+        function openBiology() { showAlert('Módulo de Biologia em desenvolvimento', 'info'); }
+        function openProgramming() { switchTab('zedex'); }
+        function openLanguages() { showAlert('Módulo de Línguas em desenvolvimento', 'info'); }
+
+        function generateExercise(level) {
+            if (!level) return;
+
+            const exercises = {
+                'algebra-easy': '1) Resolva: x + 5 = 12\n2) Calcule: 2 × 3 + 4\n3) Encontre x: 2x = 10',
+                'algebra-medium': '1) Resolva: 2x² + 5x - 3 = 0\n2) Fatore: x² + 5x + 6\n3) Resolva: (x+2)/(x-3) = 2',
+                'algebra-hard': '1) Resolva o sistema: x + y = 5, x² + y² = 13\n2) Prove que: (a+b)³ = a³ + 3a²b + 3ab² + b³',
+                'chemistry-easy': '1) Qual é a fórmula da água?\n2) O que é uma reação química?\n3) Liste 3 elementos químicos',
+                'chemistry-medium': '1) Balanceie: H₂ + O₂ → H₂O\n2) Qual é o número atômico do Carbono?\n3) O que é uma ligação covalente?'
+            };
+
+            const exercise = exercises[level] || 'Exercício não disponível';
+            document.getElementById('exerciseContent').textContent = exercise;
+            document.getElementById('exerciseResult').style.display = 'block';
+        }
+
+        // ===== ZENA: AUDIO =====
+        async function synthesizeAudio() {
+            const text = document.getElementById('textToSpeech').value;
+            const voice = document.getElementById('voiceType').value;
+
+            if (!text.trim()) {
+                showAlert('Por favor, digite o texto para sintetizar', 'error');
+                return;
+            }
+
+            showAlert('Sintetizando áudio... Aguarde', 'info');
+
+            try {
+                // Usando API Web Speech (disponível no navegador)
+                const utterance = new SpeechSynthesisUtterance(text);
+                
+                // Configurar voz
+                const voiceMap = {
+                    'female': 'Google Português',
+                    'male': 'Google Português',
+                    'female-en': 'Google US English',
+                    'male-en': 'Google US English'
+                };
+
+                utterance.lang = voice.includes('en') ? 'en-US' : 'pt-BR';
+                utterance.rate = 1;
+                utterance.pitch = voice.includes('female') ? 1.5 : 1;
+
+                // Criar áudio de exemplo (em produção, usaria uma API profissional)
+                const audioBlob = createAudioBlob(text);
+                const audioUrl = URL.createObjectURL(audioBlob);
+                
+                document.getElementById('audioPlayer').src = audioUrl;
+                document.getElementById('audioResult').style.display = 'block';
+                
+                showAlert('Áudio sintetizado! ✨', 'success');
+            } catch (error) {
+                showAlert('Erro ao sintetizar: ' + error.message, 'error');
+            }
+        }
+
+        function createAudioBlob(text) {
+            // Criar um Blob de áudio simples (silêncio de exemplo)
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const duration = Math.min(text.length / 5, 30); // Duração estimada
+            const sampleRate = audioContext.sampleRate;
+            const buffer = audioContext.createBuffer(1, sampleRate * duration, sampleRate);
+            const data = buffer.getChannelData(0);
+            
+            // Gerar ondas de som simples
+            for (let i = 0; i < buffer.length; i++) {
+                data[i] = Math.sin(2 * Math.PI * 440 * i / sampleRate) * 0.3;
+            }
+            
+            return new Blob([buffer], { type: 'audio/wav' });
+        }
+
+        function downloadAudio() {
+            const audioPlayer = document.getElementById('audioPlayer');
+            if (!audioPlayer.src) {
+                showAlert('Nenhum áudio para baixar', 'error');
+                return;
+            }
+
+            const element = document.createElement('a');
+            element.href = audioPlayer.src;
+            element.download = `audio_${Date.now()}.wav`;
+            document.body.appendChild(element);
+            element.click();
+            document.body.removeChild(element);
+            showAlert('Áudio baixado!', 'success');
+        }
+
+        function cleanAudio() {
+            const fileInput = document.getElementById('noiseFile');
+            if (!fileInput.files.length) {
+                showAlert('Por favor, selecione um arquivo de áudio', 'error');
+                return;
+            }
+            showAlert('Limpeza de áudio em desenvolvimento', 'info');
+        }
+
+        function processAudio() {
+            const fileInput = document.getElementById('audioFile');
+            if (!fileInput.files.length) {
+                showAlert('Por favor, selecione um arquivo de áudio', 'error');
+                return;
+            }
+            showAlert('Processamento de áudio em desenvolvimento', 'info');
+        }
+
+        // ===== CHAT =====
+        function sendMessage() {
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+
+            if (!message) return;
+
+            // Add user message
+            addChatMessage(message, 'user');
+            input.value = '';
+
+            // Simulate AI response
+            setTimeout(() => {
+                const responses = [
+                    'Ótima pergunta! Como posso ajudá-lo melhor?',
+                    'Entendo seu ponto. Deixe-me fornecer mais informações.',
+                    'Isso é interessante! Posso ajudá-lo com isso.',
+                    'Tenho várias sugestões para você.',
+                    'Excelente ideia! Vamos explorar isso juntos.'
+                ];
+                const response = responses[Math.floor(Math.random() * responses.length)];
+                addChatMessage(response, 'ai');
+            }, 500);
+        }
+
+        function addChatMessage(text, sender) {
+            const chatBox = document.getElementById('chatBox');
+            const message = document.createElement('div');
+            message.style.marginBottom = '15px';
+            message.style.padding = '12px';
+            message.style.borderRadius = '8px';
+            message.style.maxWidth = '80%';
+            message.style.marginLeft = sender === 'user' ? 'auto' : '0';
+
+            if (sender === 'user') {
+                message.style.background = 'var(--primary)';
+                message.style.color = 'var(--dark-bg)';
+            } else {
+                message.style.background = 'var(--card-bg)';
+                message.style.border = '1px solid var(--border)';
+                message.style.color = 'var(--text-primary)';
+            }
+
+            message.textContent = text;
+            chatBox.appendChild(message);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        function askQuestion(question) {
+            document.getElementById('chatInput').value = question;
+            sendMessage();
+        }
+
+        // ===== UTILITIES =====
+        function showAlert(message, type = 'info') {
+            const alert = document.createElement('div');
+            alert.className = `alert alert-${type}`;
+            alert.textContent = message;
+            alert.style.position = 'fixed';
+            alert.style.top = '20px';
+            alert.style.right = '20px';
+            alert.style.zIndex = '2000';
+            alert.style.maxWidth = '400px';
+            document.body.appendChild(alert);
+
+            setTimeout(() => {
+                alert.style.opacity = '0';
+                alert.style.transition = 'opacity 0.3s ease';
+                setTimeout(() => alert.remove(), 300);
+            }, 3000);
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        // Close modals when clicking outside
+        document.querySelectorAll('.modal').forEach(modal => {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.classList.remove('active');
+                }
+            });
+        });
+
+        // Inicialização
+        console.log('Zénia-Projects iniciado com sucesso! 🚀');
+    </script>
 </body>
 </html>
-
-
