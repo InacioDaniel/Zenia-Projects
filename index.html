@@ -132,10 +132,16 @@
             margin-top: auto;
         }
 
+        .social-footer h4 {
+            color: var(--primary);
+            font-size: 0.9em;
+            margin-bottom: 12px;
+        }
+
         .social-links {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
             margin-bottom: 15px;
         }
 
@@ -160,8 +166,13 @@
             text-align: center;
             font-size: 0.75em;
             color: var(--text-secondary);
-            padding-top: 10px;
+            padding: 15px 0;
             border-top: 1px solid var(--border);
+            margin-top: 15px;
+        }
+
+        .made-in p {
+            margin: 3px 0;
         }
 
         /* ===== MAIN CONTENT ===== */
@@ -464,6 +475,20 @@
             margin-right: auto;
         }
 
+        .credit-badge {
+            background: rgba(255, 0, 110, 0.1);
+            border: 1px solid var(--secondary);
+            padding: 15px;
+            border-radius: 8px;
+            font-size: 0.9em;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .credit-badge strong {
+            color: var(--secondary);
+        }
+
         @media (max-width: 1024px) {
             .sidebar {
                 width: 220px;
@@ -543,14 +568,23 @@
             </div>
 
             <div class="social-footer">
-                <p style="color: var(--text-secondary); font-size: 0.85em; margin-bottom: 12px;">Siga</p>
+                <h4>🌐 Nossas IAs</h4>
+                <div class="social-links">
+                    <a href="https://ia-zenia.netlify.app" class="social-link" target="_blank">🤖 IA-Zénia (Padrão)</a>
+                    <a href="https://antonia-ia.netlify.app" class="social-link" target="_blank">👩 Antónia-IA (Casual)</a>
+                </div>
+
+                <h4 style="margin-top: 15px;">📱 Redes Sociais</h4>
                 <div class="social-links">
                     <a href="https://tiktok.com/@inacio.u.daniel" class="social-link" target="_blank">TikTok</a>
                     <a href="https://instagram.com/inacio.udaniel" class="social-link" target="_blank">Instagram</a>
                 </div>
+
                 <div class="made-in">
-                    <p>❤️ Lubango</p>
-                    <p>@inacio.u.daniel</p>
+                    <p><strong>Zénia-Projects</strong></p>
+                    <p>Desenvolvido em <strong>Lubango</strong></p>
+                    <p>Por <strong>@inacio.u.daniel</strong></p>
+                    <p style="margin-top: 8px; font-size: 0.7em; color: var(--text-secondary);">Powered by Pollinations.ai</p>
                 </div>
             </div>
         </aside>
@@ -566,21 +600,54 @@
                 <div id="portal" class="tab-content active">
                     <h1 class="section-title">🎯 Bem-vindo ao Zénia-Projects</h1>
                     
-                    <div class="card">
-                        <h3 style="color: var(--primary); margin-bottom: 15px;">Sobre Zénia-Projects</h3>
-                        <p style="line-height: 1.8; margin-bottom: 15px;">Plataforma integrada de IA desenvolvida em <span style="color: var(--primary); font-weight: 600;">Lubango</span> por <span style="color: var(--primary); font-weight: 600;">@inacio.u.daniel</span></p>
-                        <p style="line-height: 1.8;">Powered by <span style="color: var(--primary); font-weight: 600;">Pollinations.ai</span> - Geração de IA 100% gratuita</p>
+                    <div class="credit-badge">
+                        <strong>✨ Zénia-Projects</strong><br>
+                        Plataforma de IA criada com ❤️ em <strong>Lubango</strong><br>
+                        Desenvolvida por <strong>@inacio.u.daniel</strong>
                     </div>
 
-                    <h3 class="section-title">🔗 Plataformas Relacionadas</h3>
-                    <div class="grid">
-                        <div class="grid-item">
-                            <h4 style="color: var(--primary); margin-bottom: 10px;">🤖 IA-Zénia</h4>
-                            <a href="https://ia-zenia.netlify.app" target="_blank" class="btn btn-secondary btn-small">Acessar</a>
-                        </div>
-                        <div class="grid-item">
-                            <h4 style="color: var(--primary); margin-bottom: 10px;">🎙️ Antónia IA</h4>
-                            <a href="https://antonia-ia.netlify.app" target="_blank" class="btn btn-secondary btn-small">Acessar</a>
+                    <div class="card">
+                        <h3 style="color: var(--primary); margin-bottom: 15px;">📋 Sobre</h3>
+                        <p style="line-height: 1.8; margin-bottom: 15px;">Zénia-Projects é uma plataforma integrada que combina múltiplas ferramentas de IA em uma única aplicação limpa e moderna.</p>
+                        <p style="line-height: 1.8;">Acesse nossas outras plataformas:</p>
+                        <ul style="margin-top: 10px; margin-left: 20px; line-height: 2;">
+                            <li><strong>🤖 IA-Zénia</strong> - IA padrão, formal e profissional</li>
+                            <li><strong>👩 Antónia-IA</strong> - IA casual, amigável e descontraída</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <h3 style="color: var(--primary); margin-bottom: 15px;">🚀 Recursos</h3>
+                        <div class="grid">
+                            <div class="grid-item">
+                                <h4 style="color: var(--primary); margin-bottom: 10px;">💻 Zedex</h4>
+                                <p style="color: var(--text-secondary); font-size: 0.9em; margin-bottom: 10px;">Gerador de código em múltiplas linguagens</p>
+                                <button class="btn btn-secondary btn-small" onclick="switchTab('zedex')">Acessar</button>
+                            </div>
+
+                            <div class="grid-item">
+                                <h4 style="color: var(--primary); margin-bottom: 10px;">🎨 Galeria</h4>
+                                <p style="color: var(--text-secondary); font-size: 0.9em; margin-bottom: 10px;">Gerador de imagens com Pollinations</p>
+                                <button class="btn btn-secondary btn-small" onclick="switchTab('galeria')">Acessar</button>
+                            </div>
+
+                            <div class="grid-item">
+                                <h4 style="color: var(--primary); margin-bottom: 10px;">📚 Escolar</h4>
+                                <p style="color: var(--text-secondary); font-size: 0.9em; margin-bottom: 10px;">Ajuda educacional em várias disciplinas</p>
+                                <button class="btn btn-secondary btn-small" onclick="switchTab('escolar')">Acessar</button>
+                            </div>
+
+                            <div class="grid-item">
+                                <h4 style="color: var(--primary); margin-bottom: 10px;">🎵 Zena</h4>
+                                <p style="color: var(--text-secondary); font-size: 0.9em; margin-bottom: 10px;">Síntese de texto em voz</p>
+                                <button class="btn btn-secondary btn-small" onclick="switchTab('zena')">Acessar</button>
+                            </div>
+
+                            <div class="grid-item">
+                                <h4 style="color: var(--primary); margin-bottom: 10px;">💬 Chat</h4>
+                                <p style="color: var(--text-secondary); font-size: 0.9em; margin-bottom: 10px;">Conversa com Zénia-IA</p>
+                                <button class="btn btn-secondary btn-small" onclick="switchTab('chat')">Acessar</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -598,7 +665,7 @@
                                 <option value="html">HTML</option>
                                 <option value="java">Java</option>
                                 <option value="cpp">C++</option>
-                                <option value="sql">SQL</option>
+                                <option value="csharp">C#</option>
                             </select>
                         </div>
 
@@ -613,7 +680,7 @@
                     </div>
 
                     <div id="codeResult" style="display: none;">
-                        <h3 class="section-title">📝 Resultado</h3>
+                        <h3 class="section-title">📝 Código Gerado</h3>
                         <div class="code-block">
                             <button class="copy-btn" onclick="copyCode()">Copiar</button>
                             <code id="codeContent" style="white-space: pre-wrap; word-break: break-all;"></code>
@@ -632,7 +699,7 @@
                     <div class="card">
                         <div class="input-group">
                             <label for="imagePrompt">Descrição da Imagem</label>
-                            <textarea id="imagePrompt" placeholder="Descreva em detalhes..."></textarea>
+                            <textarea id="imagePrompt" placeholder="Descreva em detalhes o que quer gerar..."></textarea>
                         </div>
 
                         <button class="btn btn-primary" onclick="generateImage()">
@@ -651,39 +718,39 @@
                         </div>
                     </div>
 
-                    <h3 class="section-title">📸 Histórico</h3>
+                    <h3 class="section-title">📸 Histórico de Imagens</h3>
                     <div class="image-gallery" id="imageGallery">
-                        <p style="color: var(--text-secondary);">Suas imagens aparecerão aqui...</p>
+                        <p style="color: var(--text-secondary); grid-column: 1/-1;">Suas imagens aparecerão aqui...</p>
                     </div>
                 </div>
 
                 <!-- TAB: ESCOLAR -->
                 <div id="escolar" class="tab-content">
-                    <h1 class="section-title">📚 Escolar - Educação</h1>
+                    <h1 class="section-title">📚 Escolar - Educação e Exercícios</h1>
 
                     <div class="grid">
                         <div class="card">
                             <h4 style="color: var(--primary); margin-bottom: 10px;">🧮 Matemática</h4>
                             <textarea id="mathQ" placeholder="Sua pergunta..." style="min-height: 80px;"></textarea>
-                            <button class="btn btn-primary btn-small" style="margin-top: 10px;" onclick="askEducation('math')">Explicar</button>
+                            <button class="btn btn-primary btn-small" style="margin-top: 10px;" onclick="askEducation('mathQ', 'Matemática')">Explicar</button>
                         </div>
 
                         <div class="card">
                             <h4 style="color: var(--primary); margin-bottom: 10px;">🔬 Física</h4>
                             <textarea id="physicsQ" placeholder="Sua pergunta..." style="min-height: 80px;"></textarea>
-                            <button class="btn btn-primary btn-small" style="margin-top: 10px;" onclick="askEducation('physics')">Explicar</button>
+                            <button class="btn btn-primary btn-small" style="margin-top: 10px;" onclick="askEducation('physicsQ', 'Física')">Explicar</button>
                         </div>
 
                         <div class="card">
                             <h4 style="color: var(--primary); margin-bottom: 10px;">⚗️ Química</h4>
                             <textarea id="chemistryQ" placeholder="Sua pergunta..." style="min-height: 80px;"></textarea>
-                            <button class="btn btn-primary btn-small" style="margin-top: 10px;" onclick="askEducation('chemistry')">Explicar</button>
+                            <button class="btn btn-primary btn-small" style="margin-top: 10px;" onclick="askEducation('chemistryQ', 'Química')">Explicar</button>
                         </div>
 
                         <div class="card">
                             <h4 style="color: var(--primary); margin-bottom: 10px;">🌍 Biologia</h4>
                             <textarea id="biologyQ" placeholder="Sua pergunta..." style="min-height: 80px;"></textarea>
-                            <button class="btn btn-primary btn-small" style="margin-top: 10px;" onclick="askEducation('biology')">Explicar</button>
+                            <button class="btn btn-primary btn-small" style="margin-top: 10px;" onclick="askEducation('biologyQ', 'Biologia')">Explicar</button>
                         </div>
                     </div>
 
@@ -702,11 +769,11 @@
                     <div class="card">
                         <div class="input-group">
                             <label for="textToSpeech">Texto para Áudio</label>
-                            <textarea id="textToSpeech" placeholder="Digite o texto..."></textarea>
+                            <textarea id="textToSpeech" placeholder="Digite o texto que deseja converter em áudio..."></textarea>
                         </div>
 
                         <div class="input-group">
-                            <label for="voiceType">Voz</label>
+                            <label for="voiceType">Tipo de Voz</label>
                             <select id="voiceType">
                                 <option value="alloy">Alloy (Neutro)</option>
                                 <option value="echo">Echo (Profundo)</option>
@@ -723,7 +790,7 @@
 
                         <div id="audioResult" style="display: none; margin-top: 20px;">
                             <audio id="audioPlayer" controls style="width: 100%; margin-bottom: 15px;"></audio>
-                            <button class="btn btn-secondary btn-small" onclick="downloadAudio()">⬇️ Baixar</button>
+                            <button class="btn btn-secondary btn-small" onclick="downloadAudio()">⬇️ Baixar Áudio</button>
                         </div>
                     </div>
                 </div>
@@ -732,14 +799,14 @@
                 <div id="chat" class="tab-content">
                     <h1 class="section-title">💬 Fale com Zénia</h1>
 
-                    <div class="card" style="display: flex; flex-direction: column;">
+                    <div class="card" style="display: flex; flex-direction: column; height: auto; min-height: 500px;">
                         <div class="chat-box" id="chatBox">
                             <div class="chat-message chat-ai">
-                                <strong>Zénia:</strong> Olá! Como posso ajudá-lo? 👋
+                                <strong>Zénia:</strong> Olá! Bem-vindo ao Zénia-Projects! Como posso ajudá-lo hoje? 👋
                             </div>
                         </div>
 
-                        <div style="display: flex; gap: 10px;">
+                        <div style="display: flex; gap: 10px; margin-top: auto;">
                             <input type="text" id="chatInput" placeholder="Sua mensagem..." style="flex: 1;">
                             <button class="btn btn-primary" onclick="sendMessage()">
                                 <span id="chatLoding">➤</span> Enviar
@@ -757,33 +824,35 @@
             generatedCode: '',
             images: [],
             chatHistory: [
-                { role: 'system', content: 'Você é Zénia, um assistente IA amigável e útil. Responda em português. Criado em Lubango por @inacio.u.daniel' }
+                { role: 'system', content: 'Você é Zénia, assistente IA da plataforma Zénia-Projects. Criada em Lubango por @inacio.u.daniel. Responda em português, seja amigável, útil e criativa. Mencione quando apropriado que você faz parte de Zénia-Projects.' }
             ]
         };
 
         // ===== TAB NAVIGATION =====
         document.querySelectorAll('.tab-button').forEach(button => {
             button.addEventListener('click', () => {
-                const tabName = button.dataset.tab;
-                
-                document.querySelectorAll('.tab-button').forEach(b => b.classList.remove('active'));
-                button.classList.add('active');
-
-                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-                document.getElementById(tabName).classList.add('active');
-
-                const titles = {
-                    'portal': '🏠 Portal',
-                    'zedex': '💻 Zedex - Código',
-                    'galeria': '🎨 Galeria',
-                    'escolar': '📚 Escolar',
-                    'zena': '🎵 Zena',
-                    'chat': '💬 Chat'
-                };
-                document.getElementById('headerTitle').textContent = titles[tabName];
-                state.currentTab = tabName;
+                switchTab(button.dataset.tab);
             });
         });
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-button').forEach(b => b.classList.remove('active'));
+            document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
+
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.getElementById(tabName).classList.add('active');
+
+            const titles = {
+                'portal': '🏠 Portal - Zénia-Projects',
+                'zedex': '💻 Zedex - Gerador de Código',
+                'galeria': '🎨 Galeria - Gerador de Imagens',
+                'escolar': '📚 Escolar - Educação',
+                'zena': '🎵 Zena - Síntese de Voz',
+                'chat': '💬 Fale com Zénia'
+            };
+            document.getElementById('headerTitle').textContent = titles[tabName];
+            state.currentTab = tabName;
+        }
 
         // ===== ZEDEX =====
         async function generateCode() {
@@ -791,36 +860,23 @@
             const prompt = document.getElementById('codePrompt').value;
 
             if (!prompt.trim()) {
-                showAlert('Descreva o código', 'error');
+                showAlert('Descreva o que deseja criar', 'error');
                 return;
             }
 
             document.getElementById('codeLoding').innerHTML = '<span class="loading-spinner"></span>';
 
             try {
-                const response = await fetch('https://text.pollinations.ai/openai', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        model: 'openai',
-                        messages: [
-                            { role: 'system', content: `Gere código ${language} de alta qualidade. Apenas código, sem explicações.` },
-                            { role: 'user', content: prompt }
-                        ],
-                        temperature: 0.7,
-                        max_tokens: 2000
-                    })
-                });
-
-                if (!response.ok) throw new Error('Erro API');
+                const encodedPrompt = encodeURIComponent(`Crie código em ${language}: ${prompt}`);
+                const response = await fetch(`https://text.pollinations.ai/?prompt=${encodedPrompt}`);
                 
-                const data = await response.json();
-                state.generatedCode = data.choices[0].message.content;
-                document.getElementById('codeContent').textContent = state.generatedCode;
+                const text = await response.text();
+                state.generatedCode = text;
+                document.getElementById('codeContent').textContent = text;
                 document.getElementById('codeResult').style.display = 'block';
-                showAlert('Código gerado! ✨', 'success');
+                showAlert('Código gerado com sucesso! ✨', 'success');
             } catch (error) {
-                showAlert('Erro: ' + error.message, 'error');
+                showAlert('Erro ao gerar: ' + error.message, 'error');
             } finally {
                 document.getElementById('codeLoding').innerHTML = '✨';
             }
@@ -828,7 +884,7 @@
 
         function copyCode() {
             navigator.clipboard.writeText(state.generatedCode);
-            showAlert('Copiado!', 'success');
+            showAlert('Código copiado para clipboard!', 'success');
         }
 
         function downloadCode() {
@@ -838,7 +894,7 @@
             document.body.appendChild(element);
             element.click();
             document.body.removeChild(element);
-            showAlert('Baixado!', 'success');
+            showAlert('Código baixado!', 'success');
         }
 
         // ===== GALERIA =====
@@ -846,7 +902,7 @@
             const prompt = document.getElementById('imagePrompt').value;
 
             if (!prompt.trim()) {
-                showAlert('Descreva a imagem', 'error');
+                showAlert('Descreva a imagem que deseja gerar', 'error');
                 return;
             }
 
@@ -856,15 +912,22 @@
                 const encodedPrompt = encodeURIComponent(prompt);
                 const imageUrl = `https://image.pollinations.ai/prompt/${encodedPrompt}`;
                 
-                document.getElementById('generatedImage').src = imageUrl;
-                document.getElementById('imageResult').style.display = 'block';
-                
-                state.images.push({ url: imageUrl, prompt: prompt, time: new Date() });
-                updateGallery();
-                showAlert('Imagem gerada! ✨', 'success');
+                const img = new Image();
+                img.onload = () => {
+                    document.getElementById('generatedImage').src = imageUrl;
+                    document.getElementById('imageResult').style.display = 'block';
+                    state.images.push({ url: imageUrl, prompt: prompt, time: new Date() });
+                    updateGallery();
+                    showAlert('Imagem gerada com sucesso! ✨', 'success');
+                    document.getElementById('imageLoding').innerHTML = '✨';
+                };
+                img.onerror = () => {
+                    showAlert('Erro ao gerar imagem. Tente novamente.', 'error');
+                    document.getElementById('imageLoding').innerHTML = '✨';
+                };
+                img.src = imageUrl;
             } catch (error) {
                 showAlert('Erro: ' + error.message, 'error');
-            } finally {
                 document.getElementById('imageLoding').innerHTML = '✨';
             }
         }
@@ -872,13 +935,13 @@
         function updateGallery() {
             const gallery = document.getElementById('imageGallery');
             if (state.images.length === 0) {
-                gallery.innerHTML = '<p style="color: var(--text-secondary);">Suas imagens aparecerão aqui...</p>';
+                gallery.innerHTML = '<p style="color: var(--text-secondary); grid-column: 1/-1;">Suas imagens aparecerão aqui...</p>';
                 return;
             }
 
             gallery.innerHTML = state.images.map((img, idx) => `
                 <div class="image-item">
-                    <img src="${img.url}" alt="Generated" onerror="this.style.display='none'">
+                    <img src="${img.url}" alt="Generated" style="cursor: pointer;" onclick="downloadImageFile('${img.url}')">
                 </div>
             `).join('');
         }
@@ -886,21 +949,24 @@
         function downloadImage() {
             const img = document.getElementById('generatedImage');
             if (!img.src) {
-                showAlert('Nenhuma imagem', 'error');
+                showAlert('Nenhuma imagem para baixar', 'error');
                 return;
             }
+            downloadImageFile(img.src);
+        }
+
+        function downloadImageFile(url) {
             const element = document.createElement('a');
-            element.href = img.src;
-            element.download = `imagem_${Date.now()}.png`;
+            element.href = url;
+            element.download = `zenia-imagem-${Date.now()}.png`;
             document.body.appendChild(element);
             element.click();
             document.body.removeChild(element);
-            showAlert('Baixado!', 'success');
+            showAlert('Imagem baixada!', 'success');
         }
 
         // ===== ESCOLAR =====
-        async function askEducation(subject) {
-            const qId = { math: 'mathQ', physics: 'physicsQ', chemistry: 'chemistryQ', biology: 'biologyQ' }[subject];
+        async function askEducation(qId, subject) {
             const question = document.getElementById(qId).value;
 
             if (!question.trim()) {
@@ -909,22 +975,11 @@
             }
 
             try {
-                const response = await fetch('https://text.pollinations.ai/openai', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        model: 'openai',
-                        messages: [
-                            { role: 'system', content: `Você é professor de ${subject} em português. Explique de forma clara.` },
-                            { role: 'user', content: question }
-                        ],
-                        temperature: 0.7,
-                        max_tokens: 1500
-                    })
-                });
-
-                const data = await response.json();
-                document.getElementById('educationContent').textContent = data.choices[0].message.content;
+                const encodedPrompt = encodeURIComponent(`Como professor de ${subject}, explique: ${question}`);
+                const response = await fetch(`https://text.pollinations.ai/?prompt=${encodedPrompt}`);
+                const text = await response.text();
+                
+                document.getElementById('educationContent').textContent = text;
                 document.getElementById('educationResult').style.display = 'block';
             } catch (error) {
                 showAlert('Erro: ' + error.message, 'error');
@@ -937,7 +992,7 @@
             const voice = document.getElementById('voiceType').value;
 
             if (!text.trim()) {
-                showAlert('Digite um texto', 'error');
+                showAlert('Digite um texto para sintetizar', 'error');
                 return;
             }
 
@@ -945,11 +1000,11 @@
 
             try {
                 const encodedText = encodeURIComponent(text);
-                const audioUrl = `https://text.pollinations.ai/${encodedText}?model=openai-audio&voice=${voice}`;
+                const audioUrl = `https://text.pollinations.ai/${encodedText}?model=openai&voice=${voice}&stream=false`;
                 
                 document.getElementById('audioPlayer').src = audioUrl;
                 document.getElementById('audioResult').style.display = 'block';
-                showAlert('Áudio sintetizado! ✨', 'success');
+                showAlert('Áudio sintetizado com sucesso! ✨', 'success');
             } catch (error) {
                 showAlert('Erro: ' + error.message, 'error');
             } finally {
@@ -960,16 +1015,16 @@
         function downloadAudio() {
             const audio = document.getElementById('audioPlayer');
             if (!audio.src) {
-                showAlert('Nenhum áudio', 'error');
+                showAlert('Nenhum áudio para baixar', 'error');
                 return;
             }
             const element = document.createElement('a');
             element.href = audio.src;
-            element.download = `audio_${Date.now()}.mp3`;
+            element.download = `zenia-audio-${Date.now()}.mp3`;
             document.body.appendChild(element);
             element.click();
             document.body.removeChild(element);
-            showAlert('Baixado!', 'success');
+            showAlert('Áudio baixado!', 'success');
         }
 
         // ===== CHAT =====
@@ -986,20 +1041,10 @@
 
             try {
                 state.chatHistory.push({ role: 'user', content: message });
-
-                const response = await fetch('https://text.pollinations.ai/openai', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        model: 'openai',
-                        messages: state.chatHistory,
-                        temperature: 0.8,
-                        max_tokens: 1000
-                    })
-                });
-
-                const data = await response.json();
-                const aiResponse = data.choices[0].message.content;
+                
+                const encodedPrompt = encodeURIComponent(JSON.stringify(state.chatHistory.map(m => `${m.role}: ${m.content}`).join('\n')));
+                const response = await fetch(`https://text.pollinations.ai/?prompt=${encodedPrompt}`);
+                const aiResponse = await response.text();
                 
                 state.chatHistory.push({ role: 'assistant', content: aiResponse });
                 addChatMessage(aiResponse, 'ai');
@@ -1028,14 +1073,15 @@
             alert.style.top = '20px';
             alert.style.right = '20px';
             alert.style.zIndex = '2000';
+            alert.style.minWidth = '250px';
             document.body.appendChild(alert);
 
             setTimeout(() => {
                 alert.remove();
-            }, 3000);
+            }, 3500);
         }
 
-        console.log('🚀 Zénia-Projects com Pollinations API');
+        console.log('🚀 Zénia-Projects iniciado | © @inacio.u.daniel | Lubango');
     </script>
 </body>
 </html>
