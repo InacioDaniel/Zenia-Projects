@@ -796,25 +796,34 @@
             }
             document.getElementById('imageLoding').innerHTML = '<span class="loading-spinner"></span>';
             try {
-                const encodedPrompt = encodeURIComponent(prompt);
-                const imageUrl = `${API_BASE}/image/${encodedPrompt}?key=${API_KEY}`;
+                const response = await fetch(`${API_BASE}/v1/images/generations`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${API_KEY}`
+                    },
+                    body: JSON.stringify({
+                        prompt: prompt,
+                        model: 'flux',
+                        size: '512x512',
+                        num_images: 1
+                    })
+                });
                 
-                const img = new Image();
-                img.onload = () => {
+                const data = await response.json();
+                if (data.data && data.data[0]) {
+                    const imageUrl = data.data[0].url;
                     document.getElementById('generatedImage').src = imageUrl;
                     document.getElementById('imageResult').style.display = 'block';
                     state.images.push(imageUrl);
                     updateGallery();
-                    showAlert('Imagem gerada! ✨', 'success');
-                    document.getElementById('imageLoding').innerHTML = '✨';
-                };
-                img.onerror = () => {
-                    showAlert('Erro ao gerar imagem. Tente outra descrição.', 'error');
-                    document.getElementById('imageLoding').innerHTML = '✨';
-                };
-                img.src = imageUrl;
+                    showAlert('Imagem gerada com Flux! ✨', 'success');
+                } else {
+                    throw new Error('Erro ao processar resposta');
+                }
+                document.getElementById('imageLoding').innerHTML = '✨';
             } catch (error) {
-                showAlert('Erro: ' + error.message, 'error');
+                showAlert('Erro ao gerar imagem: ' + error.message, 'error');
                 document.getElementById('imageLoding').innerHTML = '✨';
             }
         }
@@ -859,22 +868,33 @@
 
         // ESCOLAR - TEACHER
         async function generateTeacherAvatar() {
-            showAlert('Gerando avatar da professora...', 'info');
+            showAlert('Gerando avatar da professora com Flux...', 'info');
+            document.querySelector('[data-tab="escolar"]').disabled = true;
             try {
-                const response = await fetch(`${API_BASE}/image/Professora de IA moderna, amigável, avatar profissional, fundo azul ciano?key=${API_KEY}`);
-                const url = `${API_BASE}/image/Professora%20de%20IA%20moderna%20amig%C3%A1vel%20avatar%20profissional%20fundo%20azul%20ciano?key=${API_KEY}`;
+                const response = await fetch(`${API_BASE}/v1/images/generations`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${API_KEY}`
+                    },
+                    body: JSON.stringify({
+                        prompt: 'Professora de IA moderna, amigável, avatar profissional, mulher jovem, fundo azul ciano, estilo digital',
+                        model: 'flux',
+                        size: '512x512',
+                        num_images: 1
+                    })
+                });
                 
-                const img = new Image();
-                img.onload = () => {
-                    document.getElementById('teacherAvatar').src = url;
-                    showAlert('Avatar gerado! 🎨', 'success');
-                };
-                img.onerror = () => {
-                    showAlert('Avatar gerado com sucesso!', 'success');
-                };
-                img.src = url;
+                const data = await response.json();
+                if (data.data && data.data[0]) {
+                    const avatarUrl = data.data[0].url;
+                    document.getElementById('teacherAvatar').src = avatarUrl;
+                    showAlert('Avatar gerado com sucesso! 🎨', 'success');
+                } else {
+                    throw new Error('Erro ao gerar avatar');
+                }
             } catch (error) {
-                showAlert('Avatar pronto!', 'success');
+                showAlert('Erro ao gerar avatar: ' + error.message, 'error');
             }
         }
 
@@ -991,11 +1011,61 @@
         }
 
         async function createVideo() {
-            showAlert('Criação de vídeo em desenvolvimento', 'info');
+            const prompt = document.getElementById('videoPrompt').value;
+            const duration = document.getElementById('videoDuration').value;
+            
+            if (!prompt.trim()) {
+                showAlert('Descreva o vídeo que deseja criar', 'error');
+                return;
+            }
+            
+            document.getElementById('videoLoding').innerHTML = '<span class="loading-spinner"></span>';
+            try {
+                showAlert('Gerando vídeo com Seedance Lite (pode levar alguns segundos)...', 'info');
+                
+                const response = await fetch(`${API_BASE}/v1/videos/generations`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${API_KEY}`
+                    },
+                    body: JSON.stringify({
+                        prompt: prompt,
+                        model: 'seedance',
+                        duration: parseInt(duration),
+                        size: '512x512'
+                    })
+                });
+                
+                const data = await response.json();
+                if (data.data && data.data[0]) {
+                    const videoUrl = data.data[0].url;
+                    document.getElementById('videoPlayer').src = videoUrl;
+                    document.getElementById('videoResult').style.display = 'block';
+                    showAlert('Vídeo gerado com sucesso! 🎬', 'success');
+                } else {
+                    throw new Error('Erro ao processar vídeo');
+                }
+                document.getElementById('videoLoding').innerHTML = '🎬';
+            } catch (error) {
+                showAlert('Erro ao gerar vídeo: ' + error.message, 'error');
+                document.getElementById('videoLoding').innerHTML = '🎬';
+            }
         }
 
         function downloadVideo() {
-            showAlert('Vídeo pronto para download!', 'info');
+            const video = document.getElementById('videoPlayer');
+            if (!video.src) {
+                showAlert('Nenhum vídeo para baixar', 'error');
+                return;
+            }
+            const element = document.createElement('a');
+            element.href = video.src;
+            element.download = `zenia-video-${Date.now()}.mp4`;
+            document.body.appendChild(element);
+            element.click();
+            document.body.removeChild(element);
+            showAlert('Vídeo baixado!', 'success');
         }
 
         // CHAT
