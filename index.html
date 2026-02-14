@@ -22,7 +22,6 @@
             --text-secondary: #a0aec0;
             --border: #1a2340;
             --success: #00ff88;
-            --warning: #ffb800;
             --error: #ff3333;
         }
 
@@ -37,10 +36,8 @@
         .container {
             display: flex;
             height: 100vh;
-            gap: 0;
         }
 
-        /* ===== SIDEBAR ===== */
         .sidebar {
             width: 280px;
             background: linear-gradient(180deg, var(--dark-bg) 0%, var(--darker-bg) 100%);
@@ -50,15 +47,6 @@
             overflow-y: auto;
             padding: 20px 0;
             box-shadow: 4px 0 15px rgba(0, 0, 0, 0.3);
-        }
-
-        .sidebar::-webkit-scrollbar {
-            width: 6px;
-        }
-
-        .sidebar::-webkit-scrollbar-thumb {
-            background: var(--primary);
-            border-radius: 3px;
         }
 
         .logo {
@@ -73,7 +61,6 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             font-weight: 800;
-            letter-spacing: -1px;
             margin-bottom: 5px;
         }
 
@@ -102,7 +89,6 @@
             font-weight: 500;
             transition: all 0.3s ease;
             border-left: 3px solid transparent;
-            position: relative;
             display: flex;
             align-items: center;
             gap: 12px;
@@ -118,64 +104,30 @@
             background: rgba(0, 212, 255, 0.15);
             color: var(--primary);
             border-left-color: var(--primary);
-            box-shadow: inset -4px 0 10px rgba(0, 212, 255, 0.1);
-        }
-
-        .tab-icon {
-            font-size: 1.3em;
-            min-width: 24px;
         }
 
         .social-footer {
             padding: 20px;
             border-top: 1px solid var(--border);
             margin-top: auto;
-        }
-
-        .social-footer h4 {
-            color: var(--primary);
-            font-size: 0.9em;
-            margin-bottom: 12px;
-        }
-
-        .social-links {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            margin-bottom: 15px;
+            font-size: 0.85em;
         }
 
         .social-link {
-            background: rgba(0, 212, 255, 0.1);
-            border: 1px solid var(--border);
-            padding: 10px;
-            border-radius: 8px;
-            text-decoration: none;
+            display: block;
             color: var(--primary);
-            font-size: 0.85em;
-            text-align: center;
+            text-decoration: none;
+            margin: 8px 0;
+            padding: 8px;
+            background: rgba(0, 212, 255, 0.1);
+            border-radius: 6px;
             transition: all 0.3s ease;
         }
 
         .social-link:hover {
             background: rgba(0, 212, 255, 0.2);
-            border-color: var(--primary);
         }
 
-        .made-in {
-            text-align: center;
-            font-size: 0.75em;
-            color: var(--text-secondary);
-            padding: 15px 0;
-            border-top: 1px solid var(--border);
-            margin-top: 15px;
-        }
-
-        .made-in p {
-            margin: 3px 0;
-        }
-
-        /* ===== MAIN CONTENT ===== */
         .content {
             flex: 1;
             display: flex;
@@ -187,9 +139,6 @@
             background: linear-gradient(90deg, var(--dark-bg) 0%, var(--darker-bg) 100%);
             border-bottom: 1px solid var(--border);
             padding: 20px 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
         }
 
         .header h2 {
@@ -204,42 +153,20 @@
             padding: 40px;
         }
 
-        .main-area::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        .main-area::-webkit-scrollbar-thumb {
-            background: var(--primary);
-            border-radius: 4px;
-        }
-
         .tab-content {
             display: none;
-            animation: fadeIn 0.3s ease-in-out;
         }
 
         .tab-content.active {
             display: block;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* ===== CARDS & GRID ===== */
         .card {
             background: var(--card-bg);
             border: 1px solid var(--border);
             border-radius: 12px;
             padding: 24px;
             margin-bottom: 20px;
-            transition: all 0.3s ease;
-        }
-
-        .card:hover {
-            border-color: var(--primary);
-            box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
         }
 
         .grid {
@@ -249,29 +176,12 @@
             margin-bottom: 20px;
         }
 
-        .grid-item {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 20px;
-            transition: all 0.3s ease;
-        }
-
-        .grid-item:hover {
-            border-color: var(--primary);
-            box-shadow: 0 0 20px rgba(0, 212, 255, 0.15);
-            transform: translateY(-5px);
-        }
-
-        /* ===== BUTTONS ===== */
         .btn {
             padding: 12px 24px;
             border: none;
             border-radius: 8px;
             cursor: pointer;
             font-weight: 600;
-            transition: all 0.3s ease;
-            font-size: 0.95em;
             display: inline-flex;
             align-items: center;
             gap: 8px;
@@ -280,12 +190,6 @@
         .btn-primary {
             background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
             color: var(--dark-bg);
-            border: none;
-        }
-
-        .btn-primary:hover {
-            box-shadow: 0 0 20px rgba(0, 212, 255, 0.4);
-            transform: translateY(-2px);
         }
 
         .btn-secondary {
@@ -294,57 +198,15 @@
             color: var(--primary);
         }
 
-        .btn-secondary:hover {
-            background: rgba(0, 212, 255, 0.1);
-        }
-
-        .btn-small {
-            padding: 8px 16px;
-            font-size: 0.85em;
-        }
-
-        /* ===== INPUTS & FORMS ===== */
-        .input-group {
-            margin-bottom: 20px;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-            color: var(--text-primary);
-            font-weight: 600;
-            font-size: 0.95em;
-        }
-
-        input[type="text"],
-        input[type="email"],
-        input[type="number"],
-        input[type="file"],
-        textarea,
-        select {
+        input, textarea, select {
             width: 100%;
             padding: 12px;
             background: var(--darker-bg);
             border: 1px solid var(--border);
             border-radius: 8px;
             color: var(--text-primary);
+            margin-bottom: 10px;
             font-family: inherit;
-            transition: all 0.3s ease;
-            font-size: 0.95em;
-        }
-
-        input[type="text"]:focus,
-        textarea:focus,
-        select:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 15px rgba(0, 212, 255, 0.2);
-        }
-
-        textarea {
-            resize: vertical;
-            min-height: 120px;
-            font-family: 'Courier New', monospace;
         }
 
         .section-title {
@@ -360,8 +222,7 @@
             border: 1px solid var(--border);
             border-radius: 8px;
             padding: 15px;
-            font-family: 'Courier New', monospace;
-            font-size: 0.85em;
+            font-family: monospace;
             overflow-x: auto;
             margin: 15px 0;
             position: relative;
@@ -380,7 +241,6 @@
             border-radius: 4px;
             cursor: pointer;
             font-size: 0.8em;
-            font-weight: 600;
             z-index: 10;
         }
 
@@ -391,7 +251,6 @@
         }
 
         .image-item {
-            position: relative;
             border-radius: 8px;
             overflow: hidden;
             border: 1px solid var(--border);
@@ -421,12 +280,6 @@
             background: rgba(255, 51, 51, 0.1);
             border-left-color: var(--error);
             color: var(--error);
-        }
-
-        .alert-info {
-            background: rgba(0, 212, 255, 0.1);
-            border-left-color: var(--primary);
-            color: var(--primary);
         }
 
         .loading-spinner {
@@ -472,68 +325,11 @@
             background: var(--card-bg);
             border: 1px solid var(--border);
             color: var(--text-primary);
-            margin-right: auto;
-        }
-
-        .credit-badge {
-            background: rgba(255, 0, 110, 0.1);
-            border: 1px solid var(--secondary);
-            padding: 15px;
-            border-radius: 8px;
-            font-size: 0.9em;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .credit-badge strong {
-            color: var(--secondary);
-        }
-
-        @media (max-width: 1024px) {
-            .sidebar {
-                width: 220px;
-            }
-            .main-area {
-                padding: 20px;
-            }
-            .header {
-                padding: 15px 20px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                flex-direction: column;
-            }
-            .sidebar {
-                width: 100%;
-                height: auto;
-                flex-direction: row;
-                overflow-x: auto;
-                overflow-y: hidden;
-                border-right: none;
-                border-bottom: 1px solid var(--border);
-            }
-            .logo {
-                padding: 0 20px;
-                border-bottom: none;
-                border-right: 1px solid var(--border);
-                min-width: 160px;
-            }
-            .tabs-container {
-                display: flex;
-                overflow-x: auto;
-                flex: 1;
-            }
-            .social-footer {
-                display: none;
-            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- SIDEBAR -->
         <aside class="sidebar">
             <div class="logo">
                 <h1>⚡ Zénia</h1>
@@ -541,277 +337,133 @@
             </div>
 
             <div class="tabs-container">
-                <button class="tab-button active" data-tab="portal">
-                    <span class="tab-icon">🏠</span>
-                    <span>Portal</span>
-                </button>
-                <button class="tab-button" data-tab="zedex">
-                    <span class="tab-icon">💻</span>
-                    <span>Zedex</span>
-                </button>
-                <button class="tab-button" data-tab="galeria">
-                    <span class="tab-icon">🎨</span>
-                    <span>Galeria</span>
-                </button>
-                <button class="tab-button" data-tab="escolar">
-                    <span class="tab-icon">📚</span>
-                    <span>Escolar</span>
-                </button>
-                <button class="tab-button" data-tab="zena">
-                    <span class="tab-icon">🎵</span>
-                    <span>Zena</span>
-                </button>
-                <button class="tab-button" data-tab="chat">
-                    <span class="tab-icon">💬</span>
-                    <span>Chat</span>
-                </button>
+                <button class="tab-button active" data-tab="portal">🏠 Portal</button>
+                <button class="tab-button" data-tab="zedex">💻 Zedex</button>
+                <button class="tab-button" data-tab="galeria">🎨 Galeria</button>
+                <button class="tab-button" data-tab="escolar">📚 Escolar</button>
+                <button class="tab-button" data-tab="zena">🎵 Zena</button>
+                <button class="tab-button" data-tab="chat">💬 Chat</button>
             </div>
 
             <div class="social-footer">
-                <h4>🌐 Nossas IAs</h4>
-                <div class="social-links">
-                    <a href="https://ia-zenia.netlify.app" class="social-link" target="_blank">🤖 IA-Zénia (Padrão)</a>
-                    <a href="https://antonia-ia.netlify.app" class="social-link" target="_blank">👩 Antónia-IA (Casual)</a>
-                </div>
-
-                <h4 style="margin-top: 15px;">📱 Redes Sociais</h4>
-                <div class="social-links">
-                    <a href="https://tiktok.com/@inacio.u.daniel" class="social-link" target="_blank">TikTok</a>
-                    <a href="https://instagram.com/inacio.udaniel" class="social-link" target="_blank">Instagram</a>
-                </div>
-
-                <div class="made-in">
-                    <p><strong>Zénia-Projects</strong></p>
-                    <p>Desenvolvido em <strong>Lubango</strong></p>
-                    <p>Por <strong>@inacio.u.daniel</strong></p>
-                    <p style="margin-top: 8px; font-size: 0.7em; color: var(--text-secondary);">Powered by Pollinations.ai</p>
-                </div>
+                <p><strong>Zénia-Projects</strong></p>
+                <p>Desenvolvido em Lubango</p>
+                <p>@inacio.u.daniel</p>
+                <a href="https://ia-zenia.netlify.app" class="social-link" target="_blank">🤖 IA-Zénia</a>
+                <a href="https://antonia-ia.netlify.app" class="social-link" target="_blank">👩 Antónia-IA</a>
+                <a href="https://tiktok.com/@inacio.u.daniel" class="social-link" target="_blank">TikTok</a>
+                <a href="https://instagram.com/inacio.udaniel" class="social-link" target="_blank">Instagram</a>
+                <p style="margin-top: 10px; font-size: 0.75em;">Powered by Pollinations.ai</p>
             </div>
         </aside>
 
-        <!-- MAIN CONTENT -->
         <div class="content">
             <header class="header">
                 <h2 id="headerTitle">Portal</h2>
             </header>
 
             <main class="main-area">
-                <!-- TAB: PORTAL -->
+                <!-- PORTAL -->
                 <div id="portal" class="tab-content active">
                     <h1 class="section-title">🎯 Bem-vindo ao Zénia-Projects</h1>
-                    
-                    <div class="credit-badge">
-                        <strong>✨ Zénia-Projects</strong><br>
-                        Plataforma de IA criada com ❤️ em <strong>Lubango</strong><br>
-                        Desenvolvida por <strong>@inacio.u.daniel</strong>
-                    </div>
-
                     <div class="card">
-                        <h3 style="color: var(--primary); margin-bottom: 15px;">📋 Sobre</h3>
-                        <p style="line-height: 1.8; margin-bottom: 15px;">Zénia-Projects é uma plataforma integrada que combina múltiplas ferramentas de IA em uma única aplicação limpa e moderna.</p>
-                        <p style="line-height: 1.8;">Acesse nossas outras plataformas:</p>
-                        <ul style="margin-top: 10px; margin-left: 20px; line-height: 2;">
-                            <li><strong>🤖 IA-Zénia</strong> - IA padrão, formal e profissional</li>
-                            <li><strong>👩 Antónia-IA</strong> - IA casual, amigável e descontraída</li>
-                        </ul>
-                    </div>
-
-                    <div class="card">
-                        <h3 style="color: var(--primary); margin-bottom: 15px;">🚀 Recursos</h3>
-                        <div class="grid">
-                            <div class="grid-item">
-                                <h4 style="color: var(--primary); margin-bottom: 10px;">💻 Zedex</h4>
-                                <p style="color: var(--text-secondary); font-size: 0.9em; margin-bottom: 10px;">Gerador de código em múltiplas linguagens</p>
-                                <button class="btn btn-secondary btn-small" onclick="switchTab('zedex')">Acessar</button>
-                            </div>
-
-                            <div class="grid-item">
-                                <h4 style="color: var(--primary); margin-bottom: 10px;">🎨 Galeria</h4>
-                                <p style="color: var(--text-secondary); font-size: 0.9em; margin-bottom: 10px;">Gerador de imagens com Pollinations</p>
-                                <button class="btn btn-secondary btn-small" onclick="switchTab('galeria')">Acessar</button>
-                            </div>
-
-                            <div class="grid-item">
-                                <h4 style="color: var(--primary); margin-bottom: 10px;">📚 Escolar</h4>
-                                <p style="color: var(--text-secondary); font-size: 0.9em; margin-bottom: 10px;">Ajuda educacional em várias disciplinas</p>
-                                <button class="btn btn-secondary btn-small" onclick="switchTab('escolar')">Acessar</button>
-                            </div>
-
-                            <div class="grid-item">
-                                <h4 style="color: var(--primary); margin-bottom: 10px;">🎵 Zena</h4>
-                                <p style="color: var(--text-secondary); font-size: 0.9em; margin-bottom: 10px;">Síntese de texto em voz</p>
-                                <button class="btn btn-secondary btn-small" onclick="switchTab('zena')">Acessar</button>
-                            </div>
-
-                            <div class="grid-item">
-                                <h4 style="color: var(--primary); margin-bottom: 10px;">💬 Chat</h4>
-                                <p style="color: var(--text-secondary); font-size: 0.9em; margin-bottom: 10px;">Conversa com Zénia-IA</p>
-                                <button class="btn btn-secondary btn-small" onclick="switchTab('chat')">Acessar</button>
-                            </div>
-                        </div>
+                        <p>Plataforma integrada de IA desenvolvida em <strong>Lubango</strong> por <strong>@inacio.u.daniel</strong></p>
                     </div>
                 </div>
 
-                <!-- TAB: ZEDEX -->
+                <!-- ZEDEX -->
                 <div id="zedex" class="tab-content">
                     <h1 class="section-title">💻 Zedex - Gerador de Código</h1>
-
                     <div class="card">
-                        <div class="input-group">
-                            <label for="codeLanguage">Linguagem</label>
-                            <select id="codeLanguage">
-                                <option value="python">Python</option>
-                                <option value="javascript">JavaScript</option>
-                                <option value="html">HTML</option>
-                                <option value="java">Java</option>
-                                <option value="cpp">C++</option>
-                                <option value="csharp">C#</option>
-                            </select>
-                        </div>
-
-                        <div class="input-group">
-                            <label for="codePrompt">O que quer criar?</label>
-                            <textarea id="codePrompt" placeholder="Ex: Uma calculadora que soma dois números..."></textarea>
-                        </div>
-
-                        <button class="btn btn-primary" onclick="generateCode()">
-                            <span id="codeLoding">✨</span> Gerar Código
-                        </button>
+                        <select id="codeLanguage">
+                            <option>Python</option>
+                            <option>JavaScript</option>
+                            <option>HTML</option>
+                            <option>Java</option>
+                            <option>C++</option>
+                        </select>
+                        <textarea id="codePrompt" placeholder="O que quer criar?"></textarea>
+                        <button class="btn btn-primary" onclick="generateCode()"><span id="codeLoding">✨</span> Gerar</button>
                     </div>
-
                     <div id="codeResult" style="display: none;">
-                        <h3 class="section-title">📝 Código Gerado</h3>
+                        <h3 class="section-title">Resultado</h3>
                         <div class="code-block">
                             <button class="copy-btn" onclick="copyCode()">Copiar</button>
-                            <code id="codeContent" style="white-space: pre-wrap; word-break: break-all;"></code>
+                            <code id="codeContent"></code>
                         </div>
-
-                        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-                            <button class="btn btn-secondary btn-small" onclick="downloadCode()">⬇️ Baixar</button>
-                        </div>
+                        <button class="btn btn-secondary" onclick="downloadCode()">⬇️ Baixar</button>
                     </div>
                 </div>
 
-                <!-- TAB: GALERIA -->
+                <!-- GALERIA -->
                 <div id="galeria" class="tab-content">
                     <h1 class="section-title">🎨 Galeria - Gerador de Imagens</h1>
-
                     <div class="card">
-                        <div class="input-group">
-                            <label for="imagePrompt">Descrição da Imagem</label>
-                            <textarea id="imagePrompt" placeholder="Descreva em detalhes o que quer gerar..."></textarea>
-                        </div>
-
-                        <button class="btn btn-primary" onclick="generateImage()">
-                            <span id="imageLoding">✨</span> Gerar Imagem
-                        </button>
+                        <textarea id="imagePrompt" placeholder="Descreva a imagem..."></textarea>
+                        <button class="btn btn-primary" onclick="generateImage()"><span id="imageLoding">✨</span> Gerar</button>
                     </div>
-
                     <div id="imageResult" style="display: none;">
-                        <h3 class="section-title">🖼️ Resultado</h3>
-                        <div style="text-align: center; margin-bottom: 20px;">
-                            <img id="generatedImage" src="" alt="Generated" style="max-width: 100%; max-height: 500px; border-radius: 12px; border: 1px solid var(--border);">
-                        </div>
-
-                        <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-                            <button class="btn btn-secondary btn-small" onclick="downloadImage()">⬇️ Baixar</button>
-                        </div>
+                        <h3 class="section-title">Resultado</h3>
+                        <img id="generatedImage" style="max-width: 100%; border-radius: 12px; margin-bottom: 20px;">
+                        <button class="btn btn-secondary" onclick="downloadImage()">⬇️ Baixar</button>
                     </div>
-
-                    <h3 class="section-title">📸 Histórico de Imagens</h3>
-                    <div class="image-gallery" id="imageGallery">
-                        <p style="color: var(--text-secondary); grid-column: 1/-1;">Suas imagens aparecerão aqui...</p>
-                    </div>
+                    <h3 class="section-title">Histórico</h3>
+                    <div class="image-gallery" id="imageGallery"></div>
                 </div>
 
-                <!-- TAB: ESCOLAR -->
+                <!-- ESCOLAR -->
                 <div id="escolar" class="tab-content">
-                    <h1 class="section-title">📚 Escolar - Educação e Exercícios</h1>
-
+                    <h1 class="section-title">📚 Escolar - Educação</h1>
                     <div class="grid">
                         <div class="card">
-                            <h4 style="color: var(--primary); margin-bottom: 10px;">🧮 Matemática</h4>
-                            <textarea id="mathQ" placeholder="Sua pergunta..." style="min-height: 80px;"></textarea>
-                            <button class="btn btn-primary btn-small" style="margin-top: 10px;" onclick="askEducation('mathQ', 'Matemática')">Explicar</button>
+                            <h4>🧮 Matemática</h4>
+                            <textarea id="mathQ" placeholder="Sua pergunta..."></textarea>
+                            <button class="btn btn-primary btn-small" onclick="askEducation('mathQ', 'Matemática')">Explicar</button>
                         </div>
-
                         <div class="card">
-                            <h4 style="color: var(--primary); margin-bottom: 10px;">🔬 Física</h4>
-                            <textarea id="physicsQ" placeholder="Sua pergunta..." style="min-height: 80px;"></textarea>
-                            <button class="btn btn-primary btn-small" style="margin-top: 10px;" onclick="askEducation('physicsQ', 'Física')">Explicar</button>
-                        </div>
-
-                        <div class="card">
-                            <h4 style="color: var(--primary); margin-bottom: 10px;">⚗️ Química</h4>
-                            <textarea id="chemistryQ" placeholder="Sua pergunta..." style="min-height: 80px;"></textarea>
-                            <button class="btn btn-primary btn-small" style="margin-top: 10px;" onclick="askEducation('chemistryQ', 'Química')">Explicar</button>
-                        </div>
-
-                        <div class="card">
-                            <h4 style="color: var(--primary); margin-bottom: 10px;">🌍 Biologia</h4>
-                            <textarea id="biologyQ" placeholder="Sua pergunta..." style="min-height: 80px;"></textarea>
-                            <button class="btn btn-primary btn-small" style="margin-top: 10px;" onclick="askEducation('biologyQ', 'Biologia')">Explicar</button>
+                            <h4>🔬 Física</h4>
+                            <textarea id="physicsQ" placeholder="Sua pergunta..."></textarea>
+                            <button class="btn btn-primary btn-small" onclick="askEducation('physicsQ', 'Física')">Explicar</button>
                         </div>
                     </div>
-
                     <div id="educationResult" style="display: none;">
-                        <h3 class="section-title">📖 Resposta</h3>
+                        <h3 class="section-title">Resposta</h3>
                         <div class="card">
-                            <p id="educationContent" style="line-height: 1.8; white-space: pre-wrap;"></p>
+                            <p id="educationContent"></p>
                         </div>
                     </div>
                 </div>
 
-                <!-- TAB: ZENA -->
+                <!-- ZENA -->
                 <div id="zena" class="tab-content">
                     <h1 class="section-title">🎵 Zena - Síntese de Voz</h1>
-
                     <div class="card">
-                        <div class="input-group">
-                            <label for="textToSpeech">Texto para Áudio</label>
-                            <textarea id="textToSpeech" placeholder="Digite o texto que deseja converter em áudio..."></textarea>
-                        </div>
-
-                        <div class="input-group">
-                            <label for="voiceType">Tipo de Voz</label>
-                            <select id="voiceType">
-                                <option value="alloy">Alloy (Neutro)</option>
-                                <option value="echo">Echo (Profundo)</option>
-                                <option value="fable">Fable (Narrativa)</option>
-                                <option value="onyx">Onyx (Profissional)</option>
-                                <option value="nova">Nova (Moderno)</option>
-                                <option value="shimmer">Shimmer (Suave)</option>
-                            </select>
-                        </div>
-
-                        <button class="btn btn-primary" onclick="synthesizeAudio()">
-                            <span id="audioLoding">🎙️</span> Sintetizar
-                        </button>
-
+                        <textarea id="textToSpeech" placeholder="Digite o texto..."></textarea>
+                        <select id="voiceType">
+                            <option value="alloy">Alloy</option>
+                            <option value="echo">Echo</option>
+                            <option value="fable">Fable</option>
+                            <option value="onyx">Onyx</option>
+                            <option value="nova">Nova</option>
+                            <option value="shimmer">Shimmer</option>
+                        </select>
+                        <button class="btn btn-primary" onclick="synthesizeAudio()"><span id="audioLoding">🎙️</span> Sintetizar</button>
                         <div id="audioResult" style="display: none; margin-top: 20px;">
                             <audio id="audioPlayer" controls style="width: 100%; margin-bottom: 15px;"></audio>
-                            <button class="btn btn-secondary btn-small" onclick="downloadAudio()">⬇️ Baixar Áudio</button>
+                            <button class="btn btn-secondary" onclick="downloadAudio()">⬇️ Baixar</button>
                         </div>
                     </div>
                 </div>
 
-                <!-- TAB: CHAT -->
+                <!-- CHAT -->
                 <div id="chat" class="tab-content">
                     <h1 class="section-title">💬 Fale com Zénia</h1>
-
-                    <div class="card" style="display: flex; flex-direction: column; height: auto; min-height: 500px;">
-                        <div class="chat-box" id="chatBox">
-                            <div class="chat-message chat-ai">
-                                <strong>Zénia:</strong> Olá! Bem-vindo ao Zénia-Projects! Como posso ajudá-lo hoje? 👋
-                            </div>
-                        </div>
-
-                        <div style="display: flex; gap: 10px; margin-top: auto;">
-                            <input type="text" id="chatInput" placeholder="Sua mensagem..." style="flex: 1;">
-                            <button class="btn btn-primary" onclick="sendMessage()">
-                                <span id="chatLoding">➤</span> Enviar
-                            </button>
-                        </div>
+                    <div class="chat-box" id="chatBox">
+                        <div class="chat-message chat-ai"><strong>Zénia:</strong> Olá! Como posso ajudá-lo? 👋</div>
+                    </div>
+                    <div style="display: flex; gap: 10px;">
+                        <input type="text" id="chatInput" placeholder="Sua mensagem...">
+                        <button class="btn btn-primary" onclick="sendMessage()"><span id="chatLoding">➤</span></button>
                     </div>
                 </div>
             </main>
@@ -820,57 +472,46 @@
 
     <script>
         const API_KEY = 'pk_urEpxcajGs5TF9Fs';
-        const API_BASE = 'https://enter.pollinations.ai';
+        const API_BASE = 'https://gen.pollinations.ai';
         
         const state = {
-            currentTab: 'portal',
             generatedCode: '',
             images: [],
             chatHistory: [
-                { role: 'system', content: 'Você é Zénia, assistente IA da plataforma Zénia-Projects. Criada em Lubango por @inacio.u.daniel. Responda em português, seja amigável, útil e criativa. Mencione quando apropriado que você faz parte de Zénia-Projects.' }
+                { role: 'system', content: 'Você é Zénia, assistente IA de Zénia-Projects. Criada em Lubango por @inacio.u.daniel. Responda em português.' }
             ]
         };
 
-        // ===== TAB NAVIGATION =====
-        document.querySelectorAll('.tab-button').forEach(button => {
-            button.addEventListener('click', () => {
-                switchTab(button.dataset.tab);
+        // Tab Navigation
+        document.querySelectorAll('.tab-button').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.tab-button').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                btn.classList.add('active');
+                document.getElementById(btn.dataset.tab).classList.add('active');
+                const titles = {
+                    'portal': '🏠 Portal',
+                    'zedex': '💻 Zedex',
+                    'galeria': '🎨 Galeria',
+                    'escolar': '📚 Escolar',
+                    'zena': '🎵 Zena',
+                    'chat': '💬 Chat'
+                };
+                document.getElementById('headerTitle').textContent = titles[btn.dataset.tab];
             });
         });
 
-        function switchTab(tabName) {
-            document.querySelectorAll('.tab-button').forEach(b => b.classList.remove('active'));
-            document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
-
-            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-            document.getElementById(tabName).classList.add('active');
-
-            const titles = {
-                'portal': '🏠 Portal - Zénia-Projects',
-                'zedex': '💻 Zedex - Gerador de Código',
-                'galeria': '🎨 Galeria - Gerador de Imagens',
-                'escolar': '📚 Escolar - Educação',
-                'zena': '🎵 Zena - Síntese de Voz',
-                'chat': '💬 Fale com Zénia'
-            };
-            document.getElementById('headerTitle').textContent = titles[tabName];
-            state.currentTab = tabName;
-        }
-
-        // ===== ZEDEX =====
+        // ZEDEX
         async function generateCode() {
             const language = document.getElementById('codeLanguage').value;
             const prompt = document.getElementById('codePrompt').value;
-
             if (!prompt.trim()) {
                 showAlert('Descreva o que deseja criar', 'error');
                 return;
             }
-
             document.getElementById('codeLoding').innerHTML = '<span class="loading-spinner"></span>';
-
             try {
-                const response = await fetch(`${API_BASE}/openai/v1/chat/completions`, {
+                const response = await fetch(`${API_BASE}/v1/chat/completions`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -879,25 +520,19 @@
                     body: JSON.stringify({
                         model: 'openai',
                         messages: [
-                            { role: 'system', content: `Você é um especialista em ${language}. Gere código limpo e funcional. Apenas código, sem explicações.` },
+                            { role: 'system', content: `Gere código ${language} limpo. Apenas código.` },
                             { role: 'user', content: prompt }
                         ],
-                        temperature: 0.7,
                         max_tokens: 2000
                     })
                 });
-
                 const data = await response.json();
-                if (data.choices && data.choices[0]) {
-                    state.generatedCode = data.choices[0].message.content;
-                    document.getElementById('codeContent').textContent = state.generatedCode;
-                    document.getElementById('codeResult').style.display = 'block';
-                    showAlert('Código gerado com sucesso! ✨', 'success');
-                } else {
-                    throw new Error('Resposta inválida da API');
-                }
+                state.generatedCode = data.choices[0].message.content;
+                document.getElementById('codeContent').textContent = state.generatedCode;
+                document.getElementById('codeResult').style.display = 'block';
+                showAlert('Código gerado! ✨', 'success');
             } catch (error) {
-                showAlert('Erro ao gerar: ' + error.message, 'error');
+                showAlert('Erro: ' + error.message, 'error');
             } finally {
                 document.getElementById('codeLoding').innerHTML = '✨';
             }
@@ -905,7 +540,7 @@
 
         function copyCode() {
             navigator.clipboard.writeText(state.generatedCode);
-            showAlert('Código copiado para clipboard!', 'success');
+            showAlert('Copiado!', 'success');
         }
 
         function downloadCode() {
@@ -915,63 +550,46 @@
             document.body.appendChild(element);
             element.click();
             document.body.removeChild(element);
-            showAlert('Código baixado!', 'success');
+            showAlert('Baixado!', 'success');
         }
 
-        // ===== GALERIA =====
+        // GALERIA
         async function generateImage() {
             const prompt = document.getElementById('imagePrompt').value;
-
             if (!prompt.trim()) {
-                showAlert('Descreva a imagem que deseja gerar', 'error');
+                showAlert('Descreva a imagem', 'error');
                 return;
             }
-
             document.getElementById('imageLoding').innerHTML = '<span class="loading-spinner"></span>';
-
             try {
-                const response = await fetch(`${API_BASE}/openai/v1/images/generations`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${API_KEY}`
-                    },
-                    body: JSON.stringify({
-                        prompt: prompt,
-                        model: 'flux',
-                        size: '512x512',
-                        num_images: 1
-                    })
-                });
-
-                const data = await response.json();
-                if (data.data && data.data[0]) {
-                    const imageUrl = data.data[0].url;
+                const encodedPrompt = encodeURIComponent(prompt);
+                const imageUrl = `${API_BASE}/image/${encodedPrompt}?key=${API_KEY}`;
+                
+                const img = new Image();
+                img.onload = () => {
                     document.getElementById('generatedImage').src = imageUrl;
                     document.getElementById('imageResult').style.display = 'block';
-                    state.images.push({ url: imageUrl, prompt: prompt, time: new Date() });
+                    state.images.push(imageUrl);
                     updateGallery();
-                    showAlert('Imagem gerada com sucesso! ✨', 'success');
-                } else {
-                    throw new Error('Erro ao gerar imagem');
-                }
+                    showAlert('Imagem gerada! ✨', 'success');
+                    document.getElementById('imageLoding').innerHTML = '✨';
+                };
+                img.onerror = () => {
+                    showAlert('Erro ao gerar imagem', 'error');
+                    document.getElementById('imageLoding').innerHTML = '✨';
+                };
+                img.src = imageUrl;
             } catch (error) {
                 showAlert('Erro: ' + error.message, 'error');
-            } finally {
                 document.getElementById('imageLoding').innerHTML = '✨';
             }
         }
 
         function updateGallery() {
             const gallery = document.getElementById('imageGallery');
-            if (state.images.length === 0) {
-                gallery.innerHTML = '<p style="color: var(--text-secondary); grid-column: 1/-1;">Suas imagens aparecerão aqui...</p>';
-                return;
-            }
-
-            gallery.innerHTML = state.images.map((img, idx) => `
+            gallery.innerHTML = state.images.map((url, idx) => `
                 <div class="image-item">
-                    <img src="${img.url}" alt="Generated" style="cursor: pointer;" onclick="downloadImageFile('${img.url}')">
+                    <img src="${url}" alt="Generated">
                 </div>
             `).join('');
         }
@@ -979,33 +597,27 @@
         function downloadImage() {
             const img = document.getElementById('generatedImage');
             if (!img.src) {
-                showAlert('Nenhuma imagem para baixar', 'error');
+                showAlert('Nenhuma imagem', 'error');
                 return;
             }
-            downloadImageFile(img.src);
-        }
-
-        function downloadImageFile(url) {
             const element = document.createElement('a');
-            element.href = url;
-            element.download = `zenia-imagem-${Date.now()}.png`;
+            element.href = img.src;
+            element.download = `imagem_${Date.now()}.png`;
             document.body.appendChild(element);
             element.click();
             document.body.removeChild(element);
-            showAlert('Imagem baixada!', 'success');
+            showAlert('Baixado!', 'success');
         }
 
-        // ===== ESCOLAR =====
+        // ESCOLAR
         async function askEducation(qId, subject) {
             const question = document.getElementById(qId).value;
-
             if (!question.trim()) {
                 showAlert('Faça uma pergunta', 'error');
                 return;
             }
-
             try {
-                const response = await fetch(`${API_BASE}/openai/v1/chat/completions`, {
+                const response = await fetch(`${API_BASE}/v1/chat/completions`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -1014,40 +626,31 @@
                     body: JSON.stringify({
                         model: 'openai',
                         messages: [
-                            { role: 'system', content: `Você é um professor especializado em ${subject}. Explique de forma clara e educativa em português. Use exemplos práticos.` },
+                            { role: 'system', content: `Professor de ${subject}. Explique claramente.` },
                             { role: 'user', content: question }
                         ],
-                        temperature: 0.7,
                         max_tokens: 1500
                     })
                 });
-
                 const data = await response.json();
-                if (data.choices && data.choices[0]) {
-                    document.getElementById('educationContent').textContent = data.choices[0].message.content;
-                    document.getElementById('educationResult').style.display = 'block';
-                } else {
-                    throw new Error('Erro na resposta');
-                }
+                document.getElementById('educationContent').textContent = data.choices[0].message.content;
+                document.getElementById('educationResult').style.display = 'block';
             } catch (error) {
                 showAlert('Erro: ' + error.message, 'error');
             }
         }
 
-        // ===== ZENA =====
+        // ZENA
         async function synthesizeAudio() {
             const text = document.getElementById('textToSpeech').value;
             const voice = document.getElementById('voiceType').value;
-
             if (!text.trim()) {
-                showAlert('Digite um texto para sintetizar', 'error');
+                showAlert('Digite um texto', 'error');
                 return;
             }
-
             document.getElementById('audioLoding').innerHTML = '<span class="loading-spinner"></span>';
-
             try {
-                const response = await fetch(`${API_BASE}/openai/v1/audio/speech`, {
+                const response = await fetch(`${API_BASE}/v1/audio/speech`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -1059,14 +662,12 @@
                         model: 'tts-1-hd'
                     })
                 });
-
                 if (!response.ok) throw new Error('Erro ao gerar áudio');
-                
                 const blob = await response.blob();
                 const audioUrl = URL.createObjectURL(blob);
                 document.getElementById('audioPlayer').src = audioUrl;
                 document.getElementById('audioResult').style.display = 'block';
-                showAlert('Áudio sintetizado com sucesso! ✨', 'success');
+                showAlert('Áudio gerado! ✨', 'success');
             } catch (error) {
                 showAlert('Erro: ' + error.message, 'error');
             } finally {
@@ -1077,34 +678,29 @@
         function downloadAudio() {
             const audio = document.getElementById('audioPlayer');
             if (!audio.src) {
-                showAlert('Nenhum áudio para baixar', 'error');
+                showAlert('Nenhum áudio', 'error');
                 return;
             }
             const element = document.createElement('a');
             element.href = audio.src;
-            element.download = `zenia-audio-${Date.now()}.mp3`;
+            element.download = `audio_${Date.now()}.mp3`;
             document.body.appendChild(element);
             element.click();
             document.body.removeChild(element);
-            showAlert('Áudio baixado!', 'success');
+            showAlert('Baixado!', 'success');
         }
 
-        // ===== CHAT =====
+        // CHAT
         async function sendMessage() {
             const input = document.getElementById('chatInput');
             const message = input.value.trim();
-
             if (!message) return;
-
             addChatMessage(message, 'user');
             input.value = '';
-
             document.getElementById('chatLoding').innerHTML = '<span class="loading-spinner"></span>';
-
             try {
                 state.chatHistory.push({ role: 'user', content: message });
-
-                const response = await fetch(`${API_BASE}/openai/v1/chat/completions`, {
+                const response = await fetch(`${API_BASE}/v1/chat/completions`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -1113,19 +709,13 @@
                     body: JSON.stringify({
                         model: 'openai',
                         messages: state.chatHistory,
-                        temperature: 0.8,
                         max_tokens: 1000
                     })
                 });
-
                 const data = await response.json();
-                if (data.choices && data.choices[0]) {
-                    const aiResponse = data.choices[0].message.content;
-                    state.chatHistory.push({ role: 'assistant', content: aiResponse });
-                    addChatMessage(aiResponse, 'ai');
-                } else {
-                    throw new Error('Erro na resposta da IA');
-                }
+                const aiResponse = data.choices[0].message.content;
+                state.chatHistory.push({ role: 'assistant', content: aiResponse });
+                addChatMessage(aiResponse, 'ai');
             } catch (error) {
                 showAlert('Erro: ' + error.message, 'error');
             } finally {
@@ -1142,7 +732,7 @@
             chatBox.scrollTop = chatBox.scrollHeight;
         }
 
-        // ===== UTILITIES =====
+        // Utilities
         function showAlert(message, type = 'info') {
             const alert = document.createElement('div');
             alert.className = `alert alert-${type}`;
@@ -1151,15 +741,11 @@
             alert.style.top = '20px';
             alert.style.right = '20px';
             alert.style.zIndex = '2000';
-            alert.style.minWidth = '250px';
             document.body.appendChild(alert);
-
-            setTimeout(() => {
-                alert.remove();
-            }, 3500);
+            setTimeout(() => alert.remove(), 3500);
         }
 
-        console.log('🚀 Zénia-Projects com Pollinations API | © @inacio.u.daniel | Lubango');
+        console.log('🚀 Zénia-Projects | © @inacio.u.daniel | Lubango');
     </script>
 </body>
 </html>
