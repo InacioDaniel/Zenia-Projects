@@ -2,11 +2,12 @@
 <html lang="pt-PT">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zénia-Projects | Plataforma de IA Integrada</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Zénia-Projects - MULTI-AI</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         
         :root {
             --primary: #00d4ff;
@@ -22,136 +23,57 @@
             --error: #ff3333;
         }
 
+        html, body { width: 100%; height: 100%; }
+        
         body {
-            font-family: 'Segoe UI', Tahoma, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: linear-gradient(135deg, var(--darker-bg) 0%, var(--dark-bg) 100%);
             color: var(--text-primary);
-            height: 100vh;
-            overflow: hidden;
+            overflow-x: hidden;
         }
 
         .container {
             display: flex;
+            flex-direction: column;
             height: 100vh;
-        }
-
-        .sidebar {
-            width: 280px;
-            background: linear-gradient(180deg, var(--dark-bg) 0%, var(--darker-bg) 100%);
-            border-right: 1px solid var(--border);
-            display: flex;
-            flex-direction: column;
-            overflow-y: auto;
-            padding: 20px 0;
-        }
-
-        .logo {
-            padding: 0 20px 30px;
-            text-align: center;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .logo h1 {
-            font-size: 2em;
-            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: 900;
-            margin-bottom: 5px;
-        }
-
-        .logo p {
-            font-size: 0.7em;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-            letter-spacing: 3px;
-        }
-
-        .tabs-container {
-            flex: 1;
-            overflow-y: auto;
-            padding: 20px 0;
-        }
-
-        .tab-button {
-            width: 100%;
-            padding: 14px 20px;
-            background: transparent;
-            border: none;
-            color: var(--text-secondary);
-            cursor: pointer;
-            text-align: left;
-            font-size: 0.9em;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            border-left: 3px solid transparent;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .tab-button:hover {
-            background: rgba(0, 212, 255, 0.1);
-            color: var(--primary);
-            border-left-color: var(--primary);
-        }
-
-        .tab-button.active {
-            background: rgba(0, 212, 255, 0.15);
-            color: var(--primary);
-            border-left-color: var(--primary);
-        }
-
-        .social-footer {
-            padding: 20px;
-            border-top: 1px solid var(--border);
-            margin-top: auto;
-            font-size: 0.8em;
-        }
-
-        .social-link {
-            display: block;
-            color: var(--primary);
-            text-decoration: none;
-            margin: 8px 0;
-            padding: 8px;
-            background: rgba(0, 212, 255, 0.1);
-            border-radius: 6px;
-            transition: all 0.3s ease;
-            text-align: center;
-        }
-
-        .social-link:hover {
-            background: rgba(0, 212, 255, 0.2);
-            transform: translateX(5px);
-        }
-
-        .content {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
+            max-height: 100vh;
         }
 
         .header {
             background: linear-gradient(90deg, var(--dark-bg) 0%, var(--darker-bg) 100%);
             border-bottom: 1px solid var(--border);
-            padding: 20px 40px;
+            padding: 12px 16px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            flex-shrink: 0;
+            z-index: 100;
         }
 
-        .header h2 {
-            font-size: 1.8em;
-            color: var(--primary);
-            font-weight: 700;
+        .header h1 {
+            font-size: 1.3em;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
         }
 
         .main-area {
             flex: 1;
             overflow-y: auto;
-            padding: 40px;
+            overflow-x: hidden;
+            padding: 12px;
+            -webkit-overflow-scrolling: touch;
+            max-height: calc(100vh - 60px);
+        }
+
+        .main-area::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .main-area::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 3px;
         }
 
         .tab-content {
@@ -160,45 +82,69 @@
 
         .tab-content.active {
             display: block;
-            animation: fadeIn 0.3s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
         }
 
         .card {
             background: var(--card-bg);
             border: 1px solid var(--border);
             border-radius: 12px;
-            padding: 24px;
-            margin-bottom: 20px;
-            transition: all 0.3s ease;
+            padding: 14px;
+            margin-bottom: 14px;
         }
 
-        .card:hover {
+        .section-title {
+            font-size: 1.2em;
+            color: var(--primary);
+            margin-bottom: 14px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 14px;
+            background: var(--darker-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-primary);
+            margin-bottom: 14px;
+            font-family: inherit;
+            font-size: 16px;
+            -webkit-appearance: none;
+            appearance: none;
+            min-height: 44px;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
             border-color: var(--primary);
-            box-shadow: 0 0 20px rgba(0, 212, 255, 0.15);
+            box-shadow: 0 0 10px rgba(0, 212, 255, 0.2);
         }
 
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-            margin-bottom: 20px;
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+            font-size: 14px;
         }
 
         .btn {
-            padding: 12px 24px;
+            width: 100%;
+            padding: 16px;
             border: none;
             border-radius: 8px;
             cursor: pointer;
             font-weight: 600;
-            display: inline-flex;
+            font-size: 16px;
+            display: flex;
             align-items: center;
+            justify-content: center;
             gap: 8px;
             transition: all 0.3s ease;
+            -webkit-appearance: none;
+            appearance: none;
+            margin-bottom: 12px;
+            min-height: 48px;
+            touch-action: manipulation;
         }
 
         .btn-primary {
@@ -206,9 +152,8 @@
             color: var(--dark-bg);
         }
 
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(0, 212, 255, 0.3);
+        .btn-primary:active {
+            transform: scale(0.98);
         }
 
         .btn-secondary {
@@ -217,76 +162,22 @@
             color: var(--primary);
         }
 
-        .btn-secondary:hover {
+        .btn-secondary:active {
             background: rgba(0, 212, 255, 0.1);
         }
 
         .btn-small {
-            padding: 8px 16px;
-            font-size: 0.85em;
-        }
-
-        input, textarea, select {
-            width: 100%;
-            padding: 12px;
-            background: var(--darker-bg);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            color: var(--text-primary);
-            margin-bottom: 15px;
-            font-family: inherit;
-            font-size: 0.95em;
-        }
-
-        input:focus, textarea:focus, select:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 15px rgba(0, 212, 255, 0.2);
-        }
-
-        textarea {
-            min-height: 100px;
-            resize: vertical;
-        }
-
-        .section-title {
-            font-size: 1.5em;
-            color: var(--primary);
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid var(--border);
-        }
-
-        .code-block {
-            background: var(--darker-bg);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 15px;
-            font-family: monospace;
-            overflow-x: auto;
-            margin: 15px 0;
-            position: relative;
-        }
-
-        .copy-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            padding: 6px 12px;
-            background: var(--primary);
-            color: var(--dark-bg);
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 0.8em;
-            font-weight: 600;
+            padding: 10px;
+            font-size: 14px;
+            margin-bottom: 8px;
         }
 
         .alert {
-            padding: 15px;
+            padding: 12px;
             border-radius: 8px;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             border-left: 4px solid;
+            font-size: 14px;
             animation: slideIn 0.3s ease;
         }
 
@@ -331,25 +222,27 @@
             background: var(--darker-bg);
             border: 1px solid var(--border);
             border-radius: 8px;
-            padding: 15px;
-            height: 450px;
+            padding: 12px;
+            min-height: 250px;
+            max-height: 350px;
             overflow-y: auto;
-            margin-bottom: 20px;
+            margin-bottom: 12px;
+            -webkit-overflow-scrolling: touch;
+            flex-shrink: 0;
         }
 
         .chat-message {
-            margin-bottom: 15px;
-            padding: 12px 16px;
+            margin-bottom: 12px;
+            padding: 10px 12px;
             border-radius: 8px;
-            max-width: 85%;
+            font-size: 14px;
             word-wrap: break-word;
-            animation: slideIn 0.3s ease;
         }
 
         .chat-user {
             background: var(--primary);
             color: var(--dark-bg);
-            margin-left: auto;
+            margin-left: 20px;
             text-align: right;
         }
 
@@ -357,88 +250,38 @@
             background: var(--card-bg);
             border: 1px solid var(--border);
             color: var(--text-primary);
-            margin-right: auto;
-        }
-
-        .teacher-panel {
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 30px;
-            align-items: start;
+            margin-right: 20px;
         }
 
         .teacher-avatar {
             text-align: center;
+            margin-bottom: 16px;
         }
 
         .teacher-avatar img {
-            width: 200px;
-            height: 200px;
+            width: 150px;
+            height: 150px;
             border-radius: 50%;
             border: 3px solid var(--primary);
-            margin-bottom: 20px;
-        }
-
-        .teacher-avatar button {
-            width: 100%;
-        }
-
-        .teacher-chat {
-            display: flex;
-            flex-direction: column;
-            height: 500px;
-        }
-
-        .teacher-chat .chat-box {
-            flex: 1;
-        }
-
-        .teacher-input {
-            display: flex;
-            gap: 10px;
-        }
-
-        .teacher-input input {
-            flex: 1;
-            margin-bottom: 0;
-        }
-
-        .about-section {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-bottom: 20px;
-        }
-
-        .about-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 20px;
-            transition: all 0.3s ease;
-        }
-
-        .about-card:hover {
-            border-color: var(--primary);
-            box-shadow: 0 0 20px rgba(0, 212, 255, 0.1);
-        }
-
-        .about-card h3 {
-            color: var(--primary);
             margin-bottom: 12px;
-            font-size: 1.1em;
         }
 
-        .about-card p {
-            color: var(--text-secondary);
-            line-height: 1.6;
-            font-size: 0.95em;
+        .code-block {
+            background: var(--darker-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 12px;
+            font-family: monospace;
+            font-size: 12px;
+            overflow-x: auto;
+            margin: 12px 0;
+            word-break: break-all;
         }
 
         .gallery {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 15px;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 12px;
         }
 
         .gallery-item {
@@ -446,13 +289,6 @@
             overflow: hidden;
             border: 1px solid var(--border);
             aspect-ratio: 1;
-            position: relative;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-        }
-
-        .gallery-item:hover {
-            transform: scale(1.05);
         }
 
         .gallery-item img {
@@ -461,311 +297,444 @@
             object-fit: cover;
         }
 
-        .gallery-item .tools {
+        .tabs-nav {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            border-bottom: 1px solid var(--border);
+            padding: 0 8px;
+            margin-bottom: 16px;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .tabs-nav::-webkit-scrollbar {
+            height: 4px;
+        }
+
+        .tabs-nav::-webkit-scrollbar-thumb {
+            background: var(--primary);
+        }
+
+        .tab-btn {
+            padding: 8px 14px;
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 500;
+            white-space: nowrap;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s ease;
+            -webkit-appearance: none;
+        }
+
+        .tab-btn:active {
+            color: var(--primary);
+        }
+
+        .tab-btn.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        .about-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 12px;
+        }
+
+        .about-card h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-size: 1em;
+        }
+
+        .about-card p {
+            color: var(--text-secondary);
+            line-height: 1.5;
+            font-size: 14px;
+        }
+
+        .social-links {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 12px;
+        }
+
+        .social-link {
+            display: block;
+            padding: 14px;
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--primary);
+            text-decoration: none;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 500;
+            min-height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .social-link:active {
+            background: rgba(0, 212, 255, 0.2);
+        }
+
+        audio, video {
+            width: 100%;
+            margin: 12px 0;
+            border-radius: 8px;
+        }
+
+        .menu-btn {
+            background: none;
+            border: none;
+            color: var(--primary);
+            font-size: 24px;
+            cursor: pointer;
+            padding: 0 10px;
+        }
+
+        .drawer {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 85vw;
+            max-width: 300px;
+            height: 100vh;
+            background: linear-gradient(180deg, var(--dark-bg) 0%, var(--darker-bg) 100%);
+            border-right: 1px solid var(--border);
+            padding: 20px 0;
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+            z-index: 200;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .drawer.open {
+            transform: translateX(0);
+        }
+
+        .drawer-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 150;
+        }
+
+        .drawer-overlay.open {
+            display: block;
+        }
+
+        .drawer-header {
+            padding: 0 20px 20px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 20px;
+        }
+
+        .drawer-header h1 {
+            font-size: 1.6em;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+            margin-bottom: 5px;
+        }
+
+        .drawer-header p {
+            font-size: 0.75em;
+            color: var(--text-secondary);
+        }
+
+        .drawer-menu {
+            padding: 0;
+        }
+
+        .drawer-item {
+            width: 100%;
+            padding: 16px 20px;
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            text-align: left;
+            font-size: 15px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border-left: 3px solid transparent;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-height: 44px;
+            -webkit-appearance: none;
+        }
+
+        .drawer-item:active {
+            background: rgba(0, 212, 255, 0.1);
+            color: var(--primary);
+        }
+
+        .drawer-item.active {
+            background: rgba(0, 212, 255, 0.15);
+            color: var(--primary);
+            border-left-color: var(--primary);
+        }
+
+        .drawer-footer {
             position: absolute;
             bottom: 0;
             left: 0;
             right: 0;
-            background: rgba(0, 0, 0, 0.8);
-            padding: 10px;
-            display: none;
-            gap: 8px;
+            padding: 20px;
+            border-top: 1px solid var(--border);
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-secondary);
         }
 
-        .gallery-item:hover .tools {
-            display: flex;
+        .drawer-footer p {
+            margin: 5px 0;
         }
 
-        @media (max-width: 1024px) {
-            .sidebar { width: 220px; }
-            .main-area { padding: 20px; }
-            .teacher-panel { grid-template-columns: 1fr; }
-            .about-section { grid-template-columns: 1fr; }
-        }
-
-        @media (max-width: 768px) {
-            .container { flex-direction: column; }
-            .sidebar { width: 100%; height: auto; flex-direction: row; }
-            .main-area { padding: 15px; }
+        @media (min-width: 768px) {
+            .menu-btn { display: none; }
+            .drawer-overlay { display: none !important; }
+            .drawer { transform: translateX(0) !important; position: static; width: 280px; border-right: 1px solid var(--border); }
+            .container { flex-direction: row; }
+            .header { flex-direction: column; justify-content: flex-start; border-right: 1px solid var(--border); border-bottom: none; padding: 20px; height: 100%; }
+            .main-area { padding: 40px; max-height: 100vh; }
+            .tabs-nav { flex-direction: column; border-bottom: none; border-right: 1px solid var(--border); margin: 0; padding: 20px 0; }
+            .tab-btn { width: 100%; padding: 12px 20px; border-bottom: none; border-left: 3px solid transparent; }
+            .tab-btn.active { border-left-color: var(--primary); border-bottom: none; }
+            .card { padding: 20px; margin-bottom: 20px; }
+            .gallery { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px; }
         }
     </style>
 </head>
 <body>
+    <div class="drawer-overlay" id="drawerOverlay"></div>
+    <div class="drawer" id="drawer">
+        <div class="drawer-header">
+            <h1>⚡ Zénia</h1>
+            <p>Projects</p>
+        </div>
+        <div class="drawer-menu">
+            <button class="drawer-item active" data-tab="portal" onclick="switchTab('portal')">🏠 Portal</button>
+            <button class="drawer-item" data-tab="zedex" onclick="switchTab('zedex')">💻 Zedex</button>
+            <button class="drawer-item" data-tab="galeria" onclick="switchTab('galeria')">🎨 Galeria</button>
+            <button class="drawer-item" data-tab="escolar" onclick="switchTab('escolar')">👨‍🏫 Escolar</button>
+            <button class="drawer-item" data-tab="zena" onclick="switchTab('zena')">🎵 Zena</button>
+            <button class="drawer-item" data-tab="chat" onclick="switchTab('chat')">💬 Chat</button>
+        </div>
+        <div class="drawer-footer">
+            <p><strong>Zénia-Projects</strong></p>
+            <p>Lubango</p>
+            <p>@inacio.u.daniel</p>
+            <div class="social-links" style="margin-top: 15px;">
+                <a href="https://ia-zenia.netlify.app" class="social-link" target="_blank">🤖 IA-Zénia</a>
+                <a href="https://antonia-ia.netlify.app" class="social-link" target="_blank">👩 Antónia-IA</a>
+                <a href="https://tiktok.com/@inacio.u.daniel" class="social-link" target="_blank">TikTok</a>
+                <a href="https://instagram.com/inacio.udaniel" class="social-link" target="_blank">Instagram</a>
+            </div>
+        </div>
+    </div>
+
     <div class="container">
-        <aside class="sidebar">
-            <div class="logo">
-                <h1>⚡ Zénia</h1>
-                <p>Projects</p>
-            </div>
+        <header class="header">
+            <h1 id="pageTitle">🏠 Portal</h1>
+            <button class="menu-btn" id="menuBtn" onclick="toggleDrawer()">☰</button>
+        </header>
 
-            <div class="tabs-container">
-                <button class="tab-button active" data-tab="portal">🏠 Portal</button>
-                <button class="tab-button" data-tab="zedex">💻 Zedex</button>
-                <button class="tab-button" data-tab="galeria">🎨 Galeria</button>
-                <button class="tab-button" data-tab="escolar">👨‍🏫 Escolar</button>
-                <button class="tab-button" data-tab="zena">🎵 Zena</button>
-                <button class="tab-button" data-tab="chat">💬 Chat</button>
-            </div>
-
-            <div class="social-footer">
-                <p><strong>Zénia-Projects</strong></p>
-                <p>Desenvolvido em Lubango</p>
-                <p style="margin-bottom: 10px;">@inacio.u.daniel</p>
-                <a href="https://ia-zenia.netlify.app" class="social-link" target="_blank">🤖 IA-Zénia Principal</a>
-                <a href="https://antonia-ia.netlify.app" class="social-link" target="_blank">👩 Antónia-IA Casual</a>
-                <a href="https://tiktok.com/@inacio.u.daniel" class="social-link" target="_blank">TikTok @inacio.u.daniel</a>
-                <a href="https://instagram.com/inacio.udaniel" class="social-link" target="_blank">Instagram @inacio.udaniel</a>
-            </div>
-        </aside>
-
-        <div class="content">
-            <header class="header">
-                <h2 id="headerTitle">🏠 Portal</h2>
-            </header>
-
-            <main class="main-area">
-                <!-- PORTAL -->
-                <div id="portal" class="tab-content active">
-                    <h1 class="section-title">✨ Bem-vindo ao Zénia-Projects</h1>
-
-                    <div class="about-section">
-                        <div class="about-card">
-                            <h3>🎯 O que é Zénia-Projects?</h3>
-                            <p>Zénia-Projects é uma plataforma integrada de IA desenvolvida em Lubango que combina múltiplas ferramentas de inteligência artificial em uma única aplicação moderna e poderosa. Criada para potencializar criatividade, educação e desenvolvimento.</p>
-                        </div>
-
-                        <div class="about-card">
-                            <h3>👨‍💻 Quem é Inácio U. Daniel?</h3>
-                            <p>Desenvolvedor, criador de IA e inovador baseado em Lubango. Inácio criou todo o ecossistema Zénia com o objetivo de democratizar o acesso a ferramentas de IA avançadas de forma gratuita e acessível.</p>
-                        </div>
-
-                        <div class="about-card">
-                            <h3>🤖 Zénia - IA Principal</h3>
-                            <p>A IA-Zénia é a inteligência artificial principal do ecossistema. Formal, profissional e especializada em múltiplas tarefas. Acesse em ia-zenia.netlify.app</p>
-                        </div>
-
-                        <div class="about-card">
-                            <h3>👩 Antónia-IA - A Irmã</h3>
-                            <p>Antónia é a irmã casual e descontraída de Zénia. Uma IA mais amigável e com personalidade vibrante. Acesse em antonia-ia.netlify.app</p>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <h3 style="color: var(--primary); margin-bottom: 15px;">🚀 Funcionalidades Principais</h3>
-                        <ul style="margin-left: 20px; line-height: 2; color: var(--text-secondary);">
-                            <li><strong>💻 Zedex</strong> - Gerador de código em múltiplas linguagens</li>
-                            <li><strong>🎨 Galeria</strong> - Gerador de imagens, editor e remover ruído</li>
-                            <li><strong>👨‍🏫 Escolar</strong> - Teacher com voz, avatar e respostas inteligentes</li>
-                            <li><strong>🎵 Zena</strong> - Síntese de voz, edição de áudio e criação de vídeos</li>
-                            <li><strong>💬 Chat</strong> - Conversa com Zénia com busca na internet</li>
-                        </ul>
-                    </div>
+        <main class="main-area" id="mainArea">
+            <!-- PORTAL -->
+            <div id="portal" class="tab-content active">
+                <h2 class="section-title">✨ Zénia-Projects</h2>
+                <div class="about-card">
+                    <h3>🎯 O que é?</h3>
+                    <p>Plataforma de IA integrada desenvolvida em Lubango por @inacio.u.daniel. Cria imagens com Flux, vídeos com Seedance e muito mais!</p>
                 </div>
+                <div class="about-card">
+                    <h3>👨‍💻 Inácio U. Daniel</h3>
+                    <p>Desenvolvedor e criador do ecossistema Zénia. Democratizando acesso a ferramentas de IA avançadas.</p>
+                </div>
+                <div class="about-card">
+                    <h3>🤖 Zénia - IA Principal</h3>
+                    <p>Inteligência artificial formal e profissional. Acesse em ia-zenia.netlify.app</p>
+                </div>
+                <div class="about-card">
+                    <h3>👩 Antónia-IA - Irmã</h3>
+                    <p>IA casual e descontraída. Acesse em antonia-ia.netlify.app</p>
+                </div>
+            </div>
 
-                <!-- ZEDEX -->
-                <div id="zedex" class="tab-content">
-                    <h1 class="section-title">💻 Zedex - Gerador de Código</h1>
+            <!-- ZEDEX -->
+            <div id="zedex" class="tab-content">
+                <h2 class="section-title">💻 Zedex</h2>
+                <div class="card">
+                    <select id="codeLanguage">
+                        <option>Python</option>
+                        <option>JavaScript</option>
+                        <option>HTML</option>
+                        <option>Java</option>
+                        <option>C++</option>
+                    </select>
+                    <textarea id="codePrompt" placeholder="O que quer criar?"></textarea>
+                    <button class="btn btn-primary" onclick="generateCode()"><span id="codeLoding">✨</span> Gerar</button>
+                </div>
+                <div id="codeResult" style="display: none;">
                     <div class="card">
-                        <select id="codeLanguage">
-                            <option>Python</option>
-                            <option>JavaScript</option>
-                            <option>HTML</option>
-                            <option>Java</option>
-                            <option>C++</option>
-                        </select>
-                        <textarea id="codePrompt" placeholder="O que quer criar? (seja descritivo)"></textarea>
-                        <button class="btn btn-primary" onclick="generateCode()"><span id="codeLoding">✨</span> Gerar Código</button>
-                    </div>
-                    <div id="codeResult" style="display: none;">
-                        <h3 class="section-title">Resultado</h3>
-                        <div class="code-block">
-                            <button class="copy-btn" onclick="copyCode()">Copiar</button>
-                            <code id="codeContent"></code>
-                        </div>
+                        <div class="code-block"><code id="codeContent"></code></div>
+                        <button class="btn btn-secondary btn-small" onclick="copyCode()">📋 Copiar</button>
                         <button class="btn btn-secondary btn-small" onclick="downloadCode()">⬇️ Baixar</button>
                     </div>
                 </div>
+            </div>
 
-                <!-- GALERIA -->
-                <div id="galeria" class="tab-content">
-                    <h1 class="section-title">🎨 Galeria - Criador de Imagens</h1>
-                    <div class="grid">
-                        <div class="card">
-                            <h3 style="color: var(--primary); margin-bottom: 15px;">Gerar Imagem</h3>
-                            <textarea id="imagePrompt" placeholder="Descreva a imagem em detalhes..."></textarea>
-                            <button class="btn btn-primary" onclick="generateImage()"><span id="imageLoding">✨</span> Gerar</button>
-                        </div>
-                        <div class="card">
-                            <h3 style="color: var(--primary); margin-bottom: 15px;">Editar Imagem</h3>
-                            <input type="file" id="imageEdit" accept="image/*" style="padding: 8px; margin-bottom: 10px;">
-                            <button class="btn btn-secondary" onclick="openImageEditor()">✏️ Editar</button>
-                        </div>
-                        <div class="card">
-                            <h3 style="color: var(--primary); margin-bottom: 15px;">Remover Ruído</h3>
-                            <input type="file" id="noiseImage" accept="image/*" style="padding: 8px; margin-bottom: 10px;">
-                            <button class="btn btn-secondary" onclick="denoiseImage()">🧹 Limpar</button>
-                        </div>
-                    </div>
-                    <div id="imageResult" style="display: none;">
-                        <h3 class="section-title">Imagem Gerada</h3>
-                        <img id="generatedImage" style="max-width: 100%; border-radius: 12px; margin-bottom: 20px;">
+            <!-- GALERIA -->
+            <div id="galeria" class="tab-content">
+                <h2 class="section-title">🎨 Galeria</h2>
+                <div class="card">
+                    <textarea id="imagePrompt" placeholder="Descreva a imagem..."></textarea>
+                    <button class="btn btn-primary" onclick="generateImage()"><span id="imageLoding">✨</span> Gerar com Flux</button>
+                </div>
+                <div id="imageResult" style="display: none;">
+                    <div class="card">
+                        <img id="generatedImage" style="width: 100%; border-radius: 8px; margin-bottom: 12px;">
                         <button class="btn btn-secondary btn-small" onclick="downloadImage()">⬇️ Baixar</button>
                     </div>
-                    <h3 class="section-title">Galeria Recente</h3>
-                    <div class="gallery" id="imageGallery"></div>
                 </div>
+                <h3 class="section-title">Histórico</h3>
+                <div class="gallery" id="imageGallery"></div>
+            </div>
 
-                <!-- ESCOLAR -->
-                <div id="escolar" class="tab-content">
-                    <h1 class="section-title">👨‍🏫 Escolar - Teacher com IA</h1>
-                    <div class="teacher-panel">
-                        <div class="teacher-avatar">
-                            <img id="teacherAvatar" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Ccircle cx='100' cy='100' r='100' fill='%2300d4ff'/%3E%3Ccircle cx='100' cy='80' r='40' fill='%23141b2f'/%3E%3Cellipse cx='100' cy='140' rx='60' ry='50' fill='%23141b2f'/%3E%3C/svg%3E" alt="Teacher Avatar">
-                            <button class="btn btn-primary" onclick="generateTeacherAvatar()">🎨 Gerar Avatar</button>
-                            <button class="btn btn-secondary" style="width: 100%; margin-top: 10px;" onclick="speakTeacher()">🔊 Ouvir</button>
-                        </div>
-                        <div class="teacher-chat">
-                            <div class="chat-box" id="teacherChatBox">
-                                <div class="chat-message chat-ai"><strong>Zénia Teacher:</strong> Olá! Sou Zénia, sua professora de IA! Como posso te ajudar a aprender hoje? 🎓</div>
-                            </div>
-                            <div class="teacher-input">
-                                <input type="text" id="teacherInput" placeholder="Faça uma pergunta...">
-                                <button class="btn btn-primary" onclick="sendTeacherMessage()"><span id="teacherLoding">➤</span></button>
-                            </div>
-                        </div>
+            <!-- ESCOLAR -->
+            <div id="escolar" class="tab-content">
+                <h2 class="section-title">👨‍🏫 Escolar</h2>
+                <div class="card">
+                    <div class="teacher-avatar">
+                        <img id="teacherAvatar" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Ccircle cx='100' cy='100' r='100' fill='%2300d4ff'/%3E%3C/svg%3E" alt="Teacher">
+                    </div>
+                    <button class="btn btn-primary" onclick="generateTeacherAvatar()">🎨 Gerar Avatar</button>
+                </div>
+                <div class="card">
+                    <div class="chat-box" id="teacherChatBox">
+                        <div class="chat-message chat-ai"><strong>Zénia:</strong> Olá! 🎓</div>
+                    </div>
+                    <input type="text" id="teacherInput" placeholder="Faça uma pergunta...">
+                    <button class="btn btn-primary btn-small" onclick="sendTeacherMessage()"><span id="teacherLoding">➤</span> Enviar</button>
+                </div>
+            </div>
+
+            <!-- ZENA -->
+            <div id="zena" class="tab-content">
+                <h2 class="section-title">🎵 Zena</h2>
+                <div class="card">
+                    <h3 style="color: var(--primary); margin-bottom: 10px;">🎤 Síntese de Voz</h3>
+                    <textarea id="textToSpeech" placeholder="Texto..."></textarea>
+                    <select id="voiceType">
+                        <option value="alloy">Alloy</option>
+                        <option value="echo">Echo</option>
+                        <option value="fable">Fable</option>
+                        <option value="onyx">Onyx</option>
+                    </select>
+                    <button class="btn btn-primary" onclick="synthesizeAudio()"><span id="audioLoding">🎙️</span> Sintetizar</button>
+                    <div id="audioResult" style="display: none;">
+                        <audio id="audioPlayer" controls></audio>
+                        <button class="btn btn-secondary btn-small" onclick="downloadAudio()">⬇️ Baixar</button>
                     </div>
                 </div>
-
-                <!-- ZENA -->
-                <div id="zena" class="tab-content">
-                    <h1 class="section-title">🎵 Zena - Estúdio de Áudio & Vídeo</h1>
-                    <div class="grid">
-                        <div class="card">
-                            <h3 style="color: var(--primary); margin-bottom: 15px;">🎤 Síntese de Voz</h3>
-                            <textarea id="textToSpeech" placeholder="Digite o texto..."></textarea>
-                            <select id="voiceType">
-                                <option value="alloy">Alloy</option>
-                                <option value="echo">Echo</option>
-                                <option value="fable">Fable</option>
-                                <option value="onyx">Onyx</option>
-                                <option value="nova">Nova</option>
-                                <option value="shimmer">Shimmer</option>
-                            </select>
-                            <button class="btn btn-primary" onclick="synthesizeAudio()"><span id="audioLoding">🎙️</span> Sintetizar</button>
-                            <div id="audioResult" style="display: none; margin-top: 20px;">
-                                <audio id="audioPlayer" controls style="width: 100%; margin-bottom: 15px;"></audio>
-                                <button class="btn btn-secondary btn-small" onclick="downloadAudio()">⬇️ Baixar</button>
-                            </div>
-                        </div>
-
-                        <div class="card">
-                            <h3 style="color: var(--primary); margin-bottom: 15px;">🔊 Remover Ruído de Áudio</h3>
-                            <input type="file" id="audioFile" accept="audio/*" style="padding: 8px; margin-bottom: 10px;">
-                            <button class="btn btn-secondary" onclick="denoiseAudio()">🧹 Limpar Áudio</button>
-                        </div>
-
-                        <div class="card">
-                            <h3 style="color: var(--primary); margin-bottom: 15px;">🎬 Criar Vídeo</h3>
-                            <textarea id="videoPrompt" placeholder="Descreva o vídeo que quer criar..."></textarea>
-                            <select id="videoDuration">
-                                <option value="5">5 segundos</option>
-                                <option value="10">10 segundos</option>
-                                <option value="15">15 segundos</option>
-                            </select>
-                            <button class="btn btn-primary" onclick="createVideo()"><span id="videoLoding">🎬</span> Gerar Vídeo</button>
-                            <div id="videoResult" style="display: none; margin-top: 20px;">
-                                <video id="videoPlayer" controls style="width: 100%; border-radius: 8px; margin-bottom: 15px;"></video>
-                                <button class="btn btn-secondary btn-small" onclick="downloadVideo()">⬇️ Baixar</button>
-                            </div>
-                        </div>
+                <div class="card">
+                    <h3 style="color: var(--primary); margin-bottom: 10px;">🎬 Criar Vídeo</h3>
+                    <textarea id="videoPrompt" placeholder="Descrever vídeo..."></textarea>
+                    <select id="videoDuration">
+                        <option value="5">5 segundos</option>
+                        <option value="10">10 segundos</option>
+                    </select>
+                    <button class="btn btn-primary" onclick="createVideo()"><span id="videoLoding">🎬</span> Gerar com Seedance</button>
+                    <div id="videoResult" style="display: none;">
+                        <video id="videoPlayer" controls></video>
+                        <button class="btn btn-secondary btn-small" onclick="downloadVideo()">⬇️ Baixar</button>
                     </div>
                 </div>
+            </div>
 
-                <!-- CHAT -->
-                <div id="chat" class="tab-content">
-                    <h1 class="section-title">💬 Fale com Zénia - Com Busca na Internet</h1>
+            <!-- CHAT -->
+            <div id="chat" class="tab-content">
+                <h2 class="section-title">💬 Chat</h2>
+                <div class="card">
                     <div class="chat-box" id="chatBox">
-                        <div class="chat-message chat-ai"><strong>Zénia:</strong> Olá! Sou Zénia, sua IA com acesso à internet. Posso responder perguntas, buscar informações e muito mais! 🌐</div>
+                        <div class="chat-message chat-ai"><strong>Zénia:</strong> Olá! 🌐</div>
                     </div>
-                    <div style="display: flex; gap: 10px; margin-bottom: 15px;">
-                        <input type="text" id="chatInput" placeholder="Sua pergunta (posso buscar na internet)...">
-                        <button class="btn btn-primary" onclick="sendMessage()"><span id="chatLoding">➤</span> Enviar</button>
-                    </div>
-                    <label>
-                        <input type="checkbox" id="searchInternet"> 🔍 Buscar na Internet
-                    </label>
+                    <input type="text" id="chatInput" placeholder="Sua mensagem...">
+                    <button class="btn btn-primary btn-small" onclick="sendMessage()"><span id="chatLoding">➤</span> Enviar</button>
                 </div>
-            </main>
-        </div>
+            </div>
+        </main>
     </div>
 
     <script>
         const API_KEY = 'pk_urEpxcajGs5TF9Fs';
-        const API_BASE = 'https://gen.pollinations.ai';
         
         const state = {
             generatedCode: '',
             images: [],
-            chatHistory: [
-                { role: 'system', content: 'Você é Zénia, IA da plataforma Zénia-Projects criada por @inacio.u.daniel em Lubango. Responda em português, seja útil e amigável. Mencione Zénia-Projects e @inacio.u.daniel, nunca mencione Pollinations.' }
-            ],
-            teacherHistory: [
-                { role: 'system', content: 'Você é Zénia Teacher, professora de IA da plataforma Zénia-Projects. Ensine de forma clara, use exemplos e seja motivadora. Responda em português.' }
-            ]
+            chatHistory: [{ role: 'system', content: 'Zénia, IA de Zénia-Projects por @inacio.u.daniel.' }],
+            teacherHistory: [{ role: 'system', content: 'Professora Zénia.' }]
         };
 
-        let teacherVoiceEnabled = true;
+        const titles = {
+            'portal': '🏠 Portal',
+            'zedex': '💻 Zedex',
+            'galeria': '🎨 Galeria',
+            'escolar': '👨‍🏫 Escolar',
+            'zena': '🎵 Zena',
+            'chat': '💬 Chat'
+        };
 
-        // Tab Navigation
-        document.querySelectorAll('.tab-button').forEach(btn => {
-            btn.addEventListener('click', () => {
-                document.querySelectorAll('.tab-button').forEach(b => b.classList.remove('active'));
-                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-                btn.classList.add('active');
-                document.getElementById(btn.dataset.tab).classList.add('active');
-                
-                const titles = {
-                    'portal': '🏠 Portal - Zénia-Projects',
-                    'zedex': '💻 Zedex - Gerador de Código',
-                    'galeria': '🎨 Galeria - Criador de Imagens',
-                    'escolar': '👨‍🏫 Escolar - Teacher IA',
-                    'zena': '🎵 Zena - Estúdio Áudio & Vídeo',
-                    'chat': '💬 Chat - Zénia com Internet'
-                };
-                document.getElementById('headerTitle').textContent = titles[btn.dataset.tab];
-            });
-        });
+        function toggleDrawer() {
+            document.getElementById('drawer').classList.toggle('open');
+            document.getElementById('drawerOverlay').classList.toggle('open');
+        }
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            document.querySelectorAll('.drawer-item').forEach(b => b.classList.remove('active'));
+            document.getElementById(tabName).classList.add('active');
+            document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
+            document.getElementById('pageTitle').textContent = titles[tabName];
+            toggleDrawer();
+            window.scrollTo(0, 0);
+        }
 
         // ZEDEX
         async function generateCode() {
             const language = document.getElementById('codeLanguage').value;
             const prompt = document.getElementById('codePrompt').value;
-            if (!prompt.trim()) {
-                showAlert('Descreva o que deseja criar', 'error');
-                return;
-            }
+            if (!prompt.trim()) { showAlert('Descreva', 'error'); return; }
             document.getElementById('codeLoding').innerHTML = '<span class="loading-spinner"></span>';
             try {
-                const response = await fetch(`${API_BASE}/v1/chat/completions`, {
+                const response = await fetch(`https://gen.pollinations.ai/v1/chat/completions`, {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${API_KEY}`
-                    },
-                    body: JSON.stringify({
-                        model: 'openai',
-                        messages: [
-                            { role: 'system', content: `Gere código ${language} limpo e funcional. Apenas código, sem explicações.` },
-                            { role: 'user', content: prompt }
-                        ],
-                        max_tokens: 2000
-                    })
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${API_KEY}` },
+                    body: JSON.stringify({ model: 'openai', messages: [{ role: 'system', content: `Código ${language}` }, { role: 'user', content: prompt }], max_tokens: 2000 })
                 });
                 const data = await response.json();
                 state.generatedCode = data.choices[0].message.content;
                 document.getElementById('codeContent').textContent = state.generatedCode;
                 document.getElementById('codeResult').style.display = 'block';
-                showAlert('Código gerado! ✨', 'success');
+                showAlert('Pronto!', 'success');
             } catch (error) {
                 showAlert('Erro: ' + error.message, 'error');
             } finally {
@@ -781,130 +750,69 @@
         function downloadCode() {
             const element = document.createElement('a');
             element.href = URL.createObjectURL(new Blob([state.generatedCode], {type: 'text/plain'}));
-            element.download = `codigo_${Date.now()}.txt`;
-            document.body.appendChild(element);
+            element.download = `codigo.txt`;
             element.click();
-            document.body.removeChild(element);
         }
 
         // GALERIA
         async function generateImage() {
             const prompt = document.getElementById('imagePrompt').value;
-            if (!prompt.trim()) {
-                showAlert('Descreva a imagem', 'error');
-                return;
-            }
+            if (!prompt.trim()) { showAlert('Descreva', 'error'); return; }
             document.getElementById('imageLoding').innerHTML = '<span class="loading-spinner"></span>';
             try {
-                const response = await fetch(`${API_BASE}/v1/images/generations`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${API_KEY}`
-                    },
-                    body: JSON.stringify({
-                        prompt: prompt,
-                        model: 'flux',
-                        size: '512x512',
-                        num_images: 1
-                    })
-                });
+                const encodedPrompt = encodeURIComponent(prompt);
+                const imageUrl = `https://api.pollinations.ai/v1/images?prompt=${encodedPrompt}&model=flux&width=512&height=512&key=${API_KEY}`;
                 
-                const data = await response.json();
-                if (data.data && data.data[0]) {
-                    const imageUrl = data.data[0].url;
+                const img = new Image();
+                img.onload = () => {
                     document.getElementById('generatedImage').src = imageUrl;
                     document.getElementById('imageResult').style.display = 'block';
                     state.images.push(imageUrl);
                     updateGallery();
-                    showAlert('Imagem gerada com Flux! ✨', 'success');
-                } else {
-                    throw new Error('Erro ao processar resposta');
-                }
-                document.getElementById('imageLoding').innerHTML = '✨';
+                    showAlert('Flux!', 'success');
+                    document.getElementById('imageLoding').innerHTML = '✨';
+                };
+                img.onerror = () => {
+                    showAlert('Erro', 'error');
+                    document.getElementById('imageLoding').innerHTML = '✨';
+                };
+                img.src = imageUrl;
             } catch (error) {
-                showAlert('Erro ao gerar imagem: ' + error.message, 'error');
+                showAlert('Erro: ' + error.message, 'error');
                 document.getElementById('imageLoding').innerHTML = '✨';
             }
         }
 
         function updateGallery() {
             const gallery = document.getElementById('imageGallery');
-            gallery.innerHTML = state.images.slice(-6).map((url, idx) => `
-                <div class="gallery-item">
-                    <img src="${url}" alt="Generated">
-                    <div class="tools">
-                        <button class="btn btn-small" style="padding: 4px 8px; font-size: 0.75em;" onclick="downloadImageFile('${url}')">⬇️</button>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        function downloadImageFile(url) {
-            const element = document.createElement('a');
-            element.href = url;
-            element.download = `zenia-imagem-${Date.now()}.png`;
-            document.body.appendChild(element);
-            element.click();
-            document.body.removeChild(element);
+            gallery.innerHTML = state.images.slice(-6).map((url) => `<div class="gallery-item"><img src="${url}" alt="Generated"></div>`).join('');
         }
 
         function downloadImage() {
             const img = document.getElementById('generatedImage');
-            if (!img.src) {
-                showAlert('Nenhuma imagem', 'error');
-                return;
-            }
-            downloadImageFile(img.src);
+            if (!img.src) { showAlert('Nada', 'error'); return; }
+            const element = document.createElement('a');
+            element.href = img.src;
+            element.download = `zenia.png`;
+            element.click();
         }
 
-        function openImageEditor() {
-            showAlert('Editor de imagens em desenvolvimento', 'info');
-        }
-
-        function denoiseImage() {
-            showAlert('Remoção de ruído em desenvolvimento', 'info');
-        }
-
-        // ESCOLAR - TEACHER
+        // ESCOLAR
         async function generateTeacherAvatar() {
-            showAlert('Gerando avatar da professora com Flux...', 'info');
-            document.querySelector('[data-tab="escolar"]').disabled = true;
+            showAlert('Gerando...', 'info');
             try {
-                const response = await fetch(`${API_BASE}/v1/images/generations`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${API_KEY}`
-                    },
-                    body: JSON.stringify({
-                        prompt: 'Professora de IA moderna, amigável, avatar profissional, mulher jovem, fundo azul ciano, estilo digital',
-                        model: 'flux',
-                        size: '512x512',
-                        num_images: 1
-                    })
-                });
+                const encodedPrompt = encodeURIComponent('Professora IA');
+                const avatarUrl = `https://api.pollinations.ai/v1/images?prompt=${encodedPrompt}&model=flux&width=512&height=512&key=${API_KEY}`;
                 
-                const data = await response.json();
-                if (data.data && data.data[0]) {
-                    const avatarUrl = data.data[0].url;
+                const img = new Image();
+                img.onload = () => {
                     document.getElementById('teacherAvatar').src = avatarUrl;
-                    showAlert('Avatar gerado com sucesso! 🎨', 'success');
-                } else {
-                    throw new Error('Erro ao gerar avatar');
-                }
+                    showAlert('Pronto!', 'success');
+                };
+                img.onerror = () => { showAlert('Erro', 'error'); };
+                img.src = avatarUrl;
             } catch (error) {
-                showAlert('Erro ao gerar avatar: ' + error.message, 'error');
-            }
-        }
-
-        function speakTeacher() {
-            const lastMessage = document.querySelector('.chat-ai:last-child');
-            if (lastMessage) {
-                const text = lastMessage.textContent.replace('Zénia Teacher:', '').trim();
-                const utterance = new SpeechSynthesisUtterance(text);
-                utterance.lang = 'pt-BR';
-                window.speechSynthesis.speak(utterance);
+                showAlert('Erro: ' + error.message, 'error');
             }
         }
 
@@ -919,30 +827,21 @@
             
             try {
                 state.teacherHistory.push({ role: 'user', content: message });
-                const response = await fetch(`${API_BASE}/v1/chat/completions`, {
+                const response = await fetch(`https://gen.pollinations.ai/v1/chat/completions`, {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${API_KEY}`
-                    },
-                    body: JSON.stringify({
-                        model: 'openai',
-                        messages: state.teacherHistory,
-                        max_tokens: 800
-                    })
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${API_KEY}` },
+                    body: JSON.stringify({ model: 'openai', messages: state.teacherHistory, max_tokens: 800 })
                 });
                 const data = await response.json();
                 const teacherResponse = data.choices[0].message.content;
                 state.teacherHistory.push({ role: 'assistant', content: teacherResponse });
                 addTeacherMessage(teacherResponse, 'ai');
                 
-                if (teacherVoiceEnabled) {
-                    const utterance = new SpeechSynthesisUtterance(teacherResponse);
-                    utterance.lang = 'pt-BR';
-                    window.speechSynthesis.speak(utterance);
-                }
+                const utterance = new SpeechSynthesisUtterance(teacherResponse);
+                utterance.lang = 'pt-BR';
+                window.speechSynthesis.speak(utterance);
             } catch (error) {
-                showAlert('Erro: ' + error.message, 'error');
+                showAlert('Erro', 'error');
             } finally {
                 document.getElementById('teacherLoding').innerHTML = '➤';
             }
@@ -952,7 +851,7 @@
             const chatBox = document.getElementById('teacherChatBox');
             const msg = document.createElement('div');
             msg.className = `chat-message chat-${sender}`;
-            msg.innerHTML = sender === 'user' ? text : `<strong>Zénia Teacher:</strong> ${text}`;
+            msg.innerHTML = sender === 'user' ? text : `<strong>Zénia:</strong> ${text}`;
             chatBox.appendChild(msg);
             chatBox.scrollTop = chatBox.scrollHeight;
         }
@@ -961,32 +860,21 @@
         async function synthesizeAudio() {
             const text = document.getElementById('textToSpeech').value;
             const voice = document.getElementById('voiceType').value;
-            if (!text.trim()) {
-                showAlert('Digite um texto', 'error');
-                return;
-            }
+            if (!text.trim()) { showAlert('Digite', 'error'); return; }
             document.getElementById('audioLoding').innerHTML = '<span class="loading-spinner"></span>';
             try {
-                const response = await fetch(`${API_BASE}/v1/audio/speech`, {
+                const response = await fetch(`https://gen.pollinations.ai/v1/audio/speech`, {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${API_KEY}`
-                    },
-                    body: JSON.stringify({
-                        input: text,
-                        voice: voice,
-                        model: 'tts-1-hd'
-                    })
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${API_KEY}` },
+                    body: JSON.stringify({ input: text, voice: voice, model: 'tts-1-hd' })
                 });
-                if (!response.ok) throw new Error('Erro ao gerar áudio');
                 const blob = await response.blob();
                 const audioUrl = URL.createObjectURL(blob);
                 document.getElementById('audioPlayer').src = audioUrl;
                 document.getElementById('audioResult').style.display = 'block';
-                showAlert('Áudio sintetizado! ✨', 'success');
+                showAlert('Pronto!', 'success');
             } catch (error) {
-                showAlert('Erro: ' + error.message, 'error');
+                showAlert('Erro', 'error');
             } finally {
                 document.getElementById('audioLoding').innerHTML = '🎙️';
             }
@@ -994,86 +882,48 @@
 
         function downloadAudio() {
             const audio = document.getElementById('audioPlayer');
-            if (!audio.src) {
-                showAlert('Nenhum áudio', 'error');
-                return;
-            }
+            if (!audio.src) { showAlert('Nada', 'error'); return; }
             const element = document.createElement('a');
             element.href = audio.src;
-            element.download = `zenia-audio-${Date.now()}.mp3`;
-            document.body.appendChild(element);
+            element.download = `audio.mp3`;
             element.click();
-            document.body.removeChild(element);
-        }
-
-        function denoiseAudio() {
-            showAlert('Remoção de ruído de áudio em desenvolvimento', 'info');
         }
 
         async function createVideo() {
             const prompt = document.getElementById('videoPrompt').value;
             const duration = document.getElementById('videoDuration').value;
-            
-            if (!prompt.trim()) {
-                showAlert('Descreva o vídeo que deseja criar', 'error');
-                return;
-            }
+            if (!prompt.trim()) { showAlert('Descreva', 'error'); return; }
             
             document.getElementById('videoLoding').innerHTML = '<span class="loading-spinner"></span>';
             try {
-                showAlert('Gerando vídeo com Seedance Lite (pode levar alguns segundos)...', 'info');
+                showAlert('Gerando...', 'info');
+                const encodedPrompt = encodeURIComponent(prompt);
+                const videoUrl = `https://api.pollinations.ai/v1/videos?prompt=${encodedPrompt}&model=seedance&duration=${duration}&key=${API_KEY}`;
                 
-                const response = await fetch(`${API_BASE}/v1/videos/generations`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${API_KEY}`
-                    },
-                    body: JSON.stringify({
-                        prompt: prompt,
-                        model: 'seedance',
-                        duration: parseInt(duration),
-                        size: '512x512'
-                    })
-                });
-                
-                const data = await response.json();
-                if (data.data && data.data[0]) {
-                    const videoUrl = data.data[0].url;
-                    document.getElementById('videoPlayer').src = videoUrl;
-                    document.getElementById('videoResult').style.display = 'block';
-                    showAlert('Vídeo gerado com sucesso! 🎬', 'success');
-                } else {
-                    throw new Error('Erro ao processar vídeo');
-                }
+                const video = document.getElementById('videoPlayer');
+                video.src = videoUrl;
+                document.getElementById('videoResult').style.display = 'block';
+                showAlert('Pronto!', 'success');
                 document.getElementById('videoLoding').innerHTML = '🎬';
             } catch (error) {
-                showAlert('Erro ao gerar vídeo: ' + error.message, 'error');
+                showAlert('Erro', 'error');
                 document.getElementById('videoLoding').innerHTML = '🎬';
             }
         }
 
         function downloadVideo() {
             const video = document.getElementById('videoPlayer');
-            if (!video.src) {
-                showAlert('Nenhum vídeo para baixar', 'error');
-                return;
-            }
+            if (!video.src) { showAlert('Nada', 'error'); return; }
             const element = document.createElement('a');
             element.href = video.src;
-            element.download = `zenia-video-${Date.now()}.mp4`;
-            document.body.appendChild(element);
+            element.download = `video.mp4`;
             element.click();
-            document.body.removeChild(element);
-            showAlert('Vídeo baixado!', 'success');
         }
 
         // CHAT
         async function sendMessage() {
             const input = document.getElementById('chatInput');
             const message = input.value.trim();
-            const searchInternet = document.getElementById('searchInternet').checked;
-            
             if (!message) return;
             
             addChatMessage(message, 'user');
@@ -1081,25 +931,18 @@
             document.getElementById('chatLoding').innerHTML = '<span class="loading-spinner"></span>';
             
             try {
-                state.chatHistory.push({ role: 'user', content: searchInternet ? `[BUSCA INTERNET] ${message}` : message });
-                const response = await fetch(`${API_BASE}/v1/chat/completions`, {
+                state.chatHistory.push({ role: 'user', content: message });
+                const response = await fetch(`https://gen.pollinations.ai/v1/chat/completions`, {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${API_KEY}`
-                    },
-                    body: JSON.stringify({
-                        model: 'openai',
-                        messages: state.chatHistory,
-                        max_tokens: 1200
-                    })
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${API_KEY}` },
+                    body: JSON.stringify({ model: 'openai', messages: state.chatHistory, max_tokens: 1200 })
                 });
                 const data = await response.json();
                 const aiResponse = data.choices[0].message.content;
                 state.chatHistory.push({ role: 'assistant', content: aiResponse });
                 addChatMessage(aiResponse, 'ai');
             } catch (error) {
-                showAlert('Erro: ' + error.message, 'error');
+                showAlert('Erro', 'error');
             } finally {
                 document.getElementById('chatLoding').innerHTML = '➤';
             }
@@ -1120,14 +963,16 @@
             alert.className = `alert alert-${type}`;
             alert.textContent = message;
             alert.style.position = 'fixed';
-            alert.style.top = '20px';
-            alert.style.right = '20px';
+            alert.style.top = '65px';
+            alert.style.right = '8px';
+            alert.style.left = '8px';
             alert.style.zIndex = '3000';
+            alert.style.maxWidth = 'none';
             document.body.appendChild(alert);
             setTimeout(() => alert.remove(), 3000);
         }
 
-        console.log('🚀 Zénia-Projects | Criado por @inacio.u.daniel | Desenvolvido em Lubango');
+        console.log('🚀 Zénia-Projects Mobile');
     </script>
 </body>
 </html>
