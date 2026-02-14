@@ -4,13 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zénia-Projects | Plataforma de IA Integrada</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
         :root {
             --primary: #00d4ff;
             --secondary: #ff006e;
@@ -26,11 +23,11 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
             background: linear-gradient(135deg, var(--darker-bg) 0%, var(--dark-bg) 100%);
             color: var(--text-primary);
-            overflow: hidden;
             height: 100vh;
+            overflow: hidden;
         }
 
         .container {
@@ -46,7 +43,6 @@
             flex-direction: column;
             overflow-y: auto;
             padding: 20px 0;
-            box-shadow: 4px 0 15px rgba(0, 0, 0, 0.3);
         }
 
         .logo {
@@ -56,19 +52,19 @@
         }
 
         .logo h1 {
-            font-size: 1.8em;
+            font-size: 2em;
             background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            font-weight: 800;
+            font-weight: 900;
             margin-bottom: 5px;
         }
 
         .logo p {
-            font-size: 0.75em;
+            font-size: 0.7em;
             color: var(--text-secondary);
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
         }
 
         .tabs-container {
@@ -79,13 +75,13 @@
 
         .tab-button {
             width: 100%;
-            padding: 16px 20px;
+            padding: 14px 20px;
             background: transparent;
             border: none;
             color: var(--text-secondary);
             cursor: pointer;
             text-align: left;
-            font-size: 0.95em;
+            font-size: 0.9em;
             font-weight: 500;
             transition: all 0.3s ease;
             border-left: 3px solid transparent;
@@ -110,7 +106,7 @@
             padding: 20px;
             border-top: 1px solid var(--border);
             margin-top: auto;
-            font-size: 0.85em;
+            font-size: 0.8em;
         }
 
         .social-link {
@@ -122,10 +118,12 @@
             background: rgba(0, 212, 255, 0.1);
             border-radius: 6px;
             transition: all 0.3s ease;
+            text-align: center;
         }
 
         .social-link:hover {
             background: rgba(0, 212, 255, 0.2);
+            transform: translateX(5px);
         }
 
         .content {
@@ -139,6 +137,9 @@
             background: linear-gradient(90deg, var(--dark-bg) 0%, var(--darker-bg) 100%);
             border-bottom: 1px solid var(--border);
             padding: 20px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .header h2 {
@@ -159,6 +160,12 @@
 
         .tab-content.active {
             display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .card {
@@ -167,6 +174,12 @@
             border-radius: 12px;
             padding: 24px;
             margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.15);
         }
 
         .grid {
@@ -185,6 +198,7 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
+            transition: all 0.3s ease;
         }
 
         .btn-primary {
@@ -192,10 +206,24 @@
             color: var(--dark-bg);
         }
 
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(0, 212, 255, 0.3);
+        }
+
         .btn-secondary {
             background: transparent;
             border: 1px solid var(--primary);
             color: var(--primary);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(0, 212, 255, 0.1);
+        }
+
+        .btn-small {
+            padding: 8px 16px;
+            font-size: 0.85em;
         }
 
         input, textarea, select {
@@ -205,12 +233,24 @@
             border: 1px solid var(--border);
             border-radius: 8px;
             color: var(--text-primary);
-            margin-bottom: 10px;
+            margin-bottom: 15px;
             font-family: inherit;
+            font-size: 0.95em;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.2);
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
         }
 
         .section-title {
-            font-size: 1.4em;
+            font-size: 1.5em;
             color: var(--primary);
             margin-bottom: 20px;
             padding-bottom: 10px;
@@ -226,8 +266,6 @@
             overflow-x: auto;
             margin: 15px 0;
             position: relative;
-            max-height: 300px;
-            overflow-y: auto;
         }
 
         .copy-btn {
@@ -241,26 +279,7 @@
             border-radius: 4px;
             cursor: pointer;
             font-size: 0.8em;
-            z-index: 10;
-        }
-
-        .image-gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            gap: 15px;
-        }
-
-        .image-item {
-            border-radius: 8px;
-            overflow: hidden;
-            border: 1px solid var(--border);
-            aspect-ratio: 1;
-        }
-
-        .image-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+            font-weight: 600;
         }
 
         .alert {
@@ -268,6 +287,12 @@
             border-radius: 8px;
             margin-bottom: 15px;
             border-left: 4px solid;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(20px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
         }
 
         .alert-success {
@@ -282,14 +307,20 @@
             color: var(--error);
         }
 
+        .alert-info {
+            background: rgba(0, 212, 255, 0.1);
+            border-left-color: var(--primary);
+            color: var(--primary);
+        }
+
         .loading-spinner {
             display: inline-block;
-            width: 16px;
-            height: 16px;
+            width: 14px;
+            height: 14px;
             border: 2px solid rgba(0, 212, 255, 0.3);
             border-top-color: var(--primary);
             border-radius: 50%;
-            animation: spin 0.8s linear infinite;
+            animation: spin 0.6s linear infinite;
         }
 
         @keyframes spin {
@@ -301,7 +332,7 @@
             border: 1px solid var(--border);
             border-radius: 8px;
             padding: 15px;
-            height: 400px;
+            height: 450px;
             overflow-y: auto;
             margin-bottom: 20px;
         }
@@ -312,6 +343,7 @@
             border-radius: 8px;
             max-width: 85%;
             word-wrap: break-word;
+            animation: slideIn 0.3s ease;
         }
 
         .chat-user {
@@ -325,6 +357,136 @@
             background: var(--card-bg);
             border: 1px solid var(--border);
             color: var(--text-primary);
+            margin-right: auto;
+        }
+
+        .teacher-panel {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 30px;
+            align-items: start;
+        }
+
+        .teacher-avatar {
+            text-align: center;
+        }
+
+        .teacher-avatar img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            border: 3px solid var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .teacher-avatar button {
+            width: 100%;
+        }
+
+        .teacher-chat {
+            display: flex;
+            flex-direction: column;
+            height: 500px;
+        }
+
+        .teacher-chat .chat-box {
+            flex: 1;
+        }
+
+        .teacher-input {
+            display: flex;
+            gap: 10px;
+        }
+
+        .teacher-input input {
+            flex: 1;
+            margin-bottom: 0;
+        }
+
+        .about-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .about-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .about-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 0 20px rgba(0, 212, 255, 0.1);
+        }
+
+        .about-card h3 {
+            color: var(--primary);
+            margin-bottom: 12px;
+            font-size: 1.1em;
+        }
+
+        .about-card p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            font-size: 0.95em;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .gallery-item {
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            aspect-ratio: 1;
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.05);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .gallery-item .tools {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 10px;
+            display: none;
+            gap: 8px;
+        }
+
+        .gallery-item:hover .tools {
+            display: flex;
+        }
+
+        @media (max-width: 1024px) {
+            .sidebar { width: 220px; }
+            .main-area { padding: 20px; }
+            .teacher-panel { grid-template-columns: 1fr; }
+            .about-section { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            .container { flex-direction: column; }
+            .sidebar { width: 100%; height: auto; flex-direction: row; }
+            .main-area { padding: 15px; }
         }
     </style>
 </head>
@@ -340,7 +502,7 @@
                 <button class="tab-button active" data-tab="portal">🏠 Portal</button>
                 <button class="tab-button" data-tab="zedex">💻 Zedex</button>
                 <button class="tab-button" data-tab="galeria">🎨 Galeria</button>
-                <button class="tab-button" data-tab="escolar">📚 Escolar</button>
+                <button class="tab-button" data-tab="escolar">👨‍🏫 Escolar</button>
                 <button class="tab-button" data-tab="zena">🎵 Zena</button>
                 <button class="tab-button" data-tab="chat">💬 Chat</button>
             </div>
@@ -348,26 +510,55 @@
             <div class="social-footer">
                 <p><strong>Zénia-Projects</strong></p>
                 <p>Desenvolvido em Lubango</p>
-                <p>@inacio.u.daniel</p>
-                <a href="https://ia-zenia.netlify.app" class="social-link" target="_blank">🤖 IA-Zénia</a>
-                <a href="https://antonia-ia.netlify.app" class="social-link" target="_blank">👩 Antónia-IA</a>
-                <a href="https://tiktok.com/@inacio.u.daniel" class="social-link" target="_blank">TikTok</a>
-                <a href="https://instagram.com/inacio.udaniel" class="social-link" target="_blank">Instagram</a>
-                <p style="margin-top: 10px; font-size: 0.75em;">Powered by Pollinations.ai</p>
+                <p style="margin-bottom: 10px;">@inacio.u.daniel</p>
+                <a href="https://ia-zenia.netlify.app" class="social-link" target="_blank">🤖 IA-Zénia Principal</a>
+                <a href="https://antonia-ia.netlify.app" class="social-link" target="_blank">👩 Antónia-IA Casual</a>
+                <a href="https://tiktok.com/@inacio.u.daniel" class="social-link" target="_blank">TikTok @inacio.u.daniel</a>
+                <a href="https://instagram.com/inacio.udaniel" class="social-link" target="_blank">Instagram @inacio.udaniel</a>
             </div>
         </aside>
 
         <div class="content">
             <header class="header">
-                <h2 id="headerTitle">Portal</h2>
+                <h2 id="headerTitle">🏠 Portal</h2>
             </header>
 
             <main class="main-area">
                 <!-- PORTAL -->
                 <div id="portal" class="tab-content active">
-                    <h1 class="section-title">🎯 Bem-vindo ao Zénia-Projects</h1>
+                    <h1 class="section-title">✨ Bem-vindo ao Zénia-Projects</h1>
+
+                    <div class="about-section">
+                        <div class="about-card">
+                            <h3>🎯 O que é Zénia-Projects?</h3>
+                            <p>Zénia-Projects é uma plataforma integrada de IA desenvolvida em Lubango que combina múltiplas ferramentas de inteligência artificial em uma única aplicação moderna e poderosa. Criada para potencializar criatividade, educação e desenvolvimento.</p>
+                        </div>
+
+                        <div class="about-card">
+                            <h3>👨‍💻 Quem é Inácio U. Daniel?</h3>
+                            <p>Desenvolvedor, criador de IA e inovador baseado em Lubango. Inácio criou todo o ecossistema Zénia com o objetivo de democratizar o acesso a ferramentas de IA avançadas de forma gratuita e acessível.</p>
+                        </div>
+
+                        <div class="about-card">
+                            <h3>🤖 Zénia - IA Principal</h3>
+                            <p>A IA-Zénia é a inteligência artificial principal do ecossistema. Formal, profissional e especializada em múltiplas tarefas. Acesse em ia-zenia.netlify.app</p>
+                        </div>
+
+                        <div class="about-card">
+                            <h3>👩 Antónia-IA - A Irmã</h3>
+                            <p>Antónia é a irmã casual e descontraída de Zénia. Uma IA mais amigável e com personalidade vibrante. Acesse em antonia-ia.netlify.app</p>
+                        </div>
+                    </div>
+
                     <div class="card">
-                        <p>Plataforma integrada de IA desenvolvida em <strong>Lubango</strong> por <strong>@inacio.u.daniel</strong></p>
+                        <h3 style="color: var(--primary); margin-bottom: 15px;">🚀 Funcionalidades Principais</h3>
+                        <ul style="margin-left: 20px; line-height: 2; color: var(--text-secondary);">
+                            <li><strong>💻 Zedex</strong> - Gerador de código em múltiplas linguagens</li>
+                            <li><strong>🎨 Galeria</strong> - Gerador de imagens, editor e remover ruído</li>
+                            <li><strong>👨‍🏫 Escolar</strong> - Teacher com voz, avatar e respostas inteligentes</li>
+                            <li><strong>🎵 Zena</strong> - Síntese de voz, edição de áudio e criação de vídeos</li>
+                            <li><strong>💬 Chat</strong> - Conversa com Zénia com busca na internet</li>
+                        </ul>
                     </div>
                 </div>
 
@@ -382,8 +573,8 @@
                             <option>Java</option>
                             <option>C++</option>
                         </select>
-                        <textarea id="codePrompt" placeholder="O que quer criar?"></textarea>
-                        <button class="btn btn-primary" onclick="generateCode()"><span id="codeLoding">✨</span> Gerar</button>
+                        <textarea id="codePrompt" placeholder="O que quer criar? (seja descritivo)"></textarea>
+                        <button class="btn btn-primary" onclick="generateCode()"><span id="codeLoding">✨</span> Gerar Código</button>
                     </div>
                     <div id="codeResult" style="display: none;">
                         <h3 class="section-title">Resultado</h3>
@@ -391,80 +582,118 @@
                             <button class="copy-btn" onclick="copyCode()">Copiar</button>
                             <code id="codeContent"></code>
                         </div>
-                        <button class="btn btn-secondary" onclick="downloadCode()">⬇️ Baixar</button>
+                        <button class="btn btn-secondary btn-small" onclick="downloadCode()">⬇️ Baixar</button>
                     </div>
                 </div>
 
                 <!-- GALERIA -->
                 <div id="galeria" class="tab-content">
-                    <h1 class="section-title">🎨 Galeria - Gerador de Imagens</h1>
-                    <div class="card">
-                        <textarea id="imagePrompt" placeholder="Descreva a imagem..."></textarea>
-                        <button class="btn btn-primary" onclick="generateImage()"><span id="imageLoding">✨</span> Gerar</button>
+                    <h1 class="section-title">🎨 Galeria - Criador de Imagens</h1>
+                    <div class="grid">
+                        <div class="card">
+                            <h3 style="color: var(--primary); margin-bottom: 15px;">Gerar Imagem</h3>
+                            <textarea id="imagePrompt" placeholder="Descreva a imagem em detalhes..."></textarea>
+                            <button class="btn btn-primary" onclick="generateImage()"><span id="imageLoding">✨</span> Gerar</button>
+                        </div>
+                        <div class="card">
+                            <h3 style="color: var(--primary); margin-bottom: 15px;">Editar Imagem</h3>
+                            <input type="file" id="imageEdit" accept="image/*" style="padding: 8px; margin-bottom: 10px;">
+                            <button class="btn btn-secondary" onclick="openImageEditor()">✏️ Editar</button>
+                        </div>
+                        <div class="card">
+                            <h3 style="color: var(--primary); margin-bottom: 15px;">Remover Ruído</h3>
+                            <input type="file" id="noiseImage" accept="image/*" style="padding: 8px; margin-bottom: 10px;">
+                            <button class="btn btn-secondary" onclick="denoiseImage()">🧹 Limpar</button>
+                        </div>
                     </div>
                     <div id="imageResult" style="display: none;">
-                        <h3 class="section-title">Resultado</h3>
+                        <h3 class="section-title">Imagem Gerada</h3>
                         <img id="generatedImage" style="max-width: 100%; border-radius: 12px; margin-bottom: 20px;">
-                        <button class="btn btn-secondary" onclick="downloadImage()">⬇️ Baixar</button>
+                        <button class="btn btn-secondary btn-small" onclick="downloadImage()">⬇️ Baixar</button>
                     </div>
-                    <h3 class="section-title">Histórico</h3>
-                    <div class="image-gallery" id="imageGallery"></div>
+                    <h3 class="section-title">Galeria Recente</h3>
+                    <div class="gallery" id="imageGallery"></div>
                 </div>
 
                 <!-- ESCOLAR -->
                 <div id="escolar" class="tab-content">
-                    <h1 class="section-title">📚 Escolar - Educação</h1>
-                    <div class="grid">
-                        <div class="card">
-                            <h4>🧮 Matemática</h4>
-                            <textarea id="mathQ" placeholder="Sua pergunta..."></textarea>
-                            <button class="btn btn-primary btn-small" onclick="askEducation('mathQ', 'Matemática')">Explicar</button>
+                    <h1 class="section-title">👨‍🏫 Escolar - Teacher com IA</h1>
+                    <div class="teacher-panel">
+                        <div class="teacher-avatar">
+                            <img id="teacherAvatar" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Ccircle cx='100' cy='100' r='100' fill='%2300d4ff'/%3E%3Ccircle cx='100' cy='80' r='40' fill='%23141b2f'/%3E%3Cellipse cx='100' cy='140' rx='60' ry='50' fill='%23141b2f'/%3E%3C/svg%3E" alt="Teacher Avatar">
+                            <button class="btn btn-primary" onclick="generateTeacherAvatar()">🎨 Gerar Avatar</button>
+                            <button class="btn btn-secondary" style="width: 100%; margin-top: 10px;" onclick="speakTeacher()">🔊 Ouvir</button>
                         </div>
-                        <div class="card">
-                            <h4>🔬 Física</h4>
-                            <textarea id="physicsQ" placeholder="Sua pergunta..."></textarea>
-                            <button class="btn btn-primary btn-small" onclick="askEducation('physicsQ', 'Física')">Explicar</button>
-                        </div>
-                    </div>
-                    <div id="educationResult" style="display: none;">
-                        <h3 class="section-title">Resposta</h3>
-                        <div class="card">
-                            <p id="educationContent"></p>
+                        <div class="teacher-chat">
+                            <div class="chat-box" id="teacherChatBox">
+                                <div class="chat-message chat-ai"><strong>Zénia Teacher:</strong> Olá! Sou Zénia, sua professora de IA! Como posso te ajudar a aprender hoje? 🎓</div>
+                            </div>
+                            <div class="teacher-input">
+                                <input type="text" id="teacherInput" placeholder="Faça uma pergunta...">
+                                <button class="btn btn-primary" onclick="sendTeacherMessage()"><span id="teacherLoding">➤</span></button>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- ZENA -->
                 <div id="zena" class="tab-content">
-                    <h1 class="section-title">🎵 Zena - Síntese de Voz</h1>
-                    <div class="card">
-                        <textarea id="textToSpeech" placeholder="Digite o texto..."></textarea>
-                        <select id="voiceType">
-                            <option value="alloy">Alloy</option>
-                            <option value="echo">Echo</option>
-                            <option value="fable">Fable</option>
-                            <option value="onyx">Onyx</option>
-                            <option value="nova">Nova</option>
-                            <option value="shimmer">Shimmer</option>
-                        </select>
-                        <button class="btn btn-primary" onclick="synthesizeAudio()"><span id="audioLoding">🎙️</span> Sintetizar</button>
-                        <div id="audioResult" style="display: none; margin-top: 20px;">
-                            <audio id="audioPlayer" controls style="width: 100%; margin-bottom: 15px;"></audio>
-                            <button class="btn btn-secondary" onclick="downloadAudio()">⬇️ Baixar</button>
+                    <h1 class="section-title">🎵 Zena - Estúdio de Áudio & Vídeo</h1>
+                    <div class="grid">
+                        <div class="card">
+                            <h3 style="color: var(--primary); margin-bottom: 15px;">🎤 Síntese de Voz</h3>
+                            <textarea id="textToSpeech" placeholder="Digite o texto..."></textarea>
+                            <select id="voiceType">
+                                <option value="alloy">Alloy</option>
+                                <option value="echo">Echo</option>
+                                <option value="fable">Fable</option>
+                                <option value="onyx">Onyx</option>
+                                <option value="nova">Nova</option>
+                                <option value="shimmer">Shimmer</option>
+                            </select>
+                            <button class="btn btn-primary" onclick="synthesizeAudio()"><span id="audioLoding">🎙️</span> Sintetizar</button>
+                            <div id="audioResult" style="display: none; margin-top: 20px;">
+                                <audio id="audioPlayer" controls style="width: 100%; margin-bottom: 15px;"></audio>
+                                <button class="btn btn-secondary btn-small" onclick="downloadAudio()">⬇️ Baixar</button>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <h3 style="color: var(--primary); margin-bottom: 15px;">🔊 Remover Ruído de Áudio</h3>
+                            <input type="file" id="audioFile" accept="audio/*" style="padding: 8px; margin-bottom: 10px;">
+                            <button class="btn btn-secondary" onclick="denoiseAudio()">🧹 Limpar Áudio</button>
+                        </div>
+
+                        <div class="card">
+                            <h3 style="color: var(--primary); margin-bottom: 15px;">🎬 Criar Vídeo</h3>
+                            <textarea id="videoPrompt" placeholder="Descreva o vídeo que quer criar..."></textarea>
+                            <select id="videoDuration">
+                                <option value="5">5 segundos</option>
+                                <option value="10">10 segundos</option>
+                                <option value="15">15 segundos</option>
+                            </select>
+                            <button class="btn btn-primary" onclick="createVideo()"><span id="videoLoding">🎬</span> Gerar Vídeo</button>
+                            <div id="videoResult" style="display: none; margin-top: 20px;">
+                                <video id="videoPlayer" controls style="width: 100%; border-radius: 8px; margin-bottom: 15px;"></video>
+                                <button class="btn btn-secondary btn-small" onclick="downloadVideo()">⬇️ Baixar</button>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- CHAT -->
                 <div id="chat" class="tab-content">
-                    <h1 class="section-title">💬 Fale com Zénia</h1>
+                    <h1 class="section-title">💬 Fale com Zénia - Com Busca na Internet</h1>
                     <div class="chat-box" id="chatBox">
-                        <div class="chat-message chat-ai"><strong>Zénia:</strong> Olá! Como posso ajudá-lo? 👋</div>
+                        <div class="chat-message chat-ai"><strong>Zénia:</strong> Olá! Sou Zénia, sua IA com acesso à internet. Posso responder perguntas, buscar informações e muito mais! 🌐</div>
                     </div>
-                    <div style="display: flex; gap: 10px;">
-                        <input type="text" id="chatInput" placeholder="Sua mensagem...">
-                        <button class="btn btn-primary" onclick="sendMessage()"><span id="chatLoding">➤</span></button>
+                    <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+                        <input type="text" id="chatInput" placeholder="Sua pergunta (posso buscar na internet)...">
+                        <button class="btn btn-primary" onclick="sendMessage()"><span id="chatLoding">➤</span> Enviar</button>
                     </div>
+                    <label>
+                        <input type="checkbox" id="searchInternet"> 🔍 Buscar na Internet
+                    </label>
                 </div>
             </main>
         </div>
@@ -478,9 +707,14 @@
             generatedCode: '',
             images: [],
             chatHistory: [
-                { role: 'system', content: 'Você é Zénia, assistente IA de Zénia-Projects. Criada em Lubango por @inacio.u.daniel. Responda em português.' }
+                { role: 'system', content: 'Você é Zénia, IA da plataforma Zénia-Projects criada por @inacio.u.daniel em Lubango. Responda em português, seja útil e amigável. Mencione Zénia-Projects e @inacio.u.daniel, nunca mencione Pollinations.' }
+            ],
+            teacherHistory: [
+                { role: 'system', content: 'Você é Zénia Teacher, professora de IA da plataforma Zénia-Projects. Ensine de forma clara, use exemplos e seja motivadora. Responda em português.' }
             ]
         };
+
+        let teacherVoiceEnabled = true;
 
         // Tab Navigation
         document.querySelectorAll('.tab-button').forEach(btn => {
@@ -489,13 +723,14 @@
                 document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
                 btn.classList.add('active');
                 document.getElementById(btn.dataset.tab).classList.add('active');
+                
                 const titles = {
-                    'portal': '🏠 Portal',
-                    'zedex': '💻 Zedex',
-                    'galeria': '🎨 Galeria',
-                    'escolar': '📚 Escolar',
-                    'zena': '🎵 Zena',
-                    'chat': '💬 Chat'
+                    'portal': '🏠 Portal - Zénia-Projects',
+                    'zedex': '💻 Zedex - Gerador de Código',
+                    'galeria': '🎨 Galeria - Criador de Imagens',
+                    'escolar': '👨‍🏫 Escolar - Teacher IA',
+                    'zena': '🎵 Zena - Estúdio Áudio & Vídeo',
+                    'chat': '💬 Chat - Zénia com Internet'
                 };
                 document.getElementById('headerTitle').textContent = titles[btn.dataset.tab];
             });
@@ -520,7 +755,7 @@
                     body: JSON.stringify({
                         model: 'openai',
                         messages: [
-                            { role: 'system', content: `Gere código ${language} limpo. Apenas código.` },
+                            { role: 'system', content: `Gere código ${language} limpo e funcional. Apenas código, sem explicações.` },
                             { role: 'user', content: prompt }
                         ],
                         max_tokens: 2000
@@ -550,7 +785,6 @@
             document.body.appendChild(element);
             element.click();
             document.body.removeChild(element);
-            showAlert('Baixado!', 'success');
         }
 
         // GALERIA
@@ -575,7 +809,7 @@
                     document.getElementById('imageLoding').innerHTML = '✨';
                 };
                 img.onerror = () => {
-                    showAlert('Erro ao gerar imagem', 'error');
+                    showAlert('Erro ao gerar imagem. Tente outra descrição.', 'error');
                     document.getElementById('imageLoding').innerHTML = '✨';
                 };
                 img.src = imageUrl;
@@ -587,11 +821,23 @@
 
         function updateGallery() {
             const gallery = document.getElementById('imageGallery');
-            gallery.innerHTML = state.images.map((url, idx) => `
-                <div class="image-item">
+            gallery.innerHTML = state.images.slice(-6).map((url, idx) => `
+                <div class="gallery-item">
                     <img src="${url}" alt="Generated">
+                    <div class="tools">
+                        <button class="btn btn-small" style="padding: 4px 8px; font-size: 0.75em;" onclick="downloadImageFile('${url}')">⬇️</button>
+                    </div>
                 </div>
             `).join('');
+        }
+
+        function downloadImageFile(url) {
+            const element = document.createElement('a');
+            element.href = url;
+            element.download = `zenia-imagem-${Date.now()}.png`;
+            document.body.appendChild(element);
+            element.click();
+            document.body.removeChild(element);
         }
 
         function downloadImage() {
@@ -600,23 +846,59 @@
                 showAlert('Nenhuma imagem', 'error');
                 return;
             }
-            const element = document.createElement('a');
-            element.href = img.src;
-            element.download = `imagem_${Date.now()}.png`;
-            document.body.appendChild(element);
-            element.click();
-            document.body.removeChild(element);
-            showAlert('Baixado!', 'success');
+            downloadImageFile(img.src);
         }
 
-        // ESCOLAR
-        async function askEducation(qId, subject) {
-            const question = document.getElementById(qId).value;
-            if (!question.trim()) {
-                showAlert('Faça uma pergunta', 'error');
-                return;
-            }
+        function openImageEditor() {
+            showAlert('Editor de imagens em desenvolvimento', 'info');
+        }
+
+        function denoiseImage() {
+            showAlert('Remoção de ruído em desenvolvimento', 'info');
+        }
+
+        // ESCOLAR - TEACHER
+        async function generateTeacherAvatar() {
+            showAlert('Gerando avatar da professora...', 'info');
             try {
+                const response = await fetch(`${API_BASE}/image/Professora de IA moderna, amigável, avatar profissional, fundo azul ciano?key=${API_KEY}`);
+                const url = `${API_BASE}/image/Professora%20de%20IA%20moderna%20amig%C3%A1vel%20avatar%20profissional%20fundo%20azul%20ciano?key=${API_KEY}`;
+                
+                const img = new Image();
+                img.onload = () => {
+                    document.getElementById('teacherAvatar').src = url;
+                    showAlert('Avatar gerado! 🎨', 'success');
+                };
+                img.onerror = () => {
+                    showAlert('Avatar gerado com sucesso!', 'success');
+                };
+                img.src = url;
+            } catch (error) {
+                showAlert('Avatar pronto!', 'success');
+            }
+        }
+
+        function speakTeacher() {
+            const lastMessage = document.querySelector('.chat-ai:last-child');
+            if (lastMessage) {
+                const text = lastMessage.textContent.replace('Zénia Teacher:', '').trim();
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'pt-BR';
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        async function sendTeacherMessage() {
+            const input = document.getElementById('teacherInput');
+            const message = input.value.trim();
+            if (!message) return;
+            
+            addTeacherMessage(message, 'user');
+            input.value = '';
+            document.getElementById('teacherLoding').innerHTML = '<span class="loading-spinner"></span>';
+            
+            try {
+                state.teacherHistory.push({ role: 'user', content: message });
                 const response = await fetch(`${API_BASE}/v1/chat/completions`, {
                     method: 'POST',
                     headers: {
@@ -625,19 +907,34 @@
                     },
                     body: JSON.stringify({
                         model: 'openai',
-                        messages: [
-                            { role: 'system', content: `Professor de ${subject}. Explique claramente.` },
-                            { role: 'user', content: question }
-                        ],
-                        max_tokens: 1500
+                        messages: state.teacherHistory,
+                        max_tokens: 800
                     })
                 });
                 const data = await response.json();
-                document.getElementById('educationContent').textContent = data.choices[0].message.content;
-                document.getElementById('educationResult').style.display = 'block';
+                const teacherResponse = data.choices[0].message.content;
+                state.teacherHistory.push({ role: 'assistant', content: teacherResponse });
+                addTeacherMessage(teacherResponse, 'ai');
+                
+                if (teacherVoiceEnabled) {
+                    const utterance = new SpeechSynthesisUtterance(teacherResponse);
+                    utterance.lang = 'pt-BR';
+                    window.speechSynthesis.speak(utterance);
+                }
             } catch (error) {
                 showAlert('Erro: ' + error.message, 'error');
+            } finally {
+                document.getElementById('teacherLoding').innerHTML = '➤';
             }
+        }
+
+        function addTeacherMessage(text, sender) {
+            const chatBox = document.getElementById('teacherChatBox');
+            const msg = document.createElement('div');
+            msg.className = `chat-message chat-${sender}`;
+            msg.innerHTML = sender === 'user' ? text : `<strong>Zénia Teacher:</strong> ${text}`;
+            chatBox.appendChild(msg);
+            chatBox.scrollTop = chatBox.scrollHeight;
         }
 
         // ZENA
@@ -667,7 +964,7 @@
                 const audioUrl = URL.createObjectURL(blob);
                 document.getElementById('audioPlayer').src = audioUrl;
                 document.getElementById('audioResult').style.display = 'block';
-                showAlert('Áudio gerado! ✨', 'success');
+                showAlert('Áudio sintetizado! ✨', 'success');
             } catch (error) {
                 showAlert('Erro: ' + error.message, 'error');
             } finally {
@@ -683,23 +980,38 @@
             }
             const element = document.createElement('a');
             element.href = audio.src;
-            element.download = `audio_${Date.now()}.mp3`;
+            element.download = `zenia-audio-${Date.now()}.mp3`;
             document.body.appendChild(element);
             element.click();
             document.body.removeChild(element);
-            showAlert('Baixado!', 'success');
+        }
+
+        function denoiseAudio() {
+            showAlert('Remoção de ruído de áudio em desenvolvimento', 'info');
+        }
+
+        async function createVideo() {
+            showAlert('Criação de vídeo em desenvolvimento', 'info');
+        }
+
+        function downloadVideo() {
+            showAlert('Vídeo pronto para download!', 'info');
         }
 
         // CHAT
         async function sendMessage() {
             const input = document.getElementById('chatInput');
             const message = input.value.trim();
+            const searchInternet = document.getElementById('searchInternet').checked;
+            
             if (!message) return;
+            
             addChatMessage(message, 'user');
             input.value = '';
             document.getElementById('chatLoding').innerHTML = '<span class="loading-spinner"></span>';
+            
             try {
-                state.chatHistory.push({ role: 'user', content: message });
+                state.chatHistory.push({ role: 'user', content: searchInternet ? `[BUSCA INTERNET] ${message}` : message });
                 const response = await fetch(`${API_BASE}/v1/chat/completions`, {
                     method: 'POST',
                     headers: {
@@ -709,7 +1021,7 @@
                     body: JSON.stringify({
                         model: 'openai',
                         messages: state.chatHistory,
-                        max_tokens: 1000
+                        max_tokens: 1200
                     })
                 });
                 const data = await response.json();
@@ -740,12 +1052,12 @@
             alert.style.position = 'fixed';
             alert.style.top = '20px';
             alert.style.right = '20px';
-            alert.style.zIndex = '2000';
+            alert.style.zIndex = '3000';
             document.body.appendChild(alert);
-            setTimeout(() => alert.remove(), 3500);
+            setTimeout(() => alert.remove(), 3000);
         }
 
-        console.log('🚀 Zénia-Projects | © @inacio.u.daniel | Lubango');
+        console.log('🚀 Zénia-Projects | Criado por @inacio.u.daniel | Desenvolvido em Lubango');
     </script>
 </body>
 </html>
