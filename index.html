@@ -819,6 +819,8 @@
     </div>
 
     <script>
+        const API_KEY = 'pk_urEpxcajGs5TF9Fs';
+        
         const state = {
             currentTab: 'portal',
             generatedCode: '',
@@ -867,14 +869,32 @@
             document.getElementById('codeLoding').innerHTML = '<span class="loading-spinner"></span>';
 
             try {
-                const encodedPrompt = encodeURIComponent(`Crie código em ${language}: ${prompt}`);
-                const response = await fetch(`https://gen.pollinations.ai/text/${encodedPrompt}`);
-                
-                const text = await response.text();
-                state.generatedCode = text;
-                document.getElementById('codeContent').textContent = text;
-                document.getElementById('codeResult').style.display = 'block';
-                showAlert('Código gerado com sucesso! ✨', 'success');
+                const response = await fetch('https://api.pollinations.ai/v1/chat/completions', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${API_KEY}`
+                    },
+                    body: JSON.stringify({
+                        model: 'openai-gpt-4',
+                        messages: [
+                            { role: 'system', content: `Você é um especialista em ${language}. Gere código limpo e funcional. Apenas código, sem explicações.` },
+                            { role: 'user', content: prompt }
+                        ],
+                        temperature: 0.7,
+                        max_tokens: 2000
+                    })
+                });
+
+                const data = await response.json();
+                if (data.choices && data.choices[0]) {
+                    state.generatedCode = data.choices[0].message.content;
+                    document.getElementById('codeContent').textContent = state.generatedCode;
+                    document.getElementById('codeResult').style.display = 'block';
+                    showAlert('Código gerado com sucesso! ✨', 'success');
+                } else {
+                    throw new Error('Resposta inválida da API');
+                }
             } catch (error) {
                 showAlert('Erro ao gerar: ' + error.message, 'error');
             } finally {
@@ -909,25 +929,34 @@
             document.getElementById('imageLoding').innerHTML = '<span class="loading-spinner"></span>';
 
             try {
-                const encodedPrompt = encodeURIComponent(prompt);
-                const imageUrl = `https://gen.pollinations.ai/image/${encodedPrompt}`;
-                
-                const img = new Image();
-                img.onload = () => {
+                const response = await fetch('https://api.pollinations.ai/v1/images/generations', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${API_KEY}`
+                    },
+                    body: JSON.stringify({
+                        prompt: prompt,
+                        model: 'flux',
+                        size: '512x512',
+                        num_images: 1
+                    })
+                });
+
+                const data = await response.json();
+                if (data.images && data.images[0]) {
+                    const imageUrl = data.images[0].url;
                     document.getElementById('generatedImage').src = imageUrl;
                     document.getElementById('imageResult').style.display = 'block';
                     state.images.push({ url: imageUrl, prompt: prompt, time: new Date() });
                     updateGallery();
                     showAlert('Imagem gerada com sucesso! ✨', 'success');
-                    document.getElementById('imageLoding').innerHTML = '✨';
-                };
-                img.onerror = () => {
-                    showAlert('Erro ao gerar imagem. Tente novamente.', 'error');
-                    document.getElementById('imageLoding').innerHTML = '✨';
-                };
-                img.src = imageUrl;
+                } else {
+                    throw new Error('Erro ao gerar imagem');
+                }
             } catch (error) {
                 showAlert('Erro: ' + error.message, 'error');
+            } finally {
                 document.getElementById('imageLoding').innerHTML = '✨';
             }
         }
@@ -975,12 +1004,30 @@
             }
 
             try {
-                const encodedPrompt = encodeURIComponent(`Como professor de ${subject}, explique: ${question}`);
-                const response = await fetch(`https://gen.pollinations.ai/text/${encodedPrompt}`);
-                const text = await response.text();
-                
-                document.getElementById('educationContent').textContent = text;
-                document.getElementById('educationResult').style.display = 'block';
+                const response = await fetch('https://api.pollinations.ai/v1/chat/completions', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${API_KEY}`
+                    },
+                    body: JSON.stringify({
+                        model: 'openai-gpt-4',
+                        messages: [
+                            { role: 'system', content: `Você é um professor especializado em ${subject}. Explique de forma clara e educativa em português. Use exemplos práticos.` },
+                            { role: 'user', content: question }
+                        ],
+                        temperature: 0.7,
+                        max_tokens: 1500
+                    })
+                });
+
+                const data = await response.json();
+                if (data.choices && data.choices[0]) {
+                    document.getElementById('educationContent').textContent = data.choices[0].message.content;
+                    document.getElementById('educationResult').style.display = 'block';
+                } else {
+                    throw new Error('Erro na resposta');
+                }
             } catch (error) {
                 showAlert('Erro: ' + error.message, 'error');
             }
@@ -999,9 +1046,23 @@
             document.getElementById('audioLoding').innerHTML = '<span class="loading-spinner"></span>';
 
             try {
-                const encodedText = encodeURIComponent(text);
-                const audioUrl = `https://gen.pollinations.ai/audio/${encodedText}?voice=${voice}`;
+                const response = await fetch('https://api.pollinations.ai/v1/audio/speech', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${API_KEY}`
+                    },
+                    body: JSON.stringify({
+                        input: text,
+                        voice: voice,
+                        model: 'tts-1-hd'
+                    })
+                });
+
+                if (!response.ok) throw new Error('Erro ao gerar áudio');
                 
+                const blob = await response.blob();
+                const audioUrl = URL.createObjectURL(blob);
                 document.getElementById('audioPlayer').src = audioUrl;
                 document.getElementById('audioResult').style.display = 'block';
                 showAlert('Áudio sintetizado com sucesso! ✨', 'success');
@@ -1041,14 +1102,29 @@
 
             try {
                 state.chatHistory.push({ role: 'user', content: message });
-                
-                const prompt = state.chatHistory.map(m => `${m.role}: ${m.content}`).join('\n');
-                const encodedPrompt = encodeURIComponent(prompt);
-                const response = await fetch(`https://gen.pollinations.ai/text/${encodedPrompt}`);
-                const aiResponse = await response.text();
-                
-                state.chatHistory.push({ role: 'assistant', content: aiResponse });
-                addChatMessage(aiResponse, 'ai');
+
+                const response = await fetch('https://api.pollinations.ai/v1/chat/completions', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${API_KEY}`
+                    },
+                    body: JSON.stringify({
+                        model: 'openai-gpt-4',
+                        messages: state.chatHistory,
+                        temperature: 0.8,
+                        max_tokens: 1000
+                    })
+                });
+
+                const data = await response.json();
+                if (data.choices && data.choices[0]) {
+                    const aiResponse = data.choices[0].message.content;
+                    state.chatHistory.push({ role: 'assistant', content: aiResponse });
+                    addChatMessage(aiResponse, 'ai');
+                } else {
+                    throw new Error('Erro na resposta da IA');
+                }
             } catch (error) {
                 showAlert('Erro: ' + error.message, 'error');
             } finally {
@@ -1082,7 +1158,7 @@
             }, 3500);
         }
 
-        console.log('🚀 Zénia-Projects iniciado | © @inacio.u.daniel | Lubango');
+        console.log('🚀 Zénia-Projects com Pollinations API | © @inacio.u.daniel | Lubango');
     </script>
 </body>
 </html>
