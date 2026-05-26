@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="pt-AO">
+  <head>
+    <meta charset="utf-8" />
+    <title>IAs — Zénia Projects</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="/assets/css/main.css" />
+  </head>
+  <body>
+    <div id="header"></div>
+    <main class="container">
+      <h2>IAs Zénia</h2>
+      <div>
+        <h3>Converse com a IA Zénia</h3>
+        <input type="text" id="msgInput" placeholder="Digite sua mensagem…" />
+        <button id="sendBtn">Enviar</button>
+        <div id="chatOutput" style="margin-top:1em;"></div>
+      </div>
+      <div style="margin-top:2em;">
+        <h3>Geração de Imagem pela IA</h3>
+        <input type="text" id="imgPrompt" placeholder="Descreva a imagem..." />
+        <button id="imgBtn">Gerar Imagem</button><br>
+        <img id="img-preview" style="max-width:240px;margin-top:10px;display:none;" />
+      </div>
+    </main>
+    <div id="footer"></div>
+    <script type="module">
+      import { zeniaChat } from "/assets/js/chat.js";
+      import { gerarImagem } from "/assets/js/image.js";
+      import "/assets/js/main.js";
+      
+      document.getElementById('sendBtn').onclick = async () => {
+        const input = document.getElementById('msgInput').value;
+        document.getElementById('chatOutput').textContent = "Enviando...";
+        const data = await zeniaChat(input);
+        document.getElementById('chatOutput').textContent =
+          data.choices?.[0]?.message?.content || "Sem resposta";
+      };
+
+      document.getElementById('imgBtn').onclick = async () => {
+        const prompt = document.getElementById('imgPrompt').value;
+        if (!prompt) return;
+        document.getElementById('imgBtn').disabled = true;
+        document.getElementById('img-preview').style.display = "none";
+        const url = await gerarImagem(prompt);
+        const img = document.getElementById('img-preview');
+        img.src = url;
+        img.style.display = "block";
+        document.getElementById('imgBtn').disabled = false;
+      };
+    </script>
+  </body>
+</html>
