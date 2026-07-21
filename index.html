@@ -1,1180 +1,341 @@
-<!doctype html>
-<html lang="pt-AO">
+
+<!DOCTYPE html>
+<html lang="pt-AO" class="dark scroll-smooth">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#070707" />
-  <title>Zénia Projects — Portal Oficial</title>
-  
-  <style>
-    /* ========================= 
-       ZENIA PROJECTS — PORTAL
-       Tema: Dark Professional
-       ========================= */
-
-    :root {
-      --bg: #070707;
-      --fg: #f4f4f4;
-      --muted: #b9b9b9;
-      --border: #cfcfcf;
-      --soft: rgba(244,244,244,.06);
-      --soft2: rgba(244,244,244,.10);
-      --chip: rgba(244,244,244,.08);
-      --shadow: rgba(0,0,0,.50);
-      --ring: rgba(244,244,244,.25);
-      
-      --accent: #6366f1;
-      --accent-light: rgba(99,102,241,.15);
-      
-      --radius-xl: 24px;
-      --radius-lg: 18px;
-      --radius-md: 14px;
-      --radius-sm: 12px;
-      --radius-xs: 10px;
-      
-      --container: 1280px;
-      --font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji";
-      --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono";
-    }
-
-    * { box-sizing: border-box; }
-    html, body { height: 100%; margin: 0; padding: 0; }
-    
-    body {
-      background: var(--bg);
-      color: var(--fg);
-      font-family: var(--font);
-      letter-spacing: -0.01em;
-      line-height: 1.6;
-    }
-
-    a { color: inherit; text-decoration: none; }
-    button, input { font: inherit; }
-
-    .skip-link {
-      position: absolute;
-      left: -999px;
-      top: 8px;
-      background: var(--fg);
-      color: var(--bg);
-      padding: 10px 14px;
-      border-radius: 10px;
-      z-index: 9999;
-    }
-    .skip-link:focus { left: 12px; }
-
-    /* ====== Header / Nav ====== */
-    header {
-      position: sticky;
-      top: 0;
-      background: rgba(7,7,7,.82);
-      backdrop-filter: blur(6px);
-      border-bottom: 1px solid var(--soft2);
-      z-index: 50;
-    }
-
-    .container {
-      width: min(var(--container), calc(100% - 40px));
-      margin: 0 auto;
-    }
-
-    .nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 14px 0;
-      gap: 14px;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      min-width: 240px;
-    }
-
-    .logo {
-      width: 42px;
-      height: 42px;
-      border: 2px solid var(--accent);
-      border-radius: 14px;
-      display: grid;
-      place-items: center;
-      font-weight: 800;
-      letter-spacing: -0.06em;
-      user-select: none;
-      color: var(--accent);
-    }
-
-    .brand-title {
-      display: flex;
-      flex-direction: column;
-      line-height: 1.05;
-    }
-    .brand-title strong {
-      font-size: 14.5px;
-      letter-spacing: -0.03em;
-    }
-    .brand-title span {
-      font-family: var(--mono);
-      font-size: 12.5px;
-      color: var(--muted);
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    .nav-links a {
-      padding: 9px 12px;
-      border-radius: 999px;
-      border: 1px solid transparent;
-      color: var(--muted);
-      font-size: 13px;
-      transition: all 120ms ease;
-    }
-
-    .nav-links a:hover {
-      border-color: var(--accent);
-      background: var(--accent-light);
-      color: var(--fg);
-      transform: translateY(-1px);
-    }
-
-    .nav-cta {
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      gap: 10px;
-      min-width: 240px;
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      border-radius: 999px;
-      border: 1px solid var(--fg);
-      padding: 10px 14px;
-      background: transparent;
-      color: var(--fg);
-      transition: all 120ms ease;
-      cursor: pointer;
-      user-select: none;
-      font-size: 13px;
-      white-space: nowrap;
-    }
-
-    .btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 10px 24px var(--shadow);
-      background: var(--soft);
-    }
-
-    .btn.primary {
-      background: var(--accent);
-      color: white;
-      border-color: var(--accent);
-    }
-
-    .btn.primary:hover {
-      background: #5558e3;
-      border-color: #5558e3;
-    }
-
-    .dot { width: 9px; height: 9px; border-radius: 999px; background: currentColor; opacity: .9; }
-
-    /* ====== Hero ====== */
-    .hero {
-      padding: 28px 0 18px;
-    }
-
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1.1fr .9fr;
-      gap: 18px;
-      align-items: stretch;
-    }
-
-    @media (max-width: 920px) {
-      .hero-grid { grid-template-columns: 1fr; }
-      .brand, .nav-cta { min-width: unset; }
-    }
-
-    .panel {
-      border: 2px solid var(--fg);
-      border-radius: var(--radius-xl);
-      padding: 18px;
-      background: rgba(255,255,255,0.02);
-      box-shadow: 0 18px 50px var(--soft2);
-    }
-
-    .panel.accent-border {
-      border-color: var(--accent);
-      background: var(--accent-light);
-    }
-
-    .hero-left {
-      padding: 22px;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero-left:before {
-      content:"";
-      position:absolute;
-      inset: 12px;
-      border-radius: calc(var(--radius-xl) - 10px);
-      border: 1px dashed rgba(244,244,244,.25);
-      pointer-events: none;
-    }
-
-    .kicker {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      padding: 9px 12px;
-      border: 1px solid var(--accent);
-      border-radius: 999px;
-      font-size: 12.5px;
-      color: var(--accent);
-      background: var(--accent-light);
-      position: relative;
-      z-index: 1;
-    }
-
-    .kicker strong {
-      font-weight: 800;
-      letter-spacing: -0.02em;
-    }
-
-    .hero h1 {
-      margin: 14px 0 10px;
-      font-size: clamp(28px, 3.2vw, 44px);
-      letter-spacing: -0.05em;
-      position: relative;
-      z-index: 1;
-    }
-
-    .hero p {
-      margin: 0 0 14px;
-      color: var(--muted);
-      font-size: 14.8px;
-      line-height: 1.55;
-      position: relative;
-      z-index: 1;
-      max-width: 62ch;
-    }
-
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 10px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .hero-right {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      padding: 18px;
-    }
-
-    .mini-stats {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-
-    .stat {
-      border: 1px solid var(--soft2);
-      border-radius: var(--radius-lg);
-      padding: 14px;
-      background: rgba(255,255,255,0.02);
-    }
-
-    .stat .label {
-      color: var(--muted);
-      font-size: 12.5px;
-      margin-bottom: 8px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .stat .value {
-      font-family: var(--mono);
-      font-weight: 900;
-      letter-spacing: -0.04em;
-      font-size: 18px;
-      word-break: break-all;
-    }
-
-    .spark {
-      width: 10px;
-      height: 10px;
-      border: 2px solid var(--accent);
-      border-radius: 3px;
-      transform: rotate(10deg);
-      opacity: .9;
-    }
-
-    .search-card {
-      border: 2px solid var(--accent);
-      border-radius: var(--radius-lg);
-      padding: 14px;
-      background: var(--accent-light);
-    }
-
-    .search-title {
-      font-size: 12.5px;
-      color: var(--accent);
-      margin-bottom: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      font-weight: 600;
-    }
-
-    .search-row {
-      display: flex;
-      gap: 10px;
-      align-items: center;
-    }
-
-    .input {
-      flex: 1;
-      border: 1px solid var(--soft2);
-      background: rgba(0,0,0,0.15);
-      color: var(--fg);
-      border-radius: 999px;
-      padding: 10px 12px;
-      outline: none;
-      font-size: 13px;
-    }
-
-    .input::placeholder { color: rgba(185,185,185,.7); }
-
-    .input:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 3px var(--accent-light);
-    }
-
-    .tag-row {
-      margin-top: 10px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .chip {
-      border: 1px solid var(--soft2);
-      background: rgba(0,0,0,0.10);
-      padding: 7px 10px;
-      border-radius: 999px;
-      font-size: 12.5px;
-      color: var(--muted);
-      cursor: pointer;
-      user-select: none;
-      transition: all 120ms ease;
-    }
-
-    .chip:hover {
-      transform: translateY(-1px);
-      border-color: var(--accent);
-      background: var(--accent-light);
-      color: var(--accent);
-    }
-
-    /* ====== Sections ====== */
-    section { padding: 14px 0 6px; }
-
-    .section-head {
-      display:flex;
-      align-items: flex-end;
-      justify-content: space-between;
-      gap: 12px;
-      margin: 18px 0 12px;
-    }
-    .section-head h2 {
-      margin: 0;
-      font-size: 18px;
-      letter-spacing: -0.03em;
-    }
-    .section-head p {
-      margin: 0;
-      color: var(--muted);
-      font-size: 13.5px;
-      line-height: 1.4;
-      max-width: 70ch;
-    }
-
-    .grid-3 {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
-      gap: 12px;
-    }
-
-    @media (max-width: 980px) {
-      .grid-3 { grid-template-columns: 1fr; }
-    }
-
-    .card {
-      border: 2px solid var(--fg);
-      border-radius: var(--radius-xl);
-      padding: 14px;
-      background: rgba(255,255,255,0.02);
-      position: relative;
-      overflow: hidden;
-      transition: all 140ms ease;
-    }
-
-    .card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 22px 60px var(--shadow);
-      background: var(--soft);
-      border-color: var(--accent);
-    }
-
-    .card:before {
-      content:"";
-      position:absolute;
-      inset: -1px;
-      border-radius: var(--radius-xl);
-      border: 1px solid rgba(244,244,244,.20);
-      pointer-events: none;
-      opacity: .65;
-      transform: translateY(-8px);
-      transition: all 200ms ease;
-    }
-
-    .card:hover:before {
-      transform: translateY(0px);
-      opacity: 1;
-    }
-
-    .card-top {
-      display:flex;
-      align-items:flex-start;
-      justify-content: space-between;
-      gap: 12px;
-      margin-bottom: 10px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .card-title {
-      display:flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .card-title strong {
-      font-size: 14.5px;
-      letter-spacing: -0.02em;
-    }
-
-    .card-title span {
-      font-size: 12.5px;
-      color: var(--muted);
-      line-height: 1.35;
-    }
-
-    .badge {
-      font-family: var(--mono);
-      font-size: 11.5px;
-      border: 1px solid var(--soft2);
-      border-radius: 999px;
-      padding: 7px 10px;
-      background: rgba(0,0,0,0.05);
-      white-space: nowrap;
-      user-select: none;
-      position: relative;
-      z-index: 1;
-      color: var(--accent);
-    }
-
-    .card-body {
-      position: relative;
-      z-index: 1;
-      margin-top: 6px;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .meta-row {
-      display:flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .meta {
-      font-size: 12.5px;
-      padding: 7px 10px;
-      border-radius: 999px;
-      border: 1px solid var(--soft2);
-      background: var(--chip);
-      color: var(--muted);
-      user-select: none;
-    }
-
-    .card-actions {
-      display:flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 2px;
-    }
-
-    .link-btn {
-      flex: 1;
-      min-width: 190px;
-      justify-content: space-between;
-      padding: 10px 12px;
-      border-radius: 14px;
-      border: 1px solid var(--fg);
-      background: transparent;
-      cursor: pointer;
-      transition: all 120ms ease;
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      color: var(--fg);
-      user-select: none;
-      font-size: 13px;
-    }
-
-    .link-btn:hover {
-      transform: translateY(-1px);
-      background: var(--accent-light);
-      border-color: var(--accent);
-      color: var(--accent);
-      box-shadow: 0 16px 34px var(--shadow);
-    }
-
-    .link-btn small {
-      color: var(--muted);
-      font-family: var(--mono);
-      font-size: 11.5px;
-    }
-
-    .footer {
-      padding: 20px 0 34px;
-      color: var(--muted);
-    }
-
-    .footer-grid {
-      display:flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 14px;
-      flex-wrap: wrap;
-      border-top: 1px solid var(--soft2);
-      padding-top: 18px;
-    }
-
-    .footer b { color: var(--fg); }
-
-    .contact-line {
-      margin: 6px 0;
-      font-family: var(--mono);
-      font-size: 12.5px;
-    }
-
-    .toast {
-      position: fixed;
-      left: 50%;
-      bottom: 18px;
-      transform: translateX(-50%);
-      background: rgba(0,0,0,.72);
-      border: 1px solid var(--soft2);
-      color: var(--fg);
-      padding: 10px 12px;
-      border-radius: 14px;
-      font-size: 13px;
-      display: none;
-      z-index: 99999;
-      max-width: calc(100% - 24px);
-      box-shadow: 0 18px 60px rgba(0,0,0,.55);
-    }
-
-    .toast.show { display: block; animation: slideUp 300ms ease; }
-
-    @keyframes slideUp {
-      from { transform: translateX(-50%) translateY(20px); opacity: 0; }
-      to { transform: translateX(-50%) translateY(0); opacity: 1; }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zénia Projects - Plee Universe</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            dark: '#0F172A',
+                            card: '#1E293B',
+                            accent: '#06B6D4',
+                            emerald: '#10B981',
+                            purple: '#8B5CF6'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Font Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
 </head>
+<body class="bg-slate-900 text-slate-100 antialiased selection:bg-cyan-500 selection:text-white">
 
-<body>
-  <a class="skip-link" href="#conteudo">Saltar para o conteúdo</a>
-
-  <header>
-    <div class="container">
-      <div class="nav">
-        <div class="brand">
-          <div class="logo" aria-hidden="true">Z</div>
-          <div class="brand-title">
-            <strong>Zénia Projects</strong>
-            <span>portal oficial v2</span>
-          </div>
-        </div>
-
-        <nav class="nav-links" aria-label="Navegação principal">
-          <a href="#ias">IAs</a>
-          <a href="#dev">Dev</a>
-          <a href="#downloads">Downloads</a>
-          <a href="#parceiros">Parceiros</a>
-        </nav>
-
-        <div class="nav-cta">
-          <a class="btn" href="mailto:projectszenia@gmail.com" title="Enviar email">
-            <span class="dot"></span>
-            Email
-          </a>
-          <a class="btn primary" href="tel:+244952037562" title="Ligar">
-            <span class="dot"></span>
-            +244952037562
-          </a>
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <main id="conteudo" class="hero">
-    <div class="container">
-      <div class="hero-grid">
-        <div class="panel hero-left">
-          <div class="kicker">
-            <strong>IA Zénia</strong>
-            <span>×</span>
-            <span>Elite & Profissional</span>
-          </div>
-
-          <h1>Zénia Projects</h1>
-          <p>
-            Portal central de inteligência artificial, ferramentas de desenvolvimento e soluções profissionais. Integração rápida com núcleos de raciocínio avançado (série M).
-          </p>
-
-          <div class="hero-actions">
-            <a class="btn primary" href="https://zenia-projects.onrender.com" target="_blank" rel="noreferrer">
-              <span class="dot"></span>
-              Visitar Portal
-            </a>
-            <a class="btn" href="#ias">
-              <span class="dot"></span>
-              Explorar IAs
-            </a>
-            <button class="btn" type="button" id="copyContactBtn">
-              <span class="dot"></span>
-              Copiar Contactos
-            </button>
-          </div>
-        </div>
-
-        <aside class="panel hero-right">
-          <div class="mini-stats" aria-label="Resumo">
-            <div class="stat">
-              <div class="label">
-                <span class="spark" aria-hidden="true"></span>
-                Email
-              </div>
-              <div class="value">projectszenia@gmail.com</div>
-            </div>
-            <div class="stat">
-              <div class="label">
-                <span class="spark" aria-hidden="true"></span>
-                Telefone
-              </div>
-              <div class="value">+244952037562</div>
-            </div>
-          </div>
-
-          <div class="search-card">
-            <div class="search-title">
-              <span>Atalho Rápido</span>
-              <span style="font-family: var(--mono); font-size: 11px;">clique para abrir</span>
+    <!-- Header / Navbar -->
+    <header class="sticky top-0 z-50 backdrop-blur-md bg-slate-900/80 border-b border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Logo -->
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 via-emerald-500 to-purple-600 flex items-center justify-center font-black text-xl text-white shadow-lg shadow-cyan-500/20">
+                    Z
+                </div>
+                <div>
+                    <span class="text-xl font-bold tracking-tight bg-gradient-to-r from-cyan-400 via-emerald-400 to-purple-400 bg-clip-text text-transparent">ZÉNIA PROJECTS</span>
+                    <span class="block text-[10px] font-medium tracking-widest text-slate-400 uppercase">Plee Universe Holding</span>
+                </div>
             </div>
 
-            <div class="search-row">
-              <input class="input" id="quickLinkInput" placeholder="Ex.: Z5, Download, IDE..." />
-              <button class="btn primary" id="quickLinkGo" type="button" style="padding: 10px 12px;">
-                <span class="dot"></span>
-                Ir
-              </button>
-            </div>
+            <!-- Nav Desktop -->
+            <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
+                <a href="#modelos" class="hover:text-cyan-400 transition-colors">Modelos M1-M5</a>
+                <a href="#chat" class="hover:text-emerald-400 transition-colors">Zénia Chat</a>
+                <a href="#sobre" class="hover:text-purple-400 transition-colors">Plee Universe</a>
+                <a href="#lideranca" class="hover:text-cyan-400 transition-colors">Liderança</a>
+            </nav>
 
-            <div class="tag-row" id="quickTags" aria-label="Tags de atalho">
-              <div class="chip" data-key="zenia-5">Z5</div>
-              <div class="chip" data-key="zenia-4">Z4</div>
-              <div class="chip" data-key="download">Download</div>
-              <div class="chip" data-key="zedex-code">Code</div>
-              <div class="chip" data-key="zedex-ide">IDE</div>
-              <div class="chip" data-key="plee">PLEE</div>
-            </div>
-          </div>
-        </aside>
-      </div>
-
-      <!-- IAs -->
-      <section id="ias">
-        <div class="section-head">
-          <div>
-            <h2>IAs — Núcleos Avançados</h2>
-            <p>Série M: Núcleos de raciocínio especializado em engenharia, lógica e criatividade.</p>
-          </div>
-        </div>
-
-        <div class="grid-3">
-          <article class="card">
-            <div class="card-top">
-              <div class="card-title">
-                <strong>IA Zénia 5</strong>
-                <span>Núcleo Elite PRO com raciocínio complexo para engenharia avançada.</span>
-              </div>
-              <div class="badge">ELITE</div>
-            </div>
-
-            <div class="card-body">
-              <div class="meta-row">
-                <div class="meta">zenia-m5</div>
-                <div class="meta">Render</div>
-              </div>
-              <div class="card-actions">
-                <a class="link-btn" href="https://zenia-5.onrender.com" target="_blank" rel="noreferrer">
-                  <span>Entrar</span>
-                  <small>zenia-5.onrender.com</small>
+            <!-- Actions -->
+            <div class="flex items-center gap-3">
+                <a href="https://ia-zenia5.onrender.com" target="_blank" rel="noopener noreferrer" 
+                   class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-emerald-500 hover:from-cyan-400 hover:to-emerald-400 text-slate-950 font-bold text-sm shadow-lg shadow-cyan-500/20 transition-all hover:scale-[1.02] active:scale-[0.98] flex items-center gap-2">
+                   <span>Acessar Chat v5</span>
+                   <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
                 </a>
-              </div>
             </div>
-          </article>
-
-          <article class="card">
-            <div class="card-top">
-              <div class="card-title">
-                <strong>IA Zénia 4</strong>
-                <span>Performance alta para respostas rápidas e tarefas quotidianas.</span>
-              </div>
-              <div class="badge">HIGH</div>
-            </div>
-
-            <div class="card-body">
-              <div class="meta-row">
-                <div class="meta">zenia-m1 a m4</div>
-                <div class="meta">Principal</div>
-              </div>
-              <div class="card-actions">
-                <a class="link-btn" href="https://ia-zenia.onrender.com/" target="_blank" rel="noreferrer">
-                  <span>Entrar</span>
-                  <small>ia-zenia.onrender.com</small>
-                </a>
-              </div>
-            </div>
-          </article>
-
-          <article class="card">
-            <div class="card-top">
-              <div class="card-title">
-                <strong>API Chat Zénia</strong>
-                <span>Endpoint integrado para diálogos inteligentes em tempo real.</span>
-              </div>
-              <div class="badge">API</div>
-            </div>
-
-            <div class="card-body">
-              <div class="meta-row">
-                <div class="meta">POST endpoint</div>
-                <div class="meta">Streaming</div>
-              </div>
-              <div class="card-actions">
-                <a class="link-btn" href="#" onclick="showApiInfo(); return false;">
-                  <span>Ver API</span>
-                  <small>/api/index.php?route=chat</small>
-                </a>
-              </div>
-            </div>
-          </article>
         </div>
-      </section>
+    </header>
 
-      <!-- Dev -->
-      <section id="dev">
-        <div class="section-head">
-          <div>
-            <h2>Dev & Ferramentas</h2>
-            <p>Ambientes de desenvolvimento integrados com a Zénia. IDE, Code snippets e pipeline de projetos.</p>
-          </div>
+    <!-- Hero Section -->
+    <section class="relative pt-16 pb-20 md:pt-28 md:pb-32 overflow-hidden">
+        <div class="absolute inset-0 -z-10 opacity-20 bg-[radial-gradient(#06b6d4_1px,transparent_1px)] [background-size:24px_24px]"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-800/80 border border-slate-700/80 text-xs sm:text-sm font-medium text-cyan-400 mb-8 backdrop-blur-sm">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                IA Orgulhosamente Angolana 🇦🇴 | Zénia Chat v5 Ativa
+            </div>
+
+            <h1 class="text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight text-white mb-6 leading-tight">
+                Automação Inteligente para uma <br class="hidden sm:inline"/>
+                <span class="bg-gradient-to-r from-cyan-400 via-emerald-400 to-purple-500 bg-clip-text text-transparent">Angola Próspera e Sustentável</span>
+            </h1>
+
+            <p class="max-w-3xl mx-auto text-lg sm:text-xl text-slate-300 font-light mb-10 leading-relaxed">
+                A <strong>Zénia Projects</strong> é o ecossistema SaaS da <strong>Plee Universe</strong> responsável por revolucionar processos com a suíte de modelos inteligentes <strong>Zénia M1 a M5</strong>.
+            </p>
+
+            <!-- Buttons -->
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 max-w-md mx-auto">
+                <a href="https://ia-zenia5.onrender.com" target="_blank" rel="noopener noreferrer" 
+                   class="w-full sm:w-auto px-8 py-4 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-base shadow-xl shadow-cyan-500/25 transition-all text-center">
+                   Testar Zénia Chat v5
+                </a>
+                <a href="https://ia-zenia.onrender.com" target="_blank" rel="noopener noreferrer" 
+                   class="w-full sm:w-auto px-8 py-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-semibold text-base transition-all text-center">
+                   Acessar Versão 4
+                </a>
+            </div>
+
+            <!-- Quick Metrics -->
+            <div class="mt-20 grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto text-left">
+                <div class="p-5 rounded-2xl bg-slate-800/50 border border-slate-800">
+                    <div class="text-3xl font-extrabold text-cyan-400">5 Modelos</div>
+                    <div class="text-xs text-slate-400 mt-1">Zénia M1 até M5</div>
+                </div>
+                <div class="p-5 rounded-2xl bg-slate-800/50 border border-slate-800">
+                    <div class="text-3xl font-extrabold text-emerald-400">v5 Ativa</div>
+                    <div class="text-xs text-slate-400 mt-1">Última geração IA</div>
+                </div>
+                <div class="p-5 rounded-2xl bg-slate-800/50 border border-slate-800">
+                    <div class="text-3xl font-extrabold text-purple-400">100% AO</div>
+                    <div class="text-xs text-slate-400 mt-1">Desenvolvimento Nacional</div>
+                </div>
+                <div class="p-5 rounded-2xl bg-slate-800/50 border border-slate-800">
+                    <div class="text-3xl font-extrabold text-amber-400">SaaS</div>
+                    <div class="text-xs text-slate-400 mt-1">Holding Plee Universe</div>
+                </div>
+            </div>
+
         </div>
+    </section>
 
-        <div class="grid-3">
-          <article class="card">
-            <div class="card-top">
-              <div class="card-title">
-                <strong>Zedex IDE</strong>
-                <span>Ambiente completo para código, execução e debugging em tempo real.</span>
-              </div>
-              <div class="badge">IDE</div>
+    <!-- Modelos Zénia (M1 - M5) -->
+    <section id="modelos" class="py-20 bg-slate-950">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-xs font-bold uppercase tracking-widest text-cyan-400 mb-2">Suíte de Automação</h2>
+                <p class="text-3xl sm:text-4xl font-bold text-white">Modelos Zénia M1 a M5</p>
+                <p class="text-slate-400 mt-4">Soluções modulares projetadas para escalar desde tarefas simples até automações complexas de alta prioridade.</p>
             </div>
 
-            <div class="card-body">
-              <div class="meta-row">
-                <div class="meta">Editor Full</div>
-                <div class="meta">Render</div>
-              </div>
-              <div class="card-actions">
-                <a class="link-btn" href="https://zedex-ide.onrender.com" target="_blank" rel="noreferrer">
-                  <span>Abrir IDE</span>
-                  <small>zedex-ide.onrender.com</small>
-                </a>
-              </div>
-            </div>
-          </article>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- M1 -->
+                <div class="p-6 rounded-2xl bg-slate-900 border border-slate-800 hover:border-cyan-500/50 transition-all">
+                    <div class="w-12 h-12 rounded-lg bg-cyan-500/10 text-cyan-400 font-bold text-xl flex items-center justify-center mb-4">M1</div>
+                    <h3 class="text-xl font-bold text-white mb-2">Zénia M1 - Micro Automação</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4">Processamento rápido de tarefas rotineiras, limpeza de dados e respostas imediatas com baixíssimo tempo de resposta.</p>
+                    <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-slate-800 text-cyan-300">Essencial</span>
+                </div>
 
-          <article class="card">
-            <div class="card-top">
-              <div class="card-title">
-                <strong>Zedex Code</strong>
-                <span>Snippets rápidos e experimentos ligados ao Zénia 4.</span>
-              </div>
-              <div class="badge">CODE</div>
-            </div>
+                <!-- M2 -->
+                <div class="p-6 rounded-2xl bg-slate-900 border border-slate-800 hover:border-emerald-500/50 transition-all">
+                    <div class="w-12 h-12 rounded-lg bg-emerald-500/10 text-emerald-400 font-bold text-xl flex items-center justify-center mb-4">M2</div>
+                    <h3 class="text-xl font-bold text-white mb-2">Zénia M2 - Fluxos Empresariais</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4">Integração de dados corporativos, estruturação de relatórios e automação de atendimento de nível 1.</p>
+                    <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-slate-800 text-emerald-300">Empresarial</span>
+                </div>
 
-            <div class="card-body">
-              <div class="meta-row">
-                <div class="meta">Snippets</div>
-                <div class="meta">Rápido</div>
-              </div>
-              <div class="card-actions">
-                <a class="link-btn" href="https://ia-zenia.onrender.com/zedex" target="_blank" rel="noreferrer">
-                  <span>Ir para Code</span>
-                  <small>ia-zenia.onrender.com/zedex</small>
-                </a>
-              </div>
-            </div>
-          </article>
+                <!-- M3 -->
+                <div class="p-6 rounded-2xl bg-slate-900 border border-slate-800 hover:border-purple-500/50 transition-all">
+                    <div class="w-12 h-12 rounded-lg bg-purple-500/10 text-purple-400 font-bold text-xl flex items-center justify-center mb-4">M3</div>
+                    <h3 class="text-xl font-bold text-white mb-2">Zénia M3 - Análise Linguística</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4">Compreensão avançada de contexto local, tradução adaptativa e sumarização de documentos complexos.</p>
+                    <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-slate-800 text-purple-300">Linguagem Avançada</span>
+                </div>
 
-          <article class="card">
-            <div class="card-top">
-              <div class="card-title">
-                <strong>Portal Central</strong>
-                <span>Hub de integração de todos os subprojectos Zénia.</span>
-              </div>
-              <div class="badge">HUB</div>
-            </div>
+                <!-- M4 -->
+                <div class="p-6 rounded-2xl bg-slate-900 border border-slate-800 hover:border-amber-500/50 transition-all">
+                    <div class="w-12 h-12 rounded-lg bg-amber-500/10 text-amber-400 font-bold text-xl flex items-center justify-center mb-4">M4</div>
+                    <h3 class="text-xl font-bold text-white mb-2">Zénia M4 - Agentes Decisórios</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4">Execução de fluxos autônomos, resolução de problemas lógicos e conexão com APIs externas.</p>
+                    <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-slate-800 text-amber-300">Automação RAG</span>
+                </div>
 
-            <div class="card-body">
-              <div class="meta-row">
-                <div class="meta">Oficial</div>
-                <div class="meta">Render</div>
-              </div>
-              <div class="card-actions">
-                <a class="link-btn" href="https://zenia-projects.onrender.com" target="_blank" rel="noreferrer">
-                  <span>Visitar</span>
-                  <small>zenia-projects.onrender.com</small>
-                </a>
-              </div>
+                <!-- M5 -->
+                <div class="p-6 rounded-2xl bg-gradient-to-b from-slate-900 to-slate-900/90 border border-cyan-500/30 hover:border-cyan-400 transition-all md:col-span-2 lg:col-span-2 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-cyan-500/10 rounded-full blur-2xl"></div>
+                    <div class="w-12 h-12 rounded-lg bg-gradient-to-r from-cyan-500 to-emerald-500 text-slate-950 font-black text-xl flex items-center justify-center mb-4 shadow-md shadow-cyan-500/20">M5</div>
+                    <h3 class="text-xl font-bold text-white mb-2">Zénia M5 - O Estado da Arte (Chat v5)</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed mb-4">O topo da inteligência artificial do ecossistema. Raciocínio profundo, suporte multimodal, automação de processos em tempo real e capacidade de integração com o motor do Zénia Chat v5.</p>
+                    <div class="flex items-center gap-3">
+                        <span class="inline-block px-3 py-1 rounded-full text-xs font-semibold bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">Flagship</span>
+                        <a href="https://ia-zenia5.onrender.com" target="_blank" class="text-xs text-emerald-400 font-semibold hover:underline flex items-center gap-1">Testar Modelo M5 &rarr;</a>
+                    </div>
+                </div>
             </div>
-          </article>
         </div>
-      </section>
+    </section>
 
-      <!-- Downloads -->
-      <section id="downloads">
-        <div class="section-head">
-          <div>
-            <h2>Downloads & Recursos</h2>
-            <p>Pacotes, versões e ferramentas prontas para integração.</p>
-          </div>
+    <!-- Zénia Chat Versões -->
+    <section id="chat" class="py-20 bg-slate-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <h2 class="text-xs font-bold uppercase tracking-widest text-emerald-400 mb-2">Plataforma de Interação</h2>
+                <p class="text-3xl sm:text-4xl font-bold text-white">Acesse as Versões do Zénia Chat</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <!-- v4 Card -->
+                <div class="p-8 rounded-3xl bg-slate-800/40 border border-slate-700/60 flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-xs font-bold px-3 py-1 rounded-full bg-slate-700 text-slate-300">Versão Legacy</span>
+                            <span class="text-xs text-slate-400">Estável</span>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-2">Zénia Chat v4</h3>
+                        <p class="text-slate-400 text-sm mb-6">Versão consolidada do assistente com capacidades essenciais de diálogo e processamento de linguagem.</p>
+                    </div>
+                    <a href="https://ia-zenia.onrender.com" target="_blank" rel="noopener noreferrer" 
+                       class="w-full py-3 px-4 rounded-xl bg-slate-700 hover:bg-slate-600 text-white font-semibold text-center transition-colors">
+                       Abrir Zénia Chat v4
+                    </a>
+                </div>
+
+                <!-- v5 Card -->
+                <div class="p-8 rounded-3xl bg-gradient-to-b from-slate-800 to-slate-800/80 border border-cyan-500/40 flex flex-col justify-between relative">
+                    <div class="absolute -top-3 right-6 px-3 py-1 rounded-full bg-gradient-to-r from-cyan-500 to-emerald-500 text-slate-950 font-bold text-[10px] uppercase tracking-wider">
+                        Recomendado
+                    </div>
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-xs font-bold px-3 py-1 rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-500/30">Versão Atual</span>
+                            <span class="text-xs text-emerald-400 font-semibold flex items-center gap-1">
+                                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span> On-line
+                            </span>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-2">Zénia Chat v5</h3>
+                        <p class="text-slate-400 text-sm mb-6">Alimentado pelo modelo Zénia M5. Respostas mais rápidas, melhor compreensão de contexto e maior capacidade de automação.</p>
+                    </div>
+                    <a href="https://ia-zenia5.onrender.com" target="_blank" rel="noopener noreferrer" 
+                       class="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-cyan-500 to-emerald-500 hover:from-cyan-400 hover:to-emerald-400 text-slate-950 font-bold text-center shadow-lg shadow-cyan-500/20 transition-all">
+                       Abrir Zénia Chat v5
+                    </a>
+                </div>
+            </div>
         </div>
+    </section>
 
-        <div class="grid-3">
-          <article class="card">
-            <div class="card-top">
-              <div class="card-title">
-                <strong>Zénia Packages</strong>
-                <span>Versões estáveis e atualizadas do ecossistema Zénia.</span>
-              </div>
-              <div class="badge">DL</div>
-            </div>
+    <!-- Simulador Interativo Simples (Vanilla JS) -->
+    <section class="py-16 bg-slate-950 border-y border-slate-800/80">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-slate-900 rounded-2xl border border-slate-800 p-6 shadow-2xl">
+                <div class="flex items-center gap-2 mb-4 pb-4 border-b border-slate-800">
+                    <div class="w-3 h-3 rounded-full bg-red-500/80"></div>
+                    <div class="w-3 h-3 rounded-full bg-yellow-500/80"></div>
+                    <div class="w-3 h-3 rounded-full bg-green-500/80"></div>
+                    <span class="text-xs text-slate-500 font-mono ml-2">Console Zénia Projects - Teste Rápido de Automação</span>
+                </div>
+                
+                <div id="console-output" class="font-mono text-sm space-y-3 min-h-[140px] text-slate-300">
+                    <p class="text-slate-500">> Selecione um modelo Zénia abaixo para simular a resposta de automação...</p>
+                </div>
 
-            <div class="card-body">
-              <div class="meta-row">
-                <div class="meta">Actualizado</div>
-                <div class="meta">Público</div>
-              </div>
-              <div class="card-actions">
-                <a class="link-btn" href="https://ia-zenia.onrender.com/download" target="_blank" rel="noreferrer">
-                  <span>Descarregar</span>
-                  <small>ia-zenia.onrender.com/download</small>
-                </a>
-              </div>
+                <div class="mt-6 flex flex-wrap gap-2">
+                    <button onclick="simularModelo('M1')" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs text-cyan-400 font-mono transition-colors">Testar M1</button>
+                    <button onclick="simularModelo('M3')" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs text-purple-400 font-mono transition-colors">Testar M3</button>
+                    <button onclick="simularModelo('M5')" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs text-emerald-400 font-mono transition-colors">Testar M5</button>
+                </div>
             </div>
-          </article>
-
-          <article class="card">
-            <div class="card-top">
-              <div class="card-title">
-                <strong>Integração API</strong>
-                <span>Documentação e exemplos para integrar Zénia no teu projeto.</span>
-              </div>
-              <div class="badge">DOCS</div>
-            </div>
-
-            <div class="card-body">
-              <div class="meta-row">
-                <div class="meta">POST/JSON</div>
-                <div class="meta">REST</div>
-              </div>
-              <div class="card-actions">
-                <button class="link-btn" onclick="showApiDocs();">
-                  <span>Ver Docs</span>
-                  <small>Endpoint chat</small>
-                </button>
-              </div>
-            </div>
-          </article>
-
-          <article class="card">
-            <div class="card-top">
-              <div class="card-title">
-                <strong>Suporte & Contacto</strong>
-                <span>Equipa pronta para ajudar com dúvidas e integrações.</span>
-              </div>
-              <div class="badge">HELP</div>
-            </div>
-
-            <div class="card-body">
-              <div class="meta-row">
-                <div class="meta">projectszenia@gmail.com</div>
-                <div class="meta">+244952037562</div>
-              </div>
-              <div class="card-actions">
-                <a class="link-btn" href="mailto:projectszenia@gmail.com">
-                  <span>Email</span>
-                  <small>Enviar mensagem</small>
-                </a>
-              </div>
-            </div>
-          </article>
         </div>
-      </section>
+    </section>
 
-      <!-- Parceiros -->
-      <section id="parceiros">
-        <div class="section-head">
-          <div>
-            <h2>Parceiros & Ecossistema</h2>
-            <p>Projetos aliados que ampliam o universo Zénia Projects.</p>
-          </div>
+    <!-- Sobre Plee Universe & Sustentabilidade -->
+    <section id="sobre" class="py-20 bg-slate-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <span class="text-xs font-bold uppercase tracking-widest text-purple-400 mb-2 block">Holding Tecnológica</span>
+                    <h2 class="text-3xl sm:text-4xl font-bold text-white mb-6">Plee Universe & Zénia Projects</h2>
+                    <p class="text-slate-300 leading-relaxed mb-4">
+                        A <strong>Plee Universe</strong> é uma startup de holding de tecnologia que impulsiona o desenvolvimento de soluções digitais inovadoras a partir de Angola.
+                    </p>
+                    <p class="text-slate-300 leading-relaxed mb-6">
+                        Como subprojecto e braço de SaaS, a <strong>Zénia Projects</strong> concentra-se na criação e implantação de inteligência artificial de ponta, permitindo que empresas e cidadãos automatizem processos e elevem a produtividade nacional.
+                    </p>
+                    <div class="p-4 rounded-xl bg-slate-800/60 border border-slate-700 text-sm text-emerald-300 font-medium">
+                        🌱 Compromisso: Construir uma Angola mais sustentável, mais inteligente e mais próspera através da soberania tecnológica.
+                    </div>
+                </div>
+
+                <!-- Liderança -->
+                <div id="lideranca" class="space-y-6">
+                    <h3 class="text-xl font-bold text-white mb-4">Liderança Executiva</h3>
+                    
+                    <!-- Inácio U. Daniel -->
+                    <div class="p-6 rounded-2xl bg-slate-800 border border-slate-700 flex items-start gap-4">
+                        <div class="w-12 h-12 rounded-full bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center font-bold text-white text-lg shrink-0">
+                            ID
+                        </div>
+                        <div>
+                            <h4 class="text-lg font-bold text-white">@inacio.u.daniel</h4>
+                            <p class="text-xs text-cyan-400 font-medium mb-2">Presidente & Co-fundador da Plee Universe | Criador da Zénia IA</p>
+                            <p class="text-xs text-slate-400">Líder do desenvolvimento da IA Zénia, impulsionando a arquitetura dos modelos M1 a M5 e a visão de inovação sustentável.</p>
+                        </div>
+                    </div>
+
+                    <!-- Graciano Paulo -->
+                    <div class="p-6 rounded-2xl bg-slate-800 border border-slate-700 flex items-start gap-4">
+                        <div class="w-12 h-12 rounded-full bg-gradient-to-tr from-emerald-500 to-purple-600 flex items-center justify-center font-bold text-white text-lg shrink-0">
+                            GP
+                        </div>
+                        <div>
+                            <h4 class="text-lg font-bold text-white">Graciano Paulo</h4>
+                            <p class="text-xs text-emerald-400 font-medium mb-2">Vice-Presidente, Fundador & CEO da Plee Universe</p>
+                            <p class="text-xs text-slate-400">Gestão estratégica e expansão do ecossistema Plee Universe no mercado de tecnologia e inovação.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
+    </section>
 
-        <div class="grid-3">
-          <article class="card">
-            <div class="card-top">
-              <div class="card-title">
-                <strong>PLEE Universe</strong>
-                <span>Ecossistema de subprojectos integrados com Zénia.</span>
-              </div>
-              <div class="badge">PARTNER</div>
+    <!-- Footer -->
+    <footer class="bg-slate-950 border-t border-slate-800 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-6">
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-lg bg-cyan-500 flex items-center justify-center font-bold text-slate-950 text-sm">Z</div>
+                <span class="text-sm font-semibold text-slate-300">Zénia Projects © 2026 - Plee Universe Startup</span>
             </div>
 
-            <div class="card-body">
-              <div class="meta-row">
-                <div class="meta">Colaboração</div>
-                <div class="meta">Ativa</div>
-              </div>
-              <div class="card-actions">
-                <a class="link-btn" href="https://plee-universe.onrender.com" target="_blank" rel="noreferrer">
-                  <span>Visitar PLEE</span>
-                  <small>plee-universe.onrender.com</small>
-                </a>
-              </div>
+            <div class="flex items-center gap-6 text-xs text-slate-400">
+                <a href="https://ia-zenia.onrender.com" target="_blank" class="hover:text-cyan-400 transition-colors">Zénia Chat v4</a>
+                <a href="https://ia-zenia5.onrender.com" target="_blank" class="hover:text-emerald-400 transition-colors">Zénia Chat v5</a>
+                <span class="text-slate-600">|</span>
+                <span>Angola 🇦🇴</span>
             </div>
-          </article>
-
-          <article class="card">
-            <div class="card-top">
-              <div class="card-title">
-                <strong>ZZénia Projects</strong>
-                <span>Brand oficial com integração profissional de todas as ferramentas.</span>
-              </div>
-              <div class="badge">MAIN</div>
-            </div>
-
-            <div class="card-body">
-              <div class="meta-row">
-                <div class="meta">Oficial</div>
-                <div class="meta">Ativa</div>
-              </div>
-              <div class="card-actions">
-                <a class="link-btn" href="https://zenia-projects.onrender.com" target="_blank" rel="noreferrer">
-                  <span>Portal</span>
-                  <small>zenia-projects.onrender.com</small>
-                </a>
-              </div>
-            </div>
-          </article>
-
-          <article class="card">
-            <div class="card-top">
-              <div class="card-title">
-                <strong>Contacto Oficial</strong>
-                <span>Para parceria, integração e oportunidades colaborativas.</span>
-              </div>
-              <div class="badge">CONTACT</div>
-            </div>
-
-            <div class="card-body">
-              <div class="meta-row">
-                <div class="meta">projectszenia@gmail.com</div>
-                <div class="meta">+244952037562</div>
-              </div>
-              <div class="card-actions">
-                <a class="link-btn" href="mailto:projectszenia@gmail.com">
-                  <span>Email</span>
-                  <small>Enviar</small>
-                </a>
-              </div>
-            </div>
-          </article>
         </div>
-      </section>
+    </footer>
 
-      <footer class="footer">
-        <div class="footer-grid">
-          <div>
-            <div><b>Zénia Projects</b> — Portal Oficial v2</div>
-            <div class="contact-line">Email: <a href="mailto:projectszenia@gmail.com">projectszenia@gmail.com</a></div>
-            <div class="contact-line">Telefone: <a href="tel:+244952037562">+244952037562</a></div>
-          </div>
+    <!-- Script de Simulação -->
+    <script>
+        function simularModelo(modelo) {
+            const consoleOutput = document.getElementById('console-output');
+            
+            let resposta = '';
+            if (modelo === 'M1') {
+                resposta = `<p class="text-cyan-400">> [Zénia M1]: Tarefa executada em 45ms. Dados estruturados e prontos para integração.</p>`;
+            } else if (modelo === 'M3') {
+                resposta = `<p class="text-purple-400">> [Zénia M3]: Análise de contexto concluída. Texto sintetizado com foco na realidade angolana e sustentabilidade.</p>`;
+            } else if (modelo === 'M5') {
+                resposta = `<p class="text-emerald-400">> [Zénia M5 Flagship]: Raciocínio completo efetuado! Conectado ao ecossistema Zénia Chat v5. Redirecionando para https://ia-zenia5.onrender.com...</p>`;
+            }
 
-          <div>
-            <div class="contact-line">Portal: <a href="https://zenia-projects.onrender.com" target="_blank" rel="noreferrer">zenia-projects.onrender.com</a></div>
-            <div class="contact-line">API: <a href="#" onclick="showApiInfo(); return false;">POST /api/index.php?route=chat</a></div>
-            <div style="margin-top: 10px; font-size: 12.5px;">
-              <b>Tema:</b> <span style="font-family: var(--mono);">Dark Professional</span> • API Integrada
-            </div>
-          </div>
-        </div>
-      </footer>
-    </div>
-  </main>
-
-  <div class="toast" id="toast" role="status" aria-live="polite"></div>
-
-  <script>
-    // Rotas de atalho
-    const ROUTES = {
-      "zenia-5": "https://zenia-5.onrender.com",
-      "zenia-4": "https://ia-zenia.onrender.com/",
-      "download": "https://ia-zenia.onrender.com/download",
-      "zedex-code": "https://ia-zenia.onrender.com/zedex",
-      "zedex-ide": "https://zedex-ide.onrender.com",
-      "plee": "https://plee-universe.onrender.com"
-    };
-
-    const API_ENDPOINT = "https://zenia-5.onrender.com/api/index.php?route=chat";
-
-    // Toast
-    const toastEl = document.getElementById("toast");
-    function toast(msg) {
-      toastEl.textContent = msg;
-      toastEl.classList.add("show");
-      clearTimeout(toastEl._t);
-      toastEl._t = setTimeout(() => toastEl.classList.remove("show"), 2200);
-    }
-
-    // Tags
-    const quickTags = document.getElementById("quickTags");
-    const quickInput = document.getElementById("quickLinkInput");
-    const btnGo = document.getElementById("quickLinkGo");
-
-    function openByKey(key) {
-      const url = ROUTES[key];
-      if (!url) return toast("Atalho não encontrado.");
-      window.open(url, "_blank", "noopener,noreferrer");
-    }
-
-    quickTags.addEventListener("click", (e) => {
-      const chip = e.target.closest(".chip");
-      if (!chip) return;
-      const key = chip.getAttribute("data-key");
-      openByKey(key);
-    });
-
-    btnGo.addEventListener("click", () => {
-      const v = (quickInput.value || "").trim().toLowerCase();
-      if (!v) return toast("Escreve o atalho (ex.: Z5, Download, IDE...)");
-
-      const map = [
-        { test: /5|z5|elite/, key: "zenia-5" },
-        { test: /4|z4|high/, key: "zenia-4" },
-        { test: /download|dl/, key: "download" },
-        { test: /ide/, key: "zedex-ide" },
-        { test: /code|zedex/, key: "zedex-code" },
-        { test: /plee/, key: "plee" },
-      ];
-
-      const hit = map.find(x => x.test.test(v));
-      if (hit) return openByKey(hit.key);
-      toast("Atalho não encontrado. Tenta: Z5, Z4, Download, IDE, Code, PLEE");
-    });
-
-    // Copiar contactos
-    const copyBtn = document.getElementById("copyContactBtn");
-    copyBtn.addEventListener("click", async () => {
-      const text =
-        "projectszenia@gmail.com\n" +
-        "+244952037562\n" +
-        "zenia-projects.onrender.com\n";
-
-      try {
-        await navigator.clipboard.writeText(text);
-        toast("✓ Contactos copiados!");
-      } catch {
-        toast("Erro ao copiar. Tenta novamente.");
-      }
-    });
-
-    // API Info
-    function showApiInfo() {
-      toast("📡 Endpoint: POST /api/index.php?route=chat | Modelo: zenia-m5");
-    }
-
-    function showApiDocs() {
-      const docs = `
-📡 ZÉNIA API CHAT
-================
-
-Endpoint: POST https://zenia-5.onrender.com/api/index.php?route=chat
-
-Request Body (JSON):
-{
-  "model": "zenia-m5",
-  "messages": [
-    {"role": "user", "content": "Olá Zénia, ajuda-me..."}
-  ],
-  "stream": false
-}
-
-Núcleos Disponíveis (Série M):
-- zenia-m5: Elite PRO (raciocínio complexo)
-- zenia-m1 a m4: High Performance (tarefas quotidianas)
-
-Para mais info, contacta: projectszenia@gmail.com
-      `;
-      
-      alert(docs);
-    }
-  </script>
+            consoleOutput.innerHTML = `
+                <p class="text-slate-400">> Solicitando processamento para o modelo <strong>${modelo}</strong>...</p>
+                ${resposta}
+            `;
+        }
+    </script>
 </body>
 </html>
